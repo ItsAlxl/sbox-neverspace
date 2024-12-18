@@ -18,6 +18,32 @@
       ]
     },
     {
+      "__guid": "7ffdabea-34e0-47f4-805b-3c195a03ae4b",
+      "Flags": 0,
+      "Name": "PlayerCamera",
+      "Tags": "maincamera",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.CameraComponent",
+          "__guid": "fba3ad12-f9f4-456e-a171-235f78cf5369",
+          "BackgroundColor": "0.33333,0.46275,0.52157,1",
+          "ClearFlags": "All",
+          "FieldOfView": 60,
+          "IsMainCamera": true,
+          "Orthographic": false,
+          "OrthographicHeight": 1204,
+          "Priority": 16,
+          "RenderExcludeTags": "",
+          "RenderTags": "",
+          "TargetEye": "None",
+          "Viewport": "0,0,1,1",
+          "ZFar": 10000,
+          "ZNear": 10
+        }
+      ]
+    },
+    {
       "__guid": "bfc59c12-1ed2-4f91-8956-a95a315eac3c",
       "Flags": 0,
       "Name": "Sun",
@@ -55,6 +81,7 @@
         {
           "__type": "Sandbox.EnvmapProbe",
           "__guid": "f3e304db-baab-4c1a-a4ec-8442585c2d62",
+          "__enabled": false,
           "Bounds": {
             "Mins": "-512,-512,-512",
             "Maxs": "512,512,512"
@@ -96,7 +123,7 @@
             "AfterUILayer": false
           },
           "RenderType": "On",
-          "Tint": "0.39546,0.51163,0.27128,1"
+          "Tint": "0.39608,0.5098,0.27059,1"
         },
         {
           "__type": "Sandbox.BoxCollider",
@@ -490,7 +517,7 @@
       "__guid": "ca49fd05-b9f8-4ad9-afff-ec45a2671c62",
       "Flags": 0,
       "Name": "Player Controller",
-      "Position": "-535.4558,0,0",
+      "Position": "-575.2128,0,7.802734",
       "Enabled": true,
       "Components": [
         {
@@ -586,6 +613,10 @@
           "__guid": "4426202c-3a50-402b-9b0b-dea90d631a0f",
           "ClimbableTags": "ladder",
           "Priority": 5
+        },
+        {
+          "__type": "Neverspace.PortalTraveler",
+          "__guid": "79f24818-8cd8-4249-bd1e-91a626c72a0e"
         }
       ],
       "Children": [
@@ -664,11 +695,20 @@
       "Enabled": true,
       "Components": [
         {
+          "__type": "Sandbox.BoxCollider",
+          "__guid": "26be4dc7-e260-4909-8f84-af807955055e",
+          "Center": "0,0,50",
+          "IsTrigger": true,
+          "Scale": "16,100,100",
+          "Static": false,
+          "SurfaceVelocity": "0,0,0"
+        },
+        {
           "__type": "Neverspace.Portal",
-          "__guid": "52c0dff8-338d-4d2f-99ef-b577355cd045",
+          "__guid": "60a17da5-8a28-4986-a6c9-03e4f66352c4",
           "EgressPortal": {
             "_type": "component",
-            "component_id": "3718fc65-5e96-436e-9aaa-9cbb81ecf0f4",
+            "component_id": "ba7ee904-84ca-485a-acd4-fc9293903ac1",
             "go": "828ebc27-83ca-47c6-b739-b841d4cfd4a9",
             "component_type": "Portal"
           }
@@ -680,7 +720,7 @@
           "Flags": 0,
           "Name": "Screen",
           "Position": "0,0,50",
-          "Scale": "0.1,2,2",
+          "Scale": "0.25,2,2",
           "Tags": "ptl-viewscreen",
           "Enabled": true,
           "Components": [
@@ -711,7 +751,7 @@
             {
               "__type": "Sandbox.CameraComponent",
               "__guid": "e354caf8-dd4b-4289-a705-10ac48fe46cf",
-              "BackgroundColor": "0,0,0,1",
+              "BackgroundColor": "0.33333,0.46275,0.52157,1",
               "ClearFlags": "All",
               "FieldOfView": 60,
               "IsMainCamera": false,
@@ -725,33 +765,6 @@
               "ZFar": 10000,
               "ZNear": 10
             }
-          ],
-          "Children": [
-            {
-              "__guid": "6197de4a-ac3e-47ec-9b2f-5aa38ae2e09e",
-              "Flags": 0,
-              "Name": "Cube",
-              "Scale": "0.5,0.5,0.5",
-              "Tags": "ptl-viewscreen",
-              "Enabled": true,
-              "Components": [
-                {
-                  "__type": "Sandbox.ModelRenderer",
-                  "__guid": "ae826886-be93-4044-86b0-3552635cd2d8",
-                  "BodyGroups": 18446744073709551615,
-                  "CreateAttachments": false,
-                  "Model": "models/dev/box.vmdl",
-                  "RenderOptions": {
-                    "GameLayer": true,
-                    "OverlayLayer": false,
-                    "BloomLayer": false,
-                    "AfterUILayer": false
-                  },
-                  "RenderType": "On",
-                  "Tint": "1,1,1,1"
-                }
-              ]
-            }
           ]
         }
       ]
@@ -764,8 +777,23 @@
       "Enabled": true,
       "Components": [
         {
+          "__type": "Sandbox.BoxCollider",
+          "__guid": "c94a3754-2833-44c2-9622-fbb3a1ee0906",
+          "Center": "0,0,50",
+          "IsTrigger": true,
+          "Scale": "16,100,100",
+          "Static": false,
+          "SurfaceVelocity": "0,0,0"
+        },
+        {
           "__type": "Neverspace.Portal",
-          "__guid": "3718fc65-5e96-436e-9aaa-9cbb81ecf0f4"
+          "__guid": "ba7ee904-84ca-485a-acd4-fc9293903ac1",
+          "EgressPortal": {
+            "_type": "component",
+            "component_id": "60a17da5-8a28-4986-a6c9-03e4f66352c4",
+            "go": "30803411-2020-43bd-b99c-113ad6ba9472",
+            "component_type": "Portal"
+          }
         }
       ],
       "Children": [
@@ -774,7 +802,7 @@
           "Flags": 0,
           "Name": "Screen",
           "Position": "0.1943359,0,50",
-          "Scale": "0.1,2,2",
+          "Scale": "0.25,2,2",
           "Tags": "ptl-viewscreen",
           "Enabled": true,
           "Components": [
@@ -806,7 +834,7 @@
             {
               "__type": "Sandbox.CameraComponent",
               "__guid": "37dcabd5-a253-4fb9-bf74-37b031e1df7a",
-              "BackgroundColor": "0,0,0,1",
+              "BackgroundColor": "0.33333,0.46275,0.52157,1",
               "ClearFlags": "All",
               "FieldOfView": 60,
               "IsMainCamera": false,
@@ -821,32 +849,6 @@
               "ZNear": 10
             }
           ]
-        }
-      ]
-    },
-    {
-      "__guid": "7ffdabea-34e0-47f4-805b-3c195a03ae4b",
-      "Flags": 0,
-      "Name": "PlayerCamera",
-      "Tags": "maincamera",
-      "Enabled": true,
-      "Components": [
-        {
-          "__type": "Sandbox.CameraComponent",
-          "__guid": "fba3ad12-f9f4-456e-a171-235f78cf5369",
-          "BackgroundColor": "0.33333,0.46275,0.52157,1",
-          "ClearFlags": "All",
-          "FieldOfView": 60,
-          "IsMainCamera": true,
-          "Orthographic": false,
-          "OrthographicHeight": 1204,
-          "Priority": 1,
-          "RenderExcludeTags": "",
-          "RenderTags": "",
-          "TargetEye": "None",
-          "Viewport": "0,0,1,1",
-          "ZFar": 10000,
-          "ZNear": 10
         }
       ]
     }

@@ -1,57 +1,46 @@
-
-HEADER
-{
+HEADER {
 	Description = "";
 }
 
-FEATURES
-{
+FEATURES {
 	#include "common/features.hlsl"
 }
 
-MODES
-{
+MODES {
 	VrForward();
-	Depth(); 
-	ToolsVis( S_MODE_TOOLS_VIS );
-	ToolsWireframe( "vr_tools_wireframe.shader" );
-	ToolsShadingComplexity( "tools_shading_complexity.shader" );
+	ToolsVisMode( S_MODE_TOOLS_VIS );
 }
 
-COMMON
-{
-	#include "common/shared.hlsl"	
+COMMON {
+	#include "common/shared.hlsl"
 }
 
-struct VertexInput
-{
+struct VertexInput {
 	#include "common/vertexinput.hlsl"
 };
 
-struct PixelInput
-{
+struct PixelInput {
 	#include "common/pixelinput.hlsl"
 };
 
-VS
-{
+VS {
 	#include "common/vertex.hlsl"
-	PixelInput MainVs( VertexInput i )
-	{
-		return FinalizeVertex( ProcessVertex( i ) );
+	PixelInput MainVs(VertexInput i) {
+		return FinalizeVertex(ProcessVertex(i));
 	}
 }
 
-PS
-{
+PS {
 	#include "common/pixel.hlsl"
-	
-	CreateInputTexture2D( ViewTex, Srgb, 8, "", "", "Material,10/10", Default3( 0.0, 0.0, 0.0 ) );
-	Texture2D g_tViewTex < Channel( RGB, Box( ViewTex ), Srgb ); OutputFormat( BC7 ); SrgbRead( true ); >; 
-	
-	float4 MainPs( PixelInput i ) : SV_Target0
-	{
-		return g_tViewTex.Sample( g_sAniso, CalculateViewportUv( i.vPositionSs.xy ) );
+
+	RenderState(CullMode, NONE);
+
+	Texture2D ViewTexture < Attribute( "PortalViewTex" ); SrgbRead( true ); >;
+
+	float4 MainPs(PixelInput i) : SV_Target0 {
+		Material m = Material::Init();
+		m.Albedo = ViewTexture.Sample(g_sAniso, CalculateViewportUv(i.vPositionSs.xy));
+		return ShadingModelStandard::Shade( i, m );
+		//return ViewTexture.Sample(g_sAniso, CalculateViewportUv(i.vPositionSs.xy));
 	}
 }
-
