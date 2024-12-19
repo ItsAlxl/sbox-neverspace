@@ -10,14 +10,14 @@ public sealed class Portal : Component, Component.ITriggerListener
 
 	[Property] Portal EgressPortal { get; set; }
 	[Property] CameraComponent PlayerCamera { get; set; }
+	[Property] float PassageXScale { get; set; } = 0.2f;
+	[Property] float PassageOffset { get; set; } = -5.0f;
 
 	ModelRenderer ViewScreen { get; set; }
 	CameraComponent GhostCamera { get; set; }
 
 	private Texture renderTarget;
 	private readonly Dictionary<IPortalTraveler, int> travelerPassage = new( 1 );
-
-	private bool passageHidden = false;
 
 	protected override void OnAwake()
 	{
@@ -34,10 +34,11 @@ public sealed class Portal : Component, Component.ITriggerListener
 
 	protected override void OnPreRender()
 	{
-		ViewScreen.SceneObject.RenderingEnabled = !passageHidden && EgressPortal != null;
+		ViewScreen.SceneObject.RenderingEnabled = EgressPortal != null;
 		if ( ViewScreen.SceneObject.RenderingEnabled )
 		{
-			GhostCamera.Enabled = ViewScreen.IsInCameraBounds( PlayerCamera );
+			// TODO: better check for optimization; walking backwards results in flickering
+			GhostCamera.Enabled = true;//ViewScreen.IsInCameraBounds( PlayerCamera );
 			if ( GhostCamera.Enabled )
 			{
 				if ( renderTarget == null || !renderTarget.Size.AlmostEqual( Screen.Size, 0.5f ) )
@@ -60,6 +61,7 @@ public sealed class Portal : Component, Component.ITriggerListener
 	{
 		if ( travelerPassage.Count > 0 )
 		{
+			var needsCleanup = false;
 			foreach ( var kv in travelerPassage )
 			{
 				if ( kv.Value != -2 )
@@ -68,17 +70,21 @@ public sealed class Portal : Component, Component.ITriggerListener
 					var newSide = GetOffsetSide( traveler.TravelerTransform );
 					if ( newSide != kv.Value )
 					{
-						EgressPortal.IgnoreTravelerPassage( traveler );
 						traveler.TeleportTo( GetEgressTransform( traveler.TravelerTransform ) );
 						travelerPassage[traveler] = 0;
+						needsCleanup = true;
 					}
 				}
 			}
 
-			var travelerCleanup = travelerPassage.Where( f => f.Value == 0 ).ToArray();
-			foreach ( var kv in travelerCleanup )
+			if ( needsCleanup )
 			{
-				travelerPassage.Remove( kv.Key );
+				var travelerCleanup = travelerPassage.Where( f => f.Value == 0 ).ToList();
+				foreach ( var kv in travelerCleanup )
+				{
+					travelerPassage.Remove( kv.Key );
+					OnTravelerExited( kv.Key );
+				}
 			}
 		}
 	}
@@ -90,15 +96,29 @@ public sealed class Portal : Component, Component.ITriggerListener
 
 	public int GetOffsetSide( Transform targetWorldTransform )
 	{
-		return WorldTransform.Forward.Dot( WorldTransform.ToLocal( targetWorldTransform ).Position ) < 0.0f ? -1 : 1;
+		return WorldTransform.Forward.Dot( targetWorldTransform.Position - WorldPosition ) < 0.0f ? -1 : 1;
 	}
 
-	public void IgnoreTravelerPassage( IPortalTraveler t )
+	private void ApplyPassageConfig( bool passage, int side = 0 )
 	{
-		travelerPassage.Add( t, -2 );
+		ViewScreen.LocalScale = ViewScreen.LocalScale.WithX( passage ? PassageXScale : 0.0f );
+		ViewScreen.LocalPosition = ViewScreen.LocalPosition.WithX( side * PassageOffset );
+	}
+
+	private void AcceptTravelerPassage( IPortalTraveler t, int side )
+	{
+		travelerPassage.Add( t, side );
 		if ( t is Player )
 		{
-			//passageHidden = true;
+			ApplyPassageConfig( true, travelerPassage[t] );
+		}
+	}
+
+	private void OnTravelerExited( IPortalTraveler t )
+	{
+		if ( t is Player )
+		{
+			ApplyPassageConfig( false );
 		}
 	}
 
@@ -107,17 +127,16 @@ public sealed class Portal : Component, Component.ITriggerListener
 		var t = other.GameObject.Components.Get<IPortalTraveler>( FIND_MODE_TRAVELER );
 		if ( t != null && !travelerPassage.ContainsKey( t ) )
 		{
-			travelerPassage.Add( t, GetOffsetSide( t.TravelerTransform ) );
+			AcceptTravelerPassage( t, GetOffsetSide( t.TravelerTransform ) );
 		}
 	}
 
 	public void OnTriggerExit( Collider other )
 	{
 		var t = other.GameObject.Components.Get<IPortalTraveler>( FIND_MODE_TRAVELER );
-		if ( passageHidden && t is Player )
+		if ( t != null && travelerPassage.Remove( t ) )
 		{
-			passageHidden = false;
+			OnTravelerExited( t );
 		}
-		travelerPassage.Remove( t );
 	}
 }

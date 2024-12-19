@@ -498,7 +498,7 @@
       "__guid": "30803411-2020-43bd-b99c-113ad6ba9472",
       "Flags": 0,
       "Name": "PortalG",
-      "Position": "-535.4558,0,0",
+      "Position": "-543.7838,0,0",
       "Enabled": true,
       "Components": [
         {
@@ -506,7 +506,7 @@
           "__guid": "26be4dc7-e260-4909-8f84-af807955055e",
           "Center": "0,0,50",
           "IsTrigger": true,
-          "Scale": "4,100,100",
+          "Scale": "8,100,100",
           "Static": false,
           "SurfaceVelocity": "0,0,0"
         },
@@ -518,7 +518,9 @@
             "component_id": "662668c1-8667-4a48-bf41-ae181292e750",
             "go": "828ebc27-83ca-47c6-b739-b841d4cfd4a9",
             "component_type": "Portal"
-          }
+          },
+          "PassageOffset": -5,
+          "PassageXScale": 0.2
         }
       ],
       "Children": [
@@ -581,7 +583,7 @@
       "Flags": 0,
       "Name": "PortalR",
       "Position": "-535.4558,-450,-180.1349",
-      "Rotation": "0,0,1,-0.00000004371139",
+      "Rotation": "0,0,1,0.000001490116",
       "Enabled": true,
       "Components": [
         {
@@ -589,7 +591,7 @@
           "__guid": "c94a3754-2833-44c2-9622-fbb3a1ee0906",
           "Center": "0,0,50",
           "IsTrigger": true,
-          "Scale": "4,100,100",
+          "Scale": "8,100,100",
           "Static": false,
           "SurfaceVelocity": "0,0,0"
         },
@@ -601,7 +603,9 @@
             "component_id": "fc4f2680-1f23-464c-846e-045a08ec9d2f",
             "go": "30803411-2020-43bd-b99c-113ad6ba9472",
             "component_type": "Portal"
-          }
+          },
+          "PassageOffset": -5,
+          "PassageXScale": 0.2
         }
       ],
       "Children": [
@@ -739,6 +743,31 @@
               "Viewport": "0,0,1,1",
               "ZFar": 1000,
               "ZNear": 0.1
+            }
+          ]
+        },
+        {
+          "__guid": "179f6ead-21bb-4b53-928c-bee8de6709fa",
+          "Flags": 0,
+          "Name": "Cube",
+          "Position": "0,0,64",
+          "Scale": "0.5,0.5,0.5",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.ModelRenderer",
+              "__guid": "10266c8e-f9ea-4458-b86d-e57fc87bf938",
+              "BodyGroups": 18446744073709551615,
+              "CreateAttachments": false,
+              "Model": "models/dev/box.vmdl",
+              "RenderOptions": {
+                "GameLayer": true,
+                "OverlayLayer": false,
+                "BloomLayer": false,
+                "AfterUILayer": false
+              },
+              "RenderType": "On",
+              "Tint": "1,1,1,1"
             }
           ]
         }
