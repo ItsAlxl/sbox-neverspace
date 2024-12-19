@@ -15,9 +15,9 @@ public sealed class Portal : Component, Component.ITriggerListener
 	CameraComponent GhostCamera { get; set; }
 
 	private Texture renderTarget;
-	private readonly Dictionary<PortalTraveler, int> travelerPassage = new( 1 );
+	private readonly Dictionary<IPortalTraveler, int> travelerPassage = new( 1 );
 
-	private readonly Texture dbgTex = Texture.Load( FileSystem.Mounted, "shaders/dbg_tex.png" );
+	private bool passageHidden = false;
 
 	protected override void OnAwake()
 	{
@@ -32,10 +32,10 @@ public sealed class Portal : Component, Component.ITriggerListener
 		GhostCamera.Enabled = false;
 	}
 
-	protected override void OnUpdate()
+	protected override void OnPreRender()
 	{
-		ViewScreen.Enabled = EgressPortal != null;
-		if ( ViewScreen.Enabled )
+		ViewScreen.SceneObject.RenderingEnabled = !passageHidden && EgressPortal != null;
+		if ( ViewScreen.SceneObject.RenderingEnabled )
 		{
 			GhostCamera.Enabled = ViewScreen.IsInCameraBounds( PlayerCamera );
 			if ( GhostCamera.Enabled )
@@ -56,18 +56,22 @@ public sealed class Portal : Component, Component.ITriggerListener
 		}
 	}
 
-	protected override void OnFixedUpdate()
+	protected override void OnUpdate()
 	{
 		if ( travelerPassage.Count > 0 )
 		{
 			foreach ( var kv in travelerPassage )
 			{
-				var traveler = kv.Key;
-				var newSide = GetOffsetSide( traveler.WorldTransform );
-				if ( newSide != kv.Value )
+				if ( kv.Value != -2 )
 				{
-					traveler.TeleportTo( GetEgressTransform( traveler.WorldTransform ) );
-					travelerPassage[traveler] = 0;
+					var traveler = kv.Key;
+					var newSide = GetOffsetSide( traveler.TravelerTransform );
+					if ( newSide != kv.Value )
+					{
+						EgressPortal.IgnoreTravelerPassage( traveler );
+						traveler.TeleportTo( GetEgressTransform( traveler.TravelerTransform ) );
+						travelerPassage[traveler] = 0;
+					}
 				}
 			}
 
@@ -89,17 +93,31 @@ public sealed class Portal : Component, Component.ITriggerListener
 		return WorldTransform.Forward.Dot( WorldTransform.ToLocal( targetWorldTransform ).Position ) < 0.0f ? -1 : 1;
 	}
 
+	public void IgnoreTravelerPassage( IPortalTraveler t )
+	{
+		travelerPassage.Add( t, -2 );
+		if ( t is Player )
+		{
+			//passageHidden = true;
+		}
+	}
+
 	public void OnTriggerEnter( Collider other )
 	{
-		var t = other.GameObject.Components.Get<PortalTraveler>( FIND_MODE_TRAVELER );
+		var t = other.GameObject.Components.Get<IPortalTraveler>( FIND_MODE_TRAVELER );
 		if ( t != null && !travelerPassage.ContainsKey( t ) )
 		{
-			travelerPassage.Add( t, GetOffsetSide( t.WorldTransform ) );
+			travelerPassage.Add( t, GetOffsetSide( t.TravelerTransform ) );
 		}
 	}
 
 	public void OnTriggerExit( Collider other )
 	{
-		travelerPassage.Remove( other.GameObject.Components.Get<PortalTraveler>( FIND_MODE_TRAVELER ) );
+		var t = other.GameObject.Components.Get<IPortalTraveler>( FIND_MODE_TRAVELER );
+		if ( passageHidden && t is Player )
+		{
+			passageHidden = false;
+		}
+		travelerPassage.Remove( t );
 	}
 }

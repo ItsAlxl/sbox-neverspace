@@ -1,46 +1,52 @@
-HEADER {
+HEADER
+{
 	Description = "";
 }
 
-FEATURES {
+FEATURES
+{
 	#include "common/features.hlsl"
 }
 
-MODES {
+MODES
+{
 	VrForward();
+	ToolsVis( S_MODE_TOOLS_VIS );
 	ToolsVisMode( S_MODE_TOOLS_VIS );
 }
 
-COMMON {
+COMMON
+{
 	#include "common/shared.hlsl"
 }
 
-struct VertexInput {
+struct VertexInput
+{
 	#include "common/vertexinput.hlsl"
 };
 
-struct PixelInput {
+struct PixelInput
+{
 	#include "common/pixelinput.hlsl"
 };
 
-VS {
+VS
+{
 	#include "common/vertex.hlsl"
-	PixelInput MainVs(VertexInput i) {
-		return FinalizeVertex(ProcessVertex(i));
+	PixelInput MainVs( VertexInput i ) {
+		return FinalizeVertex( ProcessVertex( i ) );
 	}
 }
 
-PS {
+PS
+{
 	#include "common/pixel.hlsl"
 
-	RenderState(CullMode, NONE);
+	RenderState( CullMode, NONE );
 
 	Texture2D ViewTexture < Attribute( "PortalViewTex" ); SrgbRead( true ); >;
 
-	float4 MainPs(PixelInput i) : SV_Target0 {
-		Material m = Material::Init();
-		m.Albedo = ViewTexture.Sample(g_sAniso, CalculateViewportUv(i.vPositionSs.xy));
-		return ShadingModelStandard::Shade( i, m );
-		//return ViewTexture.Sample(g_sAniso, CalculateViewportUv(i.vPositionSs.xy));
+	float4 MainPs( PixelInput i ) : SV_Target0 {
+		return ViewTexture.Sample( g_sAniso, CalculateViewportUv( i.vPositionSs.xy ) );
 	}
 }

@@ -18,32 +18,6 @@
       ]
     },
     {
-      "__guid": "7ffdabea-34e0-47f4-805b-3c195a03ae4b",
-      "Flags": 0,
-      "Name": "PlayerCamera",
-      "Tags": "maincamera",
-      "Enabled": true,
-      "Components": [
-        {
-          "__type": "Sandbox.CameraComponent",
-          "__guid": "fba3ad12-f9f4-456e-a171-235f78cf5369",
-          "BackgroundColor": "0.33333,0.46275,0.52157,1",
-          "ClearFlags": "All",
-          "FieldOfView": 60,
-          "IsMainCamera": true,
-          "Orthographic": false,
-          "OrthographicHeight": 1204,
-          "Priority": 16,
-          "RenderExcludeTags": "",
-          "RenderTags": "",
-          "TargetEye": "None",
-          "Viewport": "0,0,1,1",
-          "ZFar": 10000,
-          "ZNear": 10
-        }
-      ]
-    },
-    {
       "__guid": "bfc59c12-1ed2-4f91-8956-a95a315eac3c",
       "Flags": 0,
       "Name": "Sun",
@@ -74,6 +48,7 @@
         {
           "__type": "Sandbox.SkyBox2D",
           "__guid": "de79e9e0-5c37-4c54-ac67-bfcdb1d5483b",
+          "__enabled": false,
           "SkyIndirectLighting": false,
           "SkyMaterial": "materials/skybox/skybox_day_01.vmat",
           "Tint": "1,1,1,1"
@@ -98,6 +73,12 @@
           "UpdateStrategy": "OnEnabled",
           "ZFar": 4096,
           "ZNear": 16
+        },
+        {
+          "__type": "Sandbox.AmbientLight",
+          "__guid": "dcf4d791-e126-4576-9428-402ffe1589cd",
+          "__enabled": false,
+          "Color": "1,1,1,1"
         }
       ]
     },
@@ -514,180 +495,6 @@
       ]
     },
     {
-      "__guid": "ca49fd05-b9f8-4ad9-afff-ec45a2671c62",
-      "Flags": 0,
-      "Name": "Player Controller",
-      "Position": "-575.2128,0,7.802734",
-      "Enabled": true,
-      "Components": [
-        {
-          "__type": "Sandbox.PlayerController",
-          "__guid": "2c8f3fa0-98ec-4f76-99c9-9867afbe9f67",
-          "AimStrengthBody": 1,
-          "AimStrengthEyes": 1,
-          "AimStrengthHead": 1,
-          "Body": {
-            "_type": "component",
-            "component_id": "14d2c9e0-1386-4a60-b72c-8938c9a1088f",
-            "go": "ca49fd05-b9f8-4ad9-afff-ec45a2671c62",
-            "component_type": "Rigidbody"
-          },
-          "BodyHeight": 72,
-          "BodyMass": 500,
-          "BodyRadius": 16,
-          "CameraOffset": "256,0,12",
-          "ColliderObject": {
-            "_type": "gameobject",
-            "go": "2bed2d42-b328-48d8-95b5-e4da396bb5c4"
-          },
-          "DuckedHeight": 36,
-          "DuckedSpeed": 70,
-          "EnableFootstepSounds": true,
-          "EnablePressing": true,
-          "EyeDistanceFromTop": 8,
-          "FootstepMixer": {
-            "Name": "unknown",
-            "Id": "00000000-0000-0000-0000-000000000000"
-          },
-          "FootstepVolume": 1,
-          "HideBodyInFirstPerson": true,
-          "JumpSpeed": 300,
-          "ReachLength": 130,
-          "Renderer": {
-            "_type": "component",
-            "component_id": "6c55730f-1bca-46eb-a10f-7166a5d9a9fa",
-            "go": "59c6b982-550d-4644-9e3b-667a3512c7ea",
-            "component_type": "SkinnedModelRenderer"
-          },
-          "RotateWithGround": true,
-          "RotationAngleLimit": 45,
-          "RotationSpeed": 1,
-          "RunSpeed": 320,
-          "ShowColliderComponents": false,
-          "ShowRigidbodyComponent": false,
-          "ThirdPerson": false,
-          "ToggleCameraModeButton": "view",
-          "UseAnimatorControls": true,
-          "UseButton": "use",
-          "UseCameraControls": true,
-          "UseInputControls": true,
-          "WalkSpeed": 110
-        },
-        {
-          "__type": "Sandbox.Rigidbody",
-          "__guid": "14d2c9e0-1386-4a60-b72c-8938c9a1088f",
-          "AngularDamping": 1,
-          "Gravity": true,
-          "LinearDamping": 0.1,
-          "Locking": {
-            "X": false,
-            "Y": false,
-            "Z": false,
-            "Pitch": true,
-            "Yaw": true,
-            "Roll": true
-          },
-          "MassCenterOverride": "0,0,36",
-          "MassOverride": 500,
-          "MotionEnabled": true,
-          "OverrideMassCenter": true,
-          "RigidbodyFlags": "DisableCollisionSounds",
-          "StartAsleep": false
-        },
-        {
-          "__type": "Sandbox.Movement.MoveModeWalk",
-          "__guid": "89a366a1-4e99-44af-85e2-e7507476a57e",
-          "GroundAngle": 45,
-          "Priority": 0,
-          "StepDownHeight": 18,
-          "StepUpHeight": 18
-        },
-        {
-          "__type": "Sandbox.Movement.MoveModeSwim",
-          "__guid": "12a36652-75c1-436a-b18a-ef17b0fab920",
-          "Priority": 10,
-          "SwimLevel": 0.7
-        },
-        {
-          "__type": "Sandbox.Movement.MoveModeLadder",
-          "__guid": "4426202c-3a50-402b-9b0b-dea90d631a0f",
-          "ClimbableTags": "ladder",
-          "Priority": 5
-        },
-        {
-          "__type": "Neverspace.PortalTraveler",
-          "__guid": "79f24818-8cd8-4249-bd1e-91a626c72a0e"
-        }
-      ],
-      "Children": [
-        {
-          "__guid": "59c6b982-550d-4644-9e3b-667a3512c7ea",
-          "Flags": 0,
-          "Name": "Body",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.SkinnedModelRenderer",
-              "__guid": "6c55730f-1bca-46eb-a10f-7166a5d9a9fa",
-              "BodyGroups": 341,
-              "CreateAttachments": false,
-              "CreateBoneObjects": false,
-              "Model": "models/citizen/citizen.vmdl",
-              "Morphs": {},
-              "Parameters": {
-                "bools": {},
-                "ints": {},
-                "floats": {},
-                "vectors": {},
-                "rotations": {}
-              },
-              "RenderOptions": {
-                "GameLayer": true,
-                "OverlayLayer": false,
-                "BloomLayer": false,
-                "AfterUILayer": false
-              },
-              "RenderType": "On",
-              "Sequence": {
-                "Name": null
-              },
-              "Tint": "1,1,1,1",
-              "UseAnimGraph": true
-            }
-          ]
-        },
-        {
-          "__guid": "2bed2d42-b328-48d8-95b5-e4da396bb5c4",
-          "Flags": 1,
-          "Name": "Colliders",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.CapsuleCollider",
-              "__guid": "3ae1478d-5bea-4317-9a6d-bb2b95066601",
-              "End": "0,0,45.05097",
-              "Friction": 0,
-              "IsTrigger": false,
-              "Radius": 11.313708,
-              "Start": "0,0,60.68629",
-              "Static": false,
-              "SurfaceVelocity": "0,0,0"
-            },
-            {
-              "__type": "Sandbox.BoxCollider",
-              "__guid": "deb9224c-058d-4302-a69a-91f94452892b",
-              "Center": "0,0,18",
-              "Friction": 0,
-              "IsTrigger": false,
-              "Scale": "16,16,36",
-              "Static": false,
-              "SurfaceVelocity": "0,0,0"
-            }
-          ]
-        }
-      ]
-    },
-    {
       "__guid": "30803411-2020-43bd-b99c-113ad6ba9472",
       "Flags": 0,
       "Name": "PortalG",
@@ -699,16 +506,16 @@
           "__guid": "26be4dc7-e260-4909-8f84-af807955055e",
           "Center": "0,0,50",
           "IsTrigger": true,
-          "Scale": "16,100,100",
+          "Scale": "4,100,100",
           "Static": false,
           "SurfaceVelocity": "0,0,0"
         },
         {
           "__type": "Neverspace.Portal",
-          "__guid": "60a17da5-8a28-4986-a6c9-03e4f66352c4",
+          "__guid": "fc4f2680-1f23-464c-846e-045a08ec9d2f",
           "EgressPortal": {
             "_type": "component",
-            "component_id": "ba7ee904-84ca-485a-acd4-fc9293903ac1",
+            "component_id": "662668c1-8667-4a48-bf41-ae181292e750",
             "go": "828ebc27-83ca-47c6-b739-b841d4cfd4a9",
             "component_type": "Portal"
           }
@@ -720,7 +527,7 @@
           "Flags": 0,
           "Name": "Screen",
           "Position": "0,0,50",
-          "Scale": "0.25,2,2",
+          "Scale": "0,2,2",
           "Tags": "ptl-viewscreen",
           "Enabled": true,
           "Components": [
@@ -774,6 +581,7 @@
       "Flags": 0,
       "Name": "PortalR",
       "Position": "-535.4558,-450,-180.1349",
+      "Rotation": "0,0,1,-0.00000004371139",
       "Enabled": true,
       "Components": [
         {
@@ -781,16 +589,16 @@
           "__guid": "c94a3754-2833-44c2-9622-fbb3a1ee0906",
           "Center": "0,0,50",
           "IsTrigger": true,
-          "Scale": "16,100,100",
+          "Scale": "4,100,100",
           "Static": false,
           "SurfaceVelocity": "0,0,0"
         },
         {
           "__type": "Neverspace.Portal",
-          "__guid": "ba7ee904-84ca-485a-acd4-fc9293903ac1",
+          "__guid": "662668c1-8667-4a48-bf41-ae181292e750",
           "EgressPortal": {
             "_type": "component",
-            "component_id": "60a17da5-8a28-4986-a6c9-03e4f66352c4",
+            "component_id": "fc4f2680-1f23-464c-846e-045a08ec9d2f",
             "go": "30803411-2020-43bd-b99c-113ad6ba9472",
             "component_type": "Portal"
           }
@@ -801,8 +609,8 @@
           "__guid": "6aea75da-8393-4a55-becc-4b29da4d9d6d",
           "Flags": 0,
           "Name": "Screen",
-          "Position": "0.1943359,0,50",
-          "Scale": "0.25,2,2",
+          "Position": "0,0,50",
+          "Scale": "0,2,2",
           "Tags": "ptl-viewscreen",
           "Enabled": true,
           "Components": [
@@ -847,6 +655,90 @@
               "Viewport": "0,0,1,1",
               "ZFar": 10000,
               "ZNear": 10
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "__guid": "65ed06ae-c172-43a1-8661-2c8961734de4",
+      "Flags": 0,
+      "Name": "Spot Light",
+      "Position": "-661.038,-21.63624,14.20975",
+      "Tags": "light_spot,light",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.SpotLight",
+          "__guid": "9add1d78-430a-4d11-9c18-a0355f021379",
+          "Attenuation": 0,
+          "ConeInner": 15,
+          "ConeOuter": 12.43,
+          "FogMode": "Enabled",
+          "FogStrength": 1,
+          "LightColor": "0.91373,0.98039,1,1",
+          "Radius": 500,
+          "Shadows": true
+        }
+      ]
+    },
+    {
+      "__guid": "66b1c722-08bb-44c9-8917-1f02af0c989c",
+      "Flags": 0,
+      "Name": "Player",
+      "Position": "-683.8665,10.02966,10.68599",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.CharacterController",
+          "__guid": "57433a4b-f742-4272-9a6f-a0b1720192bf",
+          "Acceleration": 10,
+          "Bounciness": 0.3,
+          "GroundAngle": 45,
+          "Height": 72,
+          "IgnoreLayers": "",
+          "Radius": 16,
+          "StepHeight": 18,
+          "UseCollisionRules": false
+        },
+        {
+          "__type": "Sandbox.BoxCollider",
+          "__guid": "64069172-cc6e-4f2c-b1ad-ad1a885068b7",
+          "Center": "0,0,32",
+          "IsTrigger": true,
+          "Scale": "32,32,32",
+          "Static": false,
+          "SurfaceVelocity": "0,0,0"
+        },
+        {
+          "__type": "Neverspace.Player",
+          "__guid": "a76d3ed9-712f-4fbd-bb1b-aece1ec17299"
+        }
+      ],
+      "Children": [
+        {
+          "__guid": "7ffdabea-34e0-47f4-805b-3c195a03ae4b",
+          "Flags": 0,
+          "Name": "PlayerCamera",
+          "Tags": "maincamera",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.CameraComponent",
+              "__guid": "fba3ad12-f9f4-456e-a171-235f78cf5369",
+              "BackgroundColor": "0.33333,0.46275,0.52157,1",
+              "ClearFlags": "All",
+              "FieldOfView": 60,
+              "IsMainCamera": true,
+              "Orthographic": false,
+              "OrthographicHeight": 1204,
+              "Priority": 16,
+              "RenderExcludeTags": "",
+              "RenderTags": "",
+              "TargetEye": "None",
+              "Viewport": "0,0,1,1",
+              "ZFar": 1000,
+              "ZNear": 0.1
             }
           ]
         }
