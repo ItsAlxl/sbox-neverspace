@@ -384,7 +384,7 @@
       "__guid": "20dffaac-b915-4a1c-8cb0-a3a2ecd736b0",
       "Flags": 0,
       "Name": "Cube (4)",
-      "Position": "-406.8249,-488.8587,-154.3468",
+      "Position": "-484.4483,-423.2658,-154.3468",
       "Rotation": "0.00000001575584,-0.00000000909664,0.7404782,0.6720808",
       "Scale": "0.5632889,0.5632889,0.5632889",
       "Enabled": true,
@@ -441,8 +441,8 @@
       "__guid": "5b3a4b06-8012-49c0-b11c-c0e8864fe489",
       "Flags": 0,
       "Name": "Cube (5)",
-      "Position": "-402.4632,-481.3039,-122.4572",
-      "Rotation": "0.00000001575584,-0.00000000909664,0.7404782,0.6720808",
+      "Position": "-480.087,-415.711,-122.4572",
+      "Rotation": "0.000000002589748,0.000000002853304,0.7404778,0.6720808",
       "Scale": "0.5632889,0.5632889,0.5632889",
       "Enabled": true,
       "Components": [
@@ -512,10 +512,10 @@
         },
         {
           "__type": "Neverspace.Portal",
-          "__guid": "fc4f2680-1f23-464c-846e-045a08ec9d2f",
+          "__guid": "457c7c39-06ed-4a44-9bd1-8be5ada2242b",
           "EgressPortal": {
             "_type": "component",
-            "component_id": "662668c1-8667-4a48-bf41-ae181292e750",
+            "component_id": "4c172b3e-f376-4021-a204-c725a92e8c8a",
             "go": "828ebc27-83ca-47c6-b739-b841d4cfd4a9",
             "component_type": "Portal"
           },
@@ -582,8 +582,7 @@
       "__guid": "828ebc27-83ca-47c6-b739-b841d4cfd4a9",
       "Flags": 0,
       "Name": "PortalR",
-      "Position": "-535.4558,-450,-180.1349",
-      "Rotation": "0,0,1,0.000001490116",
+      "Position": "-543.784,-450,-180.1349",
       "Enabled": true,
       "Components": [
         {
@@ -597,10 +596,10 @@
         },
         {
           "__type": "Neverspace.Portal",
-          "__guid": "662668c1-8667-4a48-bf41-ae181292e750",
+          "__guid": "4c172b3e-f376-4021-a204-c725a92e8c8a",
           "EgressPortal": {
             "_type": "component",
-            "component_id": "fc4f2680-1f23-464c-846e-045a08ec9d2f",
+            "component_id": "457c7c39-06ed-4a44-9bd1-8be5ada2242b",
             "go": "30803411-2020-43bd-b99c-113ad6ba9472",
             "component_type": "Portal"
           },

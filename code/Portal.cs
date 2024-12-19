@@ -51,8 +51,13 @@ public sealed class Portal : Component, Component.ITriggerListener
 					ViewScreen.SceneObject.Batchable = false;
 					ViewScreen.SceneObject.Attributes.Set( "PortalViewTex", renderTarget );
 				}
+
 				GhostCamera.FieldOfView = PlayerCamera.FieldOfView;
 				GhostCamera.WorldTransform = GetEgressTransform( PlayerCamera.WorldTransform );
+
+				Transform portalTransform = EgressPortal.WorldTransform;
+				Plane p = new( portalTransform.Position, portalTransform.Forward );
+				GhostCamera.CustomProjectionMatrix = p.GetDistance( GhostCamera.WorldPosition ) < 5.0f ? null : GhostCamera.CalculateObliqueMatrix( p );
 			}
 		}
 	}
