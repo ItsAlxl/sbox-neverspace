@@ -1,18 +1,17 @@
+using System;
+
 namespace Neverspace;
 
 [Group( "Neverspace - Units" )]
 [Title( "Player" )]
 [Icon( "person_outline" )]
 
-public sealed class Player : Component, IPortalTraveler
+public sealed class Player : Component
 {
 	const float SPEED_RUN = 200.0f;
 	const float SPEED_AIR_MAX = 50.0f;
 
 	const float EYE_HEIGHT = 64.0f;
-
-	const float INTERACT_RADIUS = 8.0f;
-	const float INTERACT_RANGE = 100.0f;
 
 	const float FRICTION_GROUND = 6.0f;
 	const float FRICTION_AIR = 0.2f;
@@ -20,27 +19,24 @@ public sealed class Player : Component, IPortalTraveler
 	const float JUMP_POWER = 300.0f;
 
 	[RequireComponent] private CharacterController CharacterController { get; set; }
+	[RequireComponent] private PortalTraveler PortalTraveler { get; set; }
 	[Property] CameraComponent PlayerCamera { get; set; }
 
 	private float FacingPitch { get; set; }
 	private Vector3 WishVelocity { get; set; }
 
-	public Transform TravelerTransform
-	{
-		get => WorldTransform;
-		set => value = WorldTransform;
-	}
-
 	private float CurrentFriction { get => CharacterController.IsOnGround ? FRICTION_GROUND : FRICTION_AIR; }
 
 	private RealTimeSince lastGrounded;
-	private RealTimeSince lastUngrounded;
 	private RealTimeSince lastJump;
 
 	protected override void OnAwake()
 	{
 		PlayerCamera ??= Scene.Camera;
 		PlayerCamera.LocalPosition = new Vector3( 0, 0, EYE_HEIGHT );
+
+		PortalTraveler.TeleportHook = TeleportTo;
+		PortalTraveler.IsCameraViewer = true;
 	}
 
 	protected override void OnFixedUpdate()
@@ -53,13 +49,12 @@ public sealed class Player : Component, IPortalTraveler
 		FacingInput();
 	}
 
-	public void TeleportTo( Transform destinationTransform )
+	public void TeleportTo( Action<Transform> tpFunc, Transform destinationTransform )
 	{
 		var velAmt = CharacterController.Velocity.Length;
 		var velDir = WorldTransform.NormalToLocal( CharacterController.Velocity );
 
-		WorldTransform = destinationTransform;
-		Transform.ClearInterpolation();
+		tpFunc( destinationTransform );
 
 		CharacterController.Velocity = WorldTransform.NormalToWorld( velDir ) * velAmt;
 	}
@@ -124,7 +119,6 @@ public sealed class Player : Component, IPortalTraveler
 		else
 		{
 			cc.Velocity += halfGravity;
-			lastUngrounded = 0;
 		}
 	}
 }

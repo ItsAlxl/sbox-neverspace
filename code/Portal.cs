@@ -1,3 +1,5 @@
+using System;
+
 namespace Neverspace;
 
 [Group( "Neverspace - Portals" )]
@@ -17,7 +19,7 @@ public sealed class Portal : Component, Component.ITriggerListener
 	CameraComponent GhostCamera { get; set; }
 
 	private Texture renderTarget;
-	private readonly Dictionary<IPortalTraveler, int> travelerPassage = new( 1 );
+	private readonly Dictionary<PortalTraveler, int> travelerPassage = new( 1 );
 
 	protected override void OnAwake()
 	{
@@ -55,9 +57,9 @@ public sealed class Portal : Component, Component.ITriggerListener
 				GhostCamera.FieldOfView = PlayerCamera.FieldOfView;
 				GhostCamera.WorldTransform = GetEgressTransform( PlayerCamera.WorldTransform );
 
-				Transform portalTransform = EgressPortal.WorldTransform;
-				Plane p = new( portalTransform.Position, portalTransform.Forward );
-				GhostCamera.CustomProjectionMatrix = p.GetDistance( GhostCamera.WorldPosition ) < 5.0f ? null : GhostCamera.CalculateObliqueMatrix( p );
+				// s&box's Plane::GetDistance function is bad
+				Plane p = EgressPortal.GetWorldPlane();
+				GhostCamera.CustomProjectionMatrix = p.SnapToPlane( GhostCamera.WorldPosition ).DistanceSquared( GhostCamera.WorldPosition ) < 50.0f ? null : GhostCamera.CalculateObliqueMatrix( p );
 			}
 		}
 	}
@@ -66,6 +68,8 @@ public sealed class Portal : Component, Component.ITriggerListener
 	{
 		if ( travelerPassage.Count > 0 )
 		{
+			Plane p = EgressPortal.GetWorldPlane();
+
 			var needsCleanup = false;
 			foreach ( var kv in travelerPassage )
 			{
@@ -94,9 +98,19 @@ public sealed class Portal : Component, Component.ITriggerListener
 		}
 	}
 
+	public Plane GetWorldPlane()
+	{
+		return new( WorldTransform.Position, WorldTransform.Forward );
+	}
+
+	public Transform GetPortalTransform( Portal to, Transform sourceWorldTransform )
+	{
+		return to.WorldTransform.ToWorld( WorldTransform.ToLocal( sourceWorldTransform ) );
+	}
+
 	public Transform GetEgressTransform( Transform sourceWorldTransform )
 	{
-		return EgressPortal.WorldTransform.ToWorld( WorldTransform.ToLocal( sourceWorldTransform ) );
+		return GetPortalTransform( EgressPortal, sourceWorldTransform );
 	}
 
 	public int GetOffsetSide( Transform targetWorldTransform )
@@ -104,32 +118,34 @@ public sealed class Portal : Component, Component.ITriggerListener
 		return WorldTransform.Forward.Dot( targetWorldTransform.Position - WorldPosition ) < 0.0f ? -1 : 1;
 	}
 
-	private void ApplyPassageConfig( bool passage, int side = 0 )
+	private void ApplyViewerConfig( bool passage, int side = 0 )
 	{
 		ViewScreen.LocalScale = ViewScreen.LocalScale.WithX( passage ? PassageXScale : 0.0f );
 		ViewScreen.LocalPosition = ViewScreen.LocalPosition.WithX( side * PassageOffset );
 	}
 
-	private void AcceptTravelerPassage( IPortalTraveler t, int side )
+	private void AcceptTravelerPassage( PortalTraveler t, int side )
 	{
 		travelerPassage.Add( t, side );
-		if ( t is Player )
+		if ( t.IsCameraViewer )
 		{
-			ApplyPassageConfig( true, travelerPassage[t] );
+			ApplyViewerConfig( true, side );
 		}
+		t.BeginTeleportTransition( this, EgressPortal, side );
 	}
 
-	private void OnTravelerExited( IPortalTraveler t )
+	private void OnTravelerExited( PortalTraveler t )
 	{
-		if ( t is Player )
+		if ( t.IsCameraViewer )
 		{
-			ApplyPassageConfig( false );
+			ApplyViewerConfig( false );
 		}
+		t.EndTeleportTransition( this, EgressPortal );
 	}
 
 	public void OnTriggerEnter( Collider other )
 	{
-		var t = other.GameObject.Components.Get<IPortalTraveler>( FIND_MODE_TRAVELER );
+		var t = other.GameObject.Components.Get<PortalTraveler>( FIND_MODE_TRAVELER );
 		if ( t != null && !travelerPassage.ContainsKey( t ) )
 		{
 			AcceptTravelerPassage( t, GetOffsetSide( t.TravelerTransform ) );
@@ -138,7 +154,7 @@ public sealed class Portal : Component, Component.ITriggerListener
 
 	public void OnTriggerExit( Collider other )
 	{
-		var t = other.GameObject.Components.Get<IPortalTraveler>( FIND_MODE_TRAVELER );
+		var t = other.GameObject.Components.Get<PortalTraveler>( FIND_MODE_TRAVELER );
 		if ( t != null && travelerPassage.Remove( t ) )
 		{
 			OnTravelerExited( t );

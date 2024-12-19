@@ -554,7 +554,6 @@
           "__guid": "71550ab3-4ff8-402e-a5ff-cfc4d5fed63e",
           "Flags": 0,
           "Name": "Camera",
-          "Tags": "maincamera",
           "Enabled": true,
           "Components": [
             {
@@ -583,6 +582,7 @@
       "Flags": 0,
       "Name": "PortalR",
       "Position": "-543.784,-450,-180.1349",
+      "Rotation": "0,0,1,0.0000001947072",
       "Enabled": true,
       "Components": [
         {
@@ -639,7 +639,6 @@
           "Flags": 0,
           "Name": "Camera",
           "Position": "-0.0001220703,0,0",
-          "Tags": "maincamera",
           "Enabled": true,
           "Components": [
             {
@@ -758,6 +757,7 @@
               "__guid": "10266c8e-f9ea-4458-b86d-e57fc87bf938",
               "BodyGroups": 18446744073709551615,
               "CreateAttachments": false,
+              "MaterialOverride": "materials/player.vmat",
               "Model": "models/dev/box.vmdl",
               "RenderOptions": {
                 "GameLayer": true,

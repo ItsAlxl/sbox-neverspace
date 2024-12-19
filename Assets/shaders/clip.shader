@@ -42,12 +42,18 @@ PS
 {
 	#include "common/pixel.hlsl"
 
-	RenderState( CullMode, NONE );
-
-	Texture2D ViewTexture < Attribute( "PortalViewTex" ); SrgbRead( true ); >;
+	float3 ClipOgn < Attribute("ClipOgn"); >;
+	float3 ClipNormal < Attribute("ClipNormal"); >;
+	bool ClipEnabled < Attribute("ClipEnabled"); Default(0); >;
 
 	float4 MainPs( PixelInput i ) : SV_Target0
 	{
-		return ViewTexture.Sample( g_sAniso, CalculateViewportUv( i.vPositionSs.xy ) );
+		Material m = Material::From( i );
+		if (ClipEnabled)
+		{
+			float3 worldPosition = i.vPositionWithOffsetWs.xyz + g_vHighPrecisionLightingOffsetWs.xyz;
+			clip(dot(ClipNormal, worldPosition - ClipOgn));
+		}
+		return ShadingModelStandard::Shade( i, m );
 	}
 }
