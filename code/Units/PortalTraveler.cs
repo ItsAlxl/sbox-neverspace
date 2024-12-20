@@ -8,12 +8,11 @@ namespace Neverspace;
 
 public sealed class PortalTraveler : Component
 {
+	[Property] public bool IsCameraViewer = false;
+
 	public Transform TravelerTransform { get => WorldTransform; set => WorldTransform = value; }
-
-	public Action<Action<Transform>, Transform> TeleportHook = null;
-	public bool IsCameraViewer = false;
-
 	private Dictionary<GameObject, GameObject> goToProxy = new();
+	public Action<Action<Transform>, Transform> TeleportHook = null;
 
 	private Portal sourcePortal;
 	private Portal targetPortal;
@@ -145,7 +144,7 @@ public sealed class PortalTraveler : Component
 		}
 	}
 
-	protected override void OnUpdate()
+	protected override void OnPreRender()
 	{
 		DriveProxy();
 	}

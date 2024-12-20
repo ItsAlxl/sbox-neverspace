@@ -52,7 +52,7 @@ PS
 		if (ClipEnabled)
 		{
 			float3 worldPosition = i.vPositionWithOffsetWs.xyz + g_vHighPrecisionLightingOffsetWs.xyz;
-			clip(dot(ClipNormal, worldPosition - ClipOgn));
+			clip(dot(ClipNormal, worldPosition - ClipOgn) + 0.1);
 		}
 		return ShadingModelStandard::Shade( i, m );
 	}

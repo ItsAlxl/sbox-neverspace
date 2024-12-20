@@ -771,6 +771,53 @@
           ]
         }
       ]
+    },
+    {
+      "__guid": "bf0c797f-336b-4916-9711-e55636226741",
+      "Flags": 0,
+      "Name": "Cube (6)",
+      "Position": "-650,10.02966,50.51786",
+      "Scale": "0.5,0.5,0.5",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "e0c5a8e9-c1ac-4324-bafa-e490760ce227",
+          "BodyGroups": 18446744073709551615,
+          "CreateAttachments": false,
+          "MaterialOverride": "materials/coob.vmat",
+          "Model": "models/dev/box.vmdl",
+          "RenderOptions": {
+            "GameLayer": true,
+            "OverlayLayer": false,
+            "BloomLayer": false,
+            "AfterUILayer": false
+          },
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "Sandbox.BoxCollider",
+          "__guid": "b5834e87-40c9-4841-ac46-7fa3c6a2794a",
+          "Center": "0,0,0",
+          "IsTrigger": true,
+          "Scale": "50,50,50",
+          "Static": false,
+          "SurfaceVelocity": "0,0,0"
+        },
+        {
+          "__type": "Neverspace.PortalTraveler",
+          "__guid": "482be047-1e55-4da8-a776-a7f9bec138ad",
+          "IsCameraViewer": false
+        },
+        {
+          "__type": "Neverspace.BackAndForth",
+          "__guid": "f15cd004-df64-419a-bf36-e02f8382eb4a",
+          "distance": 200,
+          "localDirection": "1,0,0",
+          "speed": 50
+        }
+      ]
     }
   ],
   "SceneProperties": {

@@ -59,6 +59,7 @@ public sealed class Portal : Component, Component.ITriggerListener
 
 				// s&box's Plane::GetDistance function is bad
 				Plane p = EgressPortal.GetWorldPlane();
+				p.Distance -= 1.0f * GetOffsetSide( GhostCamera.WorldTransform );
 				GhostCamera.CustomProjectionMatrix = p.SnapToPlane( GhostCamera.WorldPosition ).DistanceSquared( GhostCamera.WorldPosition ) < 50.0f ? null : GhostCamera.CalculateObliqueMatrix( p );
 			}
 		}
@@ -73,16 +74,14 @@ public sealed class Portal : Component, Component.ITriggerListener
 			var needsCleanup = false;
 			foreach ( var kv in travelerPassage )
 			{
-				if ( kv.Value != -2 )
+				var traveler = kv.Key;
+				var newSide = GetOffsetSide( traveler.TravelerTransform );
+				if ( newSide != kv.Value )
 				{
-					var traveler = kv.Key;
-					var newSide = GetOffsetSide( traveler.TravelerTransform );
-					if ( newSide != kv.Value )
-					{
-						traveler.TeleportTo( GetEgressTransform( traveler.TravelerTransform ) );
-						travelerPassage[traveler] = 0;
-						needsCleanup = true;
-					}
+					EgressPortal.AcceptTravelerPassage( traveler, newSide );
+					traveler.TeleportTo( GetEgressTransform( traveler.TravelerTransform ) );
+					travelerPassage[traveler] = 0;
+					needsCleanup = true;
 				}
 			}
 
