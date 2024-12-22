@@ -11,14 +11,15 @@ public sealed class PortalTraveler : Component
 	[Property] public bool IsCameraViewer = false;
 
 	public Transform TravelerTransform { get => WorldTransform; set => WorldTransform = value; }
-	private Dictionary<GameObject, GameObject> goToProxy = new();
+	private readonly Dictionary<GameObject, GameObject> goToProxy = new();
 	public Action<Action<Transform>, Transform> TeleportHook = null;
 
-	private Portal sourcePortal;
-	private Portal targetPortal;
-	private int approachSide;
+	private Portal passageSource;
+	private Portal passageTarget;
+	private int passageSide;
+	private bool passageSwapped;
 
-	private void baseTeleport( Transform destinationTransform )
+	private void BaseTeleport( Transform destinationTransform )
 	{
 		TravelerTransform = destinationTransform;
 		Transform.ClearInterpolation();
@@ -29,15 +30,15 @@ public sealed class PortalTraveler : Component
 	{
 		if ( TeleportHook == null )
 		{
-			baseTeleport( destinationTransform );
+			BaseTeleport( destinationTransform );
 		}
 		else
 		{
-			TeleportHook( baseTeleport, destinationTransform );
+			TeleportHook( BaseTeleport, destinationTransform );
 		}
 	}
 
-	private IEnumerable<ModelRenderer> GetGoVisualComponents( GameObject go )
+	static private IEnumerable<ModelRenderer> GetGoVisualComponents( GameObject go )
 	{
 		return go.Components.GetAll<ModelRenderer>( FindMode.EverythingInSelfAndDescendants );
 	}
@@ -52,29 +53,62 @@ public sealed class PortalTraveler : Component
 		return goToProxy.SelectMany( kv => GetGoVisualComponents( kv.Value ) );
 	}
 
-	public void BeginTeleportTransition( Portal from, Portal to, int side )
+	public void BeginPassage( Portal from, Portal to, int side )
 	{
-		sourcePortal = from;
-		targetPortal = to;
-		approachSide = side;
+		if ( IsInPassage() )
+			return;
+
+		passageSource = from;
+		passageTarget = to;
+		passageSide = side;
+		passageSwapped = false;
+
 		CreateProxy();
-		BeginSlice( from.GetWorldPlane(), GetVisualComponents(), side );
-		BeginSlice( to.GetWorldPlane(), GetProxyVisualComponents(), -side );
+		ConfigurePassageSlices();
 	}
 
-	public void EndTeleportTransition( Portal from, Portal to )
+	public Portal GetRealPassagePortal()
 	{
-		if ( sourcePortal == from && targetPortal == to )
+		return passageSwapped ? passageTarget : passageSource;
+	}
+
+	public Portal GetProxyPassagePortal()
+	{
+		return passageSwapped ? passageSource : passageTarget;
+	}
+
+	private void ConfigurePassageSlices()
+	{
+		var swapSide = passageSwapped ? -passageSide : passageSide;
+		BeginSlice( GetRealPassagePortal().GetWorldPlane(), GetVisualComponents(), swapSide );
+		BeginSlice( GetProxyPassagePortal().GetWorldPlane(), GetProxyVisualComponents(), -swapSide );
+	}
+
+	public void SwapPassage()
+	{
+		passageSwapped = !passageSwapped;
+		ConfigurePassageSlices();
+	}
+
+	public void EndPassage( Portal from, Portal to )
+	{
+		if ( !passageSwapped && passageSource == from && passageTarget == to ||
+			passageSwapped && passageSource == to && passageTarget == from )
 		{
-			sourcePortal = null;
-			targetPortal = null;
-			approachSide = 0;
+			passageSource = null;
+			passageTarget = null;
+			passageSide = 0;
 			DestroyProxy();
 			EndSlice( GetVisualComponents() );
 		}
 	}
 
-	private void BeginSlice( Plane p, IEnumerable<ModelRenderer> models, int side )
+	public bool IsInPassage()
+	{
+		return passageSource != null;
+	}
+
+	private static void BeginSlice( Plane p, IEnumerable<ModelRenderer> models, int side )
 	{
 		foreach ( var m in models )
 		{
@@ -84,7 +118,7 @@ public sealed class PortalTraveler : Component
 		}
 	}
 
-	private void EndSlice( IEnumerable<ModelRenderer> models )
+	private static void EndSlice( IEnumerable<ModelRenderer> models )
 	{
 		foreach ( var m in models )
 		{
@@ -135,11 +169,11 @@ public sealed class PortalTraveler : Component
 
 	private void DriveProxy()
 	{
-		if ( sourcePortal != null && targetPortal != null )
+		if ( passageSource != null && passageTarget != null )
 		{
 			foreach ( var kv in goToProxy )
 			{
-				kv.Value.WorldTransform = sourcePortal.GetPortalTransform( targetPortal, kv.Key.WorldTransform );
+				kv.Value.WorldTransform = GetRealPassagePortal().GetPortalTransform( GetProxyPassagePortal(), kv.Key.WorldTransform );
 			}
 		}
 	}

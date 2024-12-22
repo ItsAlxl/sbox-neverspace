@@ -57,9 +57,9 @@ public sealed class Portal : Component, Component.ITriggerListener
 				GhostCamera.FieldOfView = PlayerCamera.FieldOfView;
 				GhostCamera.WorldTransform = GetEgressTransform( PlayerCamera.WorldTransform );
 
-				// s&box's Plane::GetDistance function is bad
 				Plane p = EgressPortal.GetWorldPlane();
 				p.Distance -= 1.0f * GetOffsetSide( GhostCamera.WorldTransform );
+				// s&box's Plane::GetDistance function is bad
 				GhostCamera.CustomProjectionMatrix = p.SnapToPlane( GhostCamera.WorldPosition ).DistanceSquared( GhostCamera.WorldPosition ) < 50.0f ? null : GhostCamera.CalculateObliqueMatrix( p );
 			}
 		}
@@ -78,6 +78,7 @@ public sealed class Portal : Component, Component.ITriggerListener
 				var newSide = GetOffsetSide( traveler.TravelerTransform );
 				if ( newSide != kv.Value )
 				{
+					traveler.SwapPassage();
 					EgressPortal.AcceptTravelerPassage( traveler, newSide );
 					traveler.TeleportTo( GetEgressTransform( traveler.TravelerTransform ) );
 					travelerPassage[traveler] = 0;
@@ -95,6 +96,11 @@ public sealed class Portal : Component, Component.ITriggerListener
 				}
 			}
 		}
+	}
+
+	public int GetVisualPrioritySide()
+	{
+		return GetOffsetSide( PlayerCamera.WorldTransform );
 	}
 
 	public Plane GetWorldPlane()
@@ -130,7 +136,7 @@ public sealed class Portal : Component, Component.ITriggerListener
 		{
 			ApplyViewerConfig( true, side );
 		}
-		t.BeginTeleportTransition( this, EgressPortal, side );
+		t.BeginPassage( this, EgressPortal, side );
 	}
 
 	private void OnTravelerExited( PortalTraveler t )
@@ -139,7 +145,7 @@ public sealed class Portal : Component, Component.ITriggerListener
 		{
 			ApplyViewerConfig( false );
 		}
-		t.EndTeleportTransition( this, EgressPortal );
+		t.EndPassage( this, EgressPortal );
 	}
 
 	public void OnTriggerEnter( Collider other )

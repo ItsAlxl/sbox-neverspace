@@ -13,6 +13,7 @@
           "__guid": "3b0adf2b-e3fe-4cbd-9907-c05b88fd756f",
           "Changes": "",
           "Description": "",
+          "SceneTags": "",
           "Title": "minimal"
         }
       ]
@@ -86,7 +87,7 @@
       "__guid": "6ad70641-3c6c-4402-9c85-9a4969af4764",
       "Flags": 0,
       "Name": "Plane",
-      "Position": "-535.4558,0,0",
+      "Position": "-550,0,0",
       "Scale": "5,3,5",
       "Enabled": true,
       "Components": [
@@ -292,7 +293,7 @@
       "__guid": "a1321d59-d66d-4cd5-b969-e09c00ed50f4",
       "Flags": 0,
       "Name": "Plane (1)",
-      "Position": "-535.4559,-450,-180.1349",
+      "Position": "-550,-450,-180.1349",
       "Scale": "5,3,5",
       "Enabled": true,
       "Components": [
@@ -498,7 +499,7 @@
       "__guid": "30803411-2020-43bd-b99c-113ad6ba9472",
       "Flags": 0,
       "Name": "PortalG",
-      "Position": "-543.7838,0,0",
+      "Position": "-550,0,0",
       "Enabled": true,
       "Components": [
         {
@@ -581,7 +582,7 @@
       "__guid": "828ebc27-83ca-47c6-b739-b841d4cfd4a9",
       "Flags": 0,
       "Name": "PortalR",
-      "Position": "-543.784,-450,-180.1349",
+      "Position": "-550,-450,-180.1349",
       "Rotation": "0,0,1,0.0000001947072",
       "Enabled": true,
       "Components": [
@@ -715,6 +716,11 @@
         {
           "__type": "Neverspace.Player",
           "__guid": "a76d3ed9-712f-4fbd-bb1b-aece1ec17299"
+        },
+        {
+          "__type": "Neverspace.PortalTraveler",
+          "__guid": "590dde0a-b7e0-4b90-85d7-b5d0a1db4226",
+          "IsCameraViewer": false
         }
       ],
       "Children": [
@@ -776,7 +782,7 @@
       "__guid": "bf0c797f-336b-4916-9711-e55636226741",
       "Flags": 0,
       "Name": "Cube (6)",
-      "Position": "-650,10.02966,50.51786",
+      "Position": "-482.8004,10.02966,50.51786",
       "Scale": "0.5,0.5,0.5",
       "Enabled": true,
       "Components": [
@@ -814,7 +820,7 @@
           "__type": "Neverspace.BackAndForth",
           "__guid": "f15cd004-df64-419a-bf36-e02f8382eb4a",
           "distance": 200,
-          "localDirection": "1,0,0",
+          "localDirection": "-1,0,0",
           "speed": 50
         }
       ]
