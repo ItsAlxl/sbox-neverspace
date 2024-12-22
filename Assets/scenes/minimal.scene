@@ -102,7 +102,7 @@
             "GameLayer": true,
             "OverlayLayer": false,
             "BloomLayer": false,
-            "AfterUILayer": false
+            "AfterUILayer": true
           },
           "RenderType": "On",
           "Tint": "0.39608,0.5098,0.27059,1"
@@ -122,7 +122,7 @@
       "__guid": "3c2490ef-54a0-49bb-8f13-490e40aa51d1",
       "Flags": 0,
       "Name": "Cube",
-      "Position": "-514.039,74.1244,14.40159",
+      "Position": "-467.998,71.1246,14.40159",
       "Rotation": "0.00000001819328,-0.00000000000000008235059,0.3052325,0.952278",
       "Scale": "0.5632889,0.5632889,0.5632889",
       "Enabled": true,
@@ -138,7 +138,7 @@
             "GameLayer": true,
             "OverlayLayer": false,
             "BloomLayer": false,
-            "AfterUILayer": false
+            "AfterUILayer": true
           },
           "RenderType": "On",
           "Tint": "0,0.33333,1,1"
@@ -179,7 +179,7 @@
       "__guid": "523e3e8f-a4ec-4ec1-af9a-d86ffc9c17e1",
       "Flags": 0,
       "Name": "Cube (1)",
-      "Position": "-494.6423,46.97572,14.40159",
+      "Position": "-448.6013,43.97593,14.40159",
       "Rotation": "0.00000001819328,-0.00000000000000008235059,0.3052325,0.952278",
       "Scale": "0.5632889,0.5632889,0.5632889",
       "Enabled": true,
@@ -195,7 +195,7 @@
             "GameLayer": true,
             "OverlayLayer": false,
             "BloomLayer": false,
-            "AfterUILayer": false
+            "AfterUILayer": true
           },
           "RenderType": "On",
           "Tint": "0,0.33333,1,1"
@@ -236,7 +236,7 @@
       "__guid": "5b483a09-bbf2-4949-98c7-a73b789d0ee7",
       "Flags": 0,
       "Name": "Cube (2)",
-      "Position": "-485.9187,34.08896,43.67614",
+      "Position": "-455.8754,57.00161,43.67615",
       "Rotation": "0.00000001819328,-0.00000000000000008235059,0.3052325,0.952278",
       "Scale": "0.5632889,0.5632889,0.5632889",
       "Enabled": true,
@@ -252,7 +252,7 @@
             "GameLayer": true,
             "OverlayLayer": false,
             "BloomLayer": false,
-            "AfterUILayer": false
+            "AfterUILayer": true
           },
           "RenderType": "On",
           "Tint": "0,0.33333,1,1"
@@ -308,7 +308,7 @@
             "GameLayer": true,
             "OverlayLayer": false,
             "BloomLayer": false,
-            "AfterUILayer": false
+            "AfterUILayer": true
           },
           "RenderType": "On",
           "Tint": "0.51163,0.27128,0.27128,1"
@@ -344,7 +344,7 @@
             "GameLayer": true,
             "OverlayLayer": false,
             "BloomLayer": false,
-            "AfterUILayer": false
+            "AfterUILayer": true
           },
           "RenderType": "On",
           "Tint": "1,0.9,0,1"
@@ -401,7 +401,7 @@
             "GameLayer": true,
             "OverlayLayer": false,
             "BloomLayer": false,
-            "AfterUILayer": false
+            "AfterUILayer": true
           },
           "RenderType": "On",
           "Tint": "1,0.9,0,1"
@@ -458,7 +458,7 @@
             "GameLayer": true,
             "OverlayLayer": false,
             "BloomLayer": false,
-            "AfterUILayer": false
+            "AfterUILayer": true
           },
           "RenderType": "On",
           "Tint": "1,0.9,0,1"
@@ -544,7 +544,7 @@
                 "GameLayer": true,
                 "OverlayLayer": false,
                 "BloomLayer": false,
-                "AfterUILayer": false
+                "AfterUILayer": true
               },
               "RenderType": "Off",
               "Tint": "1,1,1,1"
@@ -628,7 +628,7 @@
                 "GameLayer": true,
                 "OverlayLayer": false,
                 "BloomLayer": false,
-                "AfterUILayer": false
+                "AfterUILayer": true
               },
               "RenderType": "Off",
               "Tint": "1,1,1,1"
@@ -689,7 +689,8 @@
       "__guid": "66b1c722-08bb-44c9-8917-1f02af0c989c",
       "Flags": 0,
       "Name": "Player",
-      "Position": "-683.8665,10.02966,10.68599",
+      "Position": "-443.1644,-0.00002456336,64.54408",
+      "Rotation": "0,0,1,-0.00000004371139",
       "Enabled": true,
       "Components": [
         {
@@ -714,20 +715,52 @@
           "SurfaceVelocity": "0,0,0"
         },
         {
-          "__type": "Neverspace.Player",
-          "__guid": "a76d3ed9-712f-4fbd-bb1b-aece1ec17299"
-        },
-        {
           "__type": "Neverspace.PortalTraveler",
           "__guid": "590dde0a-b7e0-4b90-85d7-b5d0a1db4226",
-          "IsCameraViewer": false
+          "IsCameraViewer": true
+        },
+        {
+          "__type": "Neverspace.GravityPawn",
+          "__guid": "246deaee-f016-4ba5-a720-9d32eb12478e",
+          "BaseGravity": "0,0,-800"
+        },
+        {
+          "__type": "Neverspace.Player",
+          "__guid": "b280ec09-c87d-41c6-be0c-f1173530b8eb"
         }
       ],
       "Children": [
         {
+          "__guid": "179f6ead-21bb-4b53-928c-bee8de6709fa",
+          "Flags": 0,
+          "Name": "Cube",
+          "Position": "0,0,64",
+          "Scale": "0.5,0.5,0.5",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.ModelRenderer",
+              "__guid": "10266c8e-f9ea-4458-b86d-e57fc87bf938",
+              "BodyGroups": 18446744073709551615,
+              "CreateAttachments": false,
+              "MaterialOverride": "materials/player.vmat",
+              "Model": "models/dev/box.vmdl",
+              "RenderOptions": {
+                "GameLayer": true,
+                "OverlayLayer": false,
+                "BloomLayer": false,
+                "AfterUILayer": true
+              },
+              "RenderType": "On",
+              "Tint": "1,1,1,1"
+            }
+          ]
+        },
+        {
           "__guid": "7ffdabea-34e0-47f4-805b-3c195a03ae4b",
           "Flags": 0,
           "Name": "PlayerCamera",
+          "Position": "-49.63953,0.000004571797,0",
           "Tags": "maincamera",
           "Enabled": true,
           "Components": [
@@ -749,32 +782,6 @@
               "ZNear": 0.1
             }
           ]
-        },
-        {
-          "__guid": "179f6ead-21bb-4b53-928c-bee8de6709fa",
-          "Flags": 0,
-          "Name": "Cube",
-          "Position": "0,0,64",
-          "Scale": "0.5,0.5,0.5",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.ModelRenderer",
-              "__guid": "10266c8e-f9ea-4458-b86d-e57fc87bf938",
-              "BodyGroups": 18446744073709551615,
-              "CreateAttachments": false,
-              "MaterialOverride": "materials/player.vmat",
-              "Model": "models/dev/box.vmdl",
-              "RenderOptions": {
-                "GameLayer": true,
-                "OverlayLayer": false,
-                "BloomLayer": false,
-                "AfterUILayer": false
-              },
-              "RenderType": "On",
-              "Tint": "1,1,1,1"
-            }
-          ]
         }
       ]
     },
@@ -782,7 +789,7 @@
       "__guid": "bf0c797f-336b-4916-9711-e55636226741",
       "Flags": 0,
       "Name": "Cube (6)",
-      "Position": "-482.8004,10.02966,50.51786",
+      "Position": "-450,10.02966,50.51786",
       "Scale": "0.5,0.5,0.5",
       "Enabled": true,
       "Components": [
@@ -797,7 +804,7 @@
             "GameLayer": true,
             "OverlayLayer": false,
             "BloomLayer": false,
-            "AfterUILayer": false
+            "AfterUILayer": true
           },
           "RenderType": "On",
           "Tint": "1,1,1,1"

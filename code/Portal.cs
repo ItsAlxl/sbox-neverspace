@@ -65,7 +65,7 @@ public sealed class Portal : Component, Component.ITriggerListener
 		}
 	}
 
-	protected override void OnUpdate()
+	public void OnPortalCheck()
 	{
 		if ( travelerPassage.Count > 0 )
 		{
@@ -80,6 +80,7 @@ public sealed class Portal : Component, Component.ITriggerListener
 				{
 					traveler.SwapPassage();
 					EgressPortal.AcceptTravelerPassage( traveler, newSide );
+					OnTravelerExited( kv.Key );
 					traveler.TeleportTo( GetEgressTransform( traveler.TravelerTransform ) );
 					travelerPassage[traveler] = 0;
 					needsCleanup = true;
@@ -92,7 +93,6 @@ public sealed class Portal : Component, Component.ITriggerListener
 				foreach ( var kv in travelerCleanup )
 				{
 					travelerPassage.Remove( kv.Key );
-					OnTravelerExited( kv.Key );
 				}
 			}
 		}
@@ -163,6 +163,22 @@ public sealed class Portal : Component, Component.ITriggerListener
 		if ( t != null && travelerPassage.Remove( t ) )
 		{
 			OnTravelerExited( t );
+		}
+	}
+}
+
+public class PortalGoSystem : GameObjectSystem
+{
+	public PortalGoSystem( Scene scene ) : base( scene )
+	{
+		Listen( Stage.StartFixedUpdate, -1, CheckPortals, "CheckPortals" );
+	}
+
+	void CheckPortals()
+	{
+		foreach ( var p in Scene.GetAllComponents<Portal>() )
+		{
+			p.OnPortalCheck();
 		}
 	}
 }

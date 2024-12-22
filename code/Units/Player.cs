@@ -20,6 +20,7 @@ public sealed class Player : Component
 
 	[RequireComponent] private CharacterController CharacterController { get; set; }
 	[RequireComponent] private PortalTraveler PortalTraveler { get; set; }
+	[RequireComponent] private GravityPawn GravityPawn { get; set; }
 	[Property] CameraComponent PlayerCamera { get; set; }
 
 	private float FacingPitch { get; set; }
@@ -49,12 +50,12 @@ public sealed class Player : Component
 		FacingInput();
 	}
 
-	public void TeleportTo( Action<Transform> tpFunc, Transform destinationTransform )
+	public void TeleportTo( Transform destinationTransform )
 	{
 		var velAmt = CharacterController.Velocity.Length;
 		var velDir = WorldTransform.NormalToLocal( CharacterController.Velocity );
 
-		tpFunc( destinationTransform );
+		PortalTraveler.BaseTeleport( destinationTransform );
 
 		CharacterController.Velocity = WorldTransform.NormalToWorld( velDir ) * velAmt;
 	}
@@ -73,7 +74,7 @@ public sealed class Player : Component
 
 		var cc = CharacterController;
 
-		Vector3 halfGravity = Scene.PhysicsWorld.Gravity * Time.Delta * 0.5f;
+		Vector3 halfGravity = GravityPawn.GetCurrentGravity() * Time.Delta * 0.5f;
 
 		WishVelocity = Input.AnalogMove;
 
@@ -101,7 +102,7 @@ public sealed class Player : Component
 		if ( cc.IsOnGround )
 		{
 			cc.Accelerate( WishVelocity );
-			cc.Velocity = CharacterController.Velocity.WithZ( 0 );
+			cc.Velocity = cc.Velocity.WithZ( 0 );
 		}
 		else
 		{

@@ -15,7 +15,7 @@ public sealed class BackAndForth : Component
 	private float progress = 0.0f;
 	private float dir = 1;
 
-	protected override void OnUpdate()
+	protected override void OnFixedUpdate()
 	{
 		float dProgress = speed * Time.Delta * dir;
 		WorldPosition += WorldTransform.NormalToWorld( localDirection ) * dProgress;

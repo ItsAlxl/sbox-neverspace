@@ -12,18 +12,17 @@ public sealed class PortalTraveler : Component
 
 	public Transform TravelerTransform { get => WorldTransform; set => WorldTransform = value; }
 	private readonly Dictionary<GameObject, GameObject> goToProxy = new();
-	public Action<Action<Transform>, Transform> TeleportHook = null;
+	public Action<Transform> TeleportHook = null;
 
 	private Portal passageSource;
 	private Portal passageTarget;
 	private int passageSide;
 	private bool passageSwapped;
 
-	private void BaseTeleport( Transform destinationTransform )
+	public void BaseTeleport( Transform destinationTransform )
 	{
 		TravelerTransform = destinationTransform;
 		Transform.ClearInterpolation();
-		DriveProxy();
 	}
 
 	public void TeleportTo( Transform destinationTransform )
@@ -34,7 +33,7 @@ public sealed class PortalTraveler : Component
 		}
 		else
 		{
-			TeleportHook( BaseTeleport, destinationTransform );
+			TeleportHook( destinationTransform );
 		}
 	}
 
