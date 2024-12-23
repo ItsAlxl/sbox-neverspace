@@ -30,19 +30,28 @@ public sealed class Player : Component
 
 	private RealTimeSince lastGrounded;
 	private RealTimeSince lastJump;
+	private readonly Vector3 eyePos = new Vector3( 0, 0, EYE_HEIGHT );
 
 	protected override void OnAwake()
 	{
 		PlayerCamera ??= Scene.Camera;
-		PlayerCamera.LocalPosition = new Vector3( 0, 0, EYE_HEIGHT );
 
 		PortalTraveler.TeleportHook = TeleportTo;
+		PortalTraveler.MovtHook = Movement;
 		PortalTraveler.IsCameraViewer = true;
+	}
+
+	public void OnCameraUpdate()
+	{
+		PlayerCamera.WorldScale = WorldScale;
+		PlayerCamera.WorldPosition = WorldTransform.PointToWorld( eyePos );
+		PlayerCamera.WorldRotation = WorldTransform.RotationToWorld( new Angles( FacingPitch, 0, 0 ) );
+		PlayerCamera.Transform.ClearInterpolation();
 	}
 
 	protected override void OnFixedUpdate()
 	{
-		MovementInput();
+		//Movement();
 	}
 
 	protected override void OnUpdate()
@@ -65,10 +74,9 @@ public sealed class Player : Component
 		var f = Input.AnalogLook;
 		FacingPitch = (FacingPitch + f.pitch).Clamp( -90, 90 );
 		WorldRotation = WorldTransform.RotationToWorld( new Angles( 0, f.yaw, 0 ) );
-		PlayerCamera.LocalRotation = new Angles( FacingPitch, 0, 0 );
 	}
 
-	private void MovementInput()
+	private void Movement()
 	{
 		if ( CharacterController is null ) return;
 

@@ -15,8 +15,27 @@ public sealed class BackAndForth : Component
 	private float progress = 0.0f;
 	private float dir = 1;
 
+	private PortalTraveler portalTraveler;
+
+	protected override void OnAwake()
+	{
+		portalTraveler = GetComponent<PortalTraveler>();
+		if (portalTraveler != null)
+		{
+			portalTraveler.MovtHook = Movement;
+		}
+	}
+
 	protected override void OnFixedUpdate()
 	{
+		if (portalTraveler == null)
+		{
+			Movement();
+		}
+	}
+
+	public void Movement()
+	{	
 		float dProgress = speed * Time.Delta * dir;
 		WorldPosition += WorldTransform.NormalToWorld( localDirection ) * dProgress;
 		progress += dProgress;

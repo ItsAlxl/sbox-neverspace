@@ -65,7 +65,7 @@ public sealed class Portal : Component, Component.ITriggerListener
 		}
 	}
 
-	public void OnPortalCheck()
+	public void OnPassageCheck()
 	{
 		if ( travelerPassage.Count > 0 )
 		{
@@ -171,14 +171,32 @@ public class PortalGoSystem : GameObjectSystem
 {
 	public PortalGoSystem( Scene scene ) : base( scene )
 	{
-		Listen( Stage.StartFixedUpdate, -1, CheckPortals, "CheckPortals" );
+		Listen( Stage.StartFixedUpdate, 1, CheckPassage, "CheckPassage" );
+		Listen( Stage.StartFixedUpdate, 2, DrivePlayerCamera, "DrivePlayerCamera" );
+		Listen( Stage.StartFixedUpdate, 3, TravelerMovement, "TravelerMovement" );
 	}
 
-	void CheckPortals()
+	void CheckPassage()
 	{
 		foreach ( var p in Scene.GetAllComponents<Portal>() )
 		{
-			p.OnPortalCheck();
+			p.OnPassageCheck();
+		}
+	}
+
+	void DrivePlayerCamera()
+	{
+		foreach ( var p in Scene.GetAllComponents<Player>() )
+		{
+			p.OnCameraUpdate();
+		}
+	}
+
+	void TravelerMovement()
+	{
+		foreach ( var p in Scene.GetAllComponents<PortalTraveler>() )
+		{
+			p.OnMovement();
 		}
 	}
 }

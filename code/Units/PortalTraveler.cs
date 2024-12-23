@@ -10,10 +10,12 @@ public sealed class PortalTraveler : Component
 {
 	[Property] public bool IsCameraViewer = false;
 
-	public Transform TravelerTransform { get => WorldTransform; set => WorldTransform = value; }
-	private readonly Dictionary<GameObject, GameObject> goToProxy = new();
 	public Action<Transform> TeleportHook = null;
+	public Action MovtHook = null;
 
+	public Transform TravelerTransform { get => WorldTransform; set => WorldTransform = value; }
+
+	private readonly Dictionary<GameObject, GameObject> goToProxy = new();
 	private Portal passageSource;
 	private Portal passageTarget;
 	private int passageSide;
@@ -35,6 +37,11 @@ public sealed class PortalTraveler : Component
 		{
 			TeleportHook( destinationTransform );
 		}
+	}
+
+	public void OnMovement()
+	{
+		MovtHook?.Invoke();
 	}
 
 	static private IEnumerable<ModelRenderer> GetGoVisualComponents( GameObject go )

@@ -664,24 +664,30 @@
       ]
     },
     {
-      "__guid": "65ed06ae-c172-43a1-8661-2c8961734de4",
+      "__guid": "7ffdabea-34e0-47f4-805b-3c195a03ae4b",
       "Flags": 0,
-      "Name": "Spot Light",
-      "Position": "-661.038,-21.63624,14.20975",
-      "Tags": "light_spot,light",
+      "Name": "PlayerCamera",
+      "Position": "-393.5249,-0.00002479553,64.54408",
+      "Rotation": "0,0,1,-0.00000004371139",
+      "Tags": "maincamera",
       "Enabled": true,
       "Components": [
         {
-          "__type": "Sandbox.SpotLight",
-          "__guid": "9add1d78-430a-4d11-9c18-a0355f021379",
-          "Attenuation": 0,
-          "ConeInner": 15,
-          "ConeOuter": 12.43,
-          "FogMode": "Enabled",
-          "FogStrength": 1,
-          "LightColor": "0.91373,0.98039,1,1",
-          "Radius": 500,
-          "Shadows": true
+          "__type": "Sandbox.CameraComponent",
+          "__guid": "fba3ad12-f9f4-456e-a171-235f78cf5369",
+          "BackgroundColor": "0.33333,0.46275,0.52157,1",
+          "ClearFlags": "All",
+          "FieldOfView": 60,
+          "IsMainCamera": true,
+          "Orthographic": false,
+          "OrthographicHeight": 1204,
+          "Priority": 16,
+          "RenderExcludeTags": "",
+          "RenderTags": "",
+          "TargetEye": "None",
+          "Viewport": "0,0,1,1",
+          "ZFar": 1000,
+          "ZNear": 0.1
         }
       ]
     },
@@ -755,33 +761,6 @@
               "Tint": "1,1,1,1"
             }
           ]
-        },
-        {
-          "__guid": "7ffdabea-34e0-47f4-805b-3c195a03ae4b",
-          "Flags": 0,
-          "Name": "PlayerCamera",
-          "Position": "-49.63953,0.000004571797,0",
-          "Tags": "maincamera",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.CameraComponent",
-              "__guid": "fba3ad12-f9f4-456e-a171-235f78cf5369",
-              "BackgroundColor": "0.33333,0.46275,0.52157,1",
-              "ClearFlags": "All",
-              "FieldOfView": 60,
-              "IsMainCamera": true,
-              "Orthographic": false,
-              "OrthographicHeight": 1204,
-              "Priority": 16,
-              "RenderExcludeTags": "",
-              "RenderTags": "",
-              "TargetEye": "None",
-              "Viewport": "0,0,1,1",
-              "ZFar": 1000,
-              "ZNear": 0.1
-            }
-          ]
         }
       ]
     },
@@ -826,6 +805,7 @@
         {
           "__type": "Neverspace.BackAndForth",
           "__guid": "f15cd004-df64-419a-bf36-e02f8382eb4a",
+          "__enabled": false,
           "distance": 200,
           "localDirection": "-1,0,0",
           "speed": 50
