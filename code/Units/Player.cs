@@ -8,15 +8,18 @@ namespace Neverspace;
 
 public sealed class Player : Component
 {
+	const float CC_RADIUS = 16.0f;
+	const float CC_HEIGHT = 72.0f;
+	const float CC_STEP_HEIGHT = 18.0f;
+
 	const float SPEED_RUN = 200.0f;
 	const float SPEED_AIR_MAX = 50.0f;
-
-	const float EYE_HEIGHT = 64.0f;
 
 	const float FRICTION_GROUND = 6.0f;
 	const float FRICTION_AIR = 0.2f;
 
 	const float JUMP_POWER = 300.0f;
+	const float EYE_HEIGHT = 64.0f;
 
 	[RequireComponent] private CharacterController CharacterController { get; set; }
 	[RequireComponent] private PortalTraveler PortalTraveler { get; set; }
@@ -39,6 +42,8 @@ public sealed class Player : Component
 		PortalTraveler.TeleportHook = TeleportTo;
 		PortalTraveler.MovtHook = Movement;
 		PortalTraveler.IsCameraViewer = true;
+
+		ApplyCharConfig();
 	}
 
 	public void OnCameraUpdate()
@@ -47,6 +52,14 @@ public sealed class Player : Component
 		PlayerCamera.WorldPosition = WorldTransform.PointToWorld( eyePos );
 		PlayerCamera.WorldRotation = WorldTransform.RotationToWorld( new Angles( FacingPitch, 0, 0 ) );
 		PlayerCamera.Transform.ClearInterpolation();
+	}
+
+	private void ApplyCharConfig()
+	{
+		var cc = CharacterController;
+		cc.Radius = CC_RADIUS * WorldScale.x;
+		cc.Height = CC_HEIGHT * WorldScale.z;
+		cc.StepHeight = CC_STEP_HEIGHT * WorldScale.z;
 	}
 
 	protected override void OnFixedUpdate()
@@ -66,6 +79,7 @@ public sealed class Player : Component
 
 		PortalTraveler.BaseTeleport( destinationTransform );
 
+		ApplyCharConfig();
 		CharacterController.Velocity = WorldTransform.NormalToWorld( velDir ) * WorldScale * velAmt;
 	}
 

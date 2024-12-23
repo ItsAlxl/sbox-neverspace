@@ -532,8 +532,7 @@
       "__guid": "7ba09d78-51bb-4a97-9931-ffb19ec1a2db",
       "Flags": 0,
       "Name": "PlatformR",
-      "Position": "-370.8203,-73.35356,34.99995",
-      "Rotation": "0,0,0.7071068,0.7071068",
+      "Position": "-550,-150,34.99995",
       "Scale": "0.25,0.25,0.25",
       "Enabled": true,
       "Children": [
