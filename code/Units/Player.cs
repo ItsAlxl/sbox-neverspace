@@ -66,7 +66,7 @@ public sealed class Player : Component
 
 		PortalTraveler.BaseTeleport( destinationTransform );
 
-		CharacterController.Velocity = WorldTransform.NormalToWorld( velDir ) * velAmt;
+		CharacterController.Velocity = WorldTransform.NormalToWorld( velDir ) * WorldScale * velAmt;
 	}
 
 	private void FacingInput()
@@ -103,9 +103,10 @@ public sealed class Player : Component
 			{
 				WishVelocity = WishVelocity.ClampLength( SPEED_AIR_MAX );
 			}
+			WishVelocity *= WorldScale;
 		}
 
-		cc.ApplyFriction( CurrentFriction );
+		cc.ApplyFriction( CurrentFriction * WorldScale.x );
 
 		if ( cc.IsOnGround )
 		{
