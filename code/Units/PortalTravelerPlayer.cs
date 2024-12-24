@@ -43,14 +43,9 @@ public sealed class PortalTravelerPlayer : PortalTraveler
 
 	public override void TeleportTo( Transform destinationTransform )
 	{
-		var velAmt = CharacterController.Velocity.Length;
-		var velDir = WorldTransform.NormalToLocal( CharacterController.Velocity );
-		var prevScale = WorldScale;
-
+		CharacterController.Velocity = GetTransformedVector3( CharacterController.Velocity, destinationTransform );
 		base.TeleportTo( destinationTransform );
-
 		ApplyCharConfig();
-		CharacterController.Velocity = WorldTransform.NormalToWorld( velDir ) * (WorldScale / prevScale) * velAmt;
 	}
 
 	public override void OnMovement()

@@ -43,6 +43,11 @@ public class PortalTraveler : Component
 		Transform.ClearInterpolation();
 	}
 
+	protected Vector3 GetTransformedVector3( Vector3 worldVect, Transform destinationTransform )
+	{
+		return destinationTransform.NormalToWorld( WorldTransform.NormalToLocal( worldVect ) ) * (destinationTransform.Scale / WorldScale) * worldVect.Length;
+	}
+
 	public virtual void OnMovement() { }
 
 	static private IEnumerable<ModelRenderer> GetGoVisualComponents( GameObject go )

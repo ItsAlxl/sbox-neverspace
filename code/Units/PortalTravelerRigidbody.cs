@@ -10,12 +10,8 @@ public sealed class PortalTravelerRigidbody : PortalTraveler
 
 	public override void TeleportTo( Transform destinationTransform )
 	{
-		var velAmt = Rigidbody.Velocity.Length;
-		var velDir = WorldTransform.NormalToLocal( Rigidbody.Velocity );
-		var prevScale = WorldScale;
-
+		Rigidbody.Velocity = GetTransformedVector3( Rigidbody.Velocity, destinationTransform );
+		Rigidbody.AngularVelocity = GetTransformedVector3( Rigidbody.AngularVelocity, destinationTransform );
 		base.TeleportTo( destinationTransform );
-
-		Rigidbody.Velocity = WorldTransform.NormalToWorld( velDir ) * (WorldScale / prevScale) * velAmt;
 	}
 }
