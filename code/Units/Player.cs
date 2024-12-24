@@ -11,15 +11,16 @@ public sealed class Player : Component
 	const float CC_RADIUS = 16.0f;
 	const float CC_HEIGHT = 72.0f;
 	const float CC_STEP_HEIGHT = 18.0f;
+	const float EYE_HEIGHT = 64.0f;
 
 	const float SPEED_RUN = 200.0f;
 	const float SPEED_AIR_MAX = 50.0f;
-
 	const float FRICTION_GROUND = 6.0f;
 	const float FRICTION_AIR = 0.2f;
-
 	const float JUMP_POWER = 300.0f;
-	const float EYE_HEIGHT = 64.0f;
+
+	const float INTERACT_RADIUS = 4.0f;
+	const float INTERACT_RANGE = 75.0f;
 
 	[RequireComponent] private CharacterController CharacterController { get; set; }
 	[RequireComponent] private PortalTraveler PortalTraveler { get; set; }
@@ -52,6 +53,8 @@ public sealed class Player : Component
 		PlayerCamera.WorldPosition = WorldTransform.PointToWorld( eyePos );
 		PlayerCamera.WorldRotation = WorldTransform.RotationToWorld( new Angles( FacingPitch, 0, 0 ) );
 		PlayerCamera.Transform.ClearInterpolation();
+
+		PollInteraction();
 	}
 
 	private void ApplyCharConfig()
@@ -144,6 +147,35 @@ public sealed class Player : Component
 		else
 		{
 			cc.Velocity += halfGravity;
+		}
+	}
+
+	private void PollInteraction()
+	{
+		if ( Input.Pressed( "use" ) )
+		{
+			var start = PlayerCamera.WorldPosition;
+			var end = start + (PlayerCamera.WorldTransform.Forward * INTERACT_RANGE * WorldScale.x);
+			var radius = INTERACT_RADIUS * WorldScale.x;
+			var tr = Scene.Trace.Ray( start, end )
+				.Size( radius )
+				.IgnoreGameObjectHierarchy( GameObject )
+				.HitTriggers()
+				.Run();
+
+			Gizmo.Draw.LineCylinder( start, end, radius, radius, 8 );
+
+			if ( tr.Hit )
+			{
+				tr.GetFirstGoComponent<IInteractable>()?.OnInteract( this );
+
+				tr.GetFirstGoComponent<Portal>()?.ContinueEgressTrace(
+					tr.HitPosition,
+					end,
+					radius,
+					GameObject
+				).GetFirstGoComponent<IInteractable>()?.OnInteract( this );
+			}
 		}
 	}
 }

@@ -1,4 +1,4 @@
-using System;
+using Microsoft.VisualBasic;
 
 namespace Neverspace;
 
@@ -60,7 +60,7 @@ public sealed class Portal : Component, Component.ITriggerListener
 				GhostCamera.WorldTransform = GetEgressTransform( PlayerCamera.WorldTransform );
 
 				Plane p = EgressPortal.GetWorldPlane();
-				p.Distance -= 1.0f * GetOffsetSide( GhostCamera.WorldTransform );
+				p.Distance -= 1.0f * GetOffsetSide( GhostCamera.WorldPosition );
 				// s&box's Plane::GetDistance function is bad
 				GhostCamera.CustomProjectionMatrix = p.SnapToPlane( GhostCamera.WorldPosition ).DistanceSquared( GhostCamera.WorldPosition ) < 50.0f ? null : GhostCamera.CalculateObliqueMatrix( p );
 			}
@@ -77,7 +77,7 @@ public sealed class Portal : Component, Component.ITriggerListener
 			foreach ( var kv in travelerPassage )
 			{
 				var traveler = kv.Key;
-				var newSide = GetOffsetSide( traveler.TravelerTransform );
+				var newSide = GetOffsetSide( traveler.TravelerTransform.Position );
 				if ( newSide != kv.Value )
 				{
 					traveler.SwapPassage();
@@ -100,11 +100,6 @@ public sealed class Portal : Component, Component.ITriggerListener
 		}
 	}
 
-	public int GetVisualPrioritySide()
-	{
-		return GetOffsetSide( PlayerCamera.WorldTransform );
-	}
-
 	public Plane GetWorldPlane()
 	{
 		return new( WorldTransform.Position, WorldTransform.Forward );
@@ -113,7 +108,7 @@ public sealed class Portal : Component, Component.ITriggerListener
 	public Transform GetPortalTransform( Portal to, Transform sourceWorldTransform )
 	{
 		var t = to.WorldTransform.ToWorld( WorldTransform.ToLocal( sourceWorldTransform ) );
-		return t.Scale.x <= MIN_WORLD_SCALE ? t.WithScale(MIN_WORLD_SCALE) : t;
+		return t.Scale.x <= MIN_WORLD_SCALE ? t.WithScale( MIN_WORLD_SCALE ) : t;
 	}
 
 	public Transform GetEgressTransform( Transform sourceWorldTransform )
@@ -121,9 +116,31 @@ public sealed class Portal : Component, Component.ITriggerListener
 		return GetPortalTransform( EgressPortal, sourceWorldTransform );
 	}
 
-	public int GetOffsetSide( Transform targetWorldTransform )
+	public Vector3 GetEgressPosition( Vector3 sourceWorldPosition )
 	{
-		return WorldTransform.Forward.Dot( targetWorldTransform.Position - WorldPosition ) < 0.0f ? -1 : 1;
+		return EgressPortal.WorldTransform.PointToWorld( WorldTransform.PointToLocal( sourceWorldPosition ) );
+	}
+
+	public int GetOffsetSide( Vector3 worldPosition )
+	{
+		return WorldTransform.Forward.Dot( worldPosition - WorldPosition ) < 0.0f ? -1 : 1;
+	}
+
+	public SceneTraceResult ContinueEgressTrace( Vector3 worldStart, Vector3 worldEnd, float radius, GameObject ignore )
+	{
+		return
+			( // sorry lol
+				GetOffsetSide( worldStart ) == GetOffsetSide( worldEnd ) ?
+					Scene.Trace.Ray( worldStart, worldEnd )
+						.Size( radius )
+						.IgnoreGameObjectHierarchy( GameObject ) :
+					Scene.Trace.Ray( GetEgressPosition( worldStart ), GetEgressPosition( worldEnd ) )
+						.Size( radius * EgressPortal.WorldScale.x / WorldScale.x )
+						.IgnoreGameObjectHierarchy( EgressPortal.GameObject )
+			)
+			.HitTriggers()
+			.IgnoreGameObjectHierarchy( ignore )
+			.Run();
 	}
 
 	private void ApplyViewerConfig( bool passage, int side = 0 )
@@ -156,7 +173,7 @@ public sealed class Portal : Component, Component.ITriggerListener
 		var t = other.GameObject.Components.Get<PortalTraveler>( FIND_MODE_TRAVELER );
 		if ( t != null && !travelerPassage.ContainsKey( t ) )
 		{
-			AcceptTravelerPassage( t, GetOffsetSide( t.TravelerTransform ) );
+			AcceptTravelerPassage( t, GetOffsetSide( t.TravelerTransform.Position ) );
 		}
 	}
 
