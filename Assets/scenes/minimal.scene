@@ -229,7 +229,7 @@
       "__guid": "bf0c797f-336b-4916-9711-e55636226741",
       "Flags": 0,
       "Name": "BaFCube",
-      "Position": "-450,10,75",
+      "Position": "-450,350,75",
       "Enabled": true,
       "Components": [
         {
@@ -636,15 +636,14 @@
       "__guid": "7ba09d78-51bb-4a97-9931-ffb19ec1a2db",
       "Flags": 0,
       "Name": "PlatformR",
-      "Position": "-550,-450,70",
-      "Scale": "1.5,1.5,1.5",
+      "Position": "-550,-300,50",
+      "Rotation": "0,0,1,-0.00000004371139",
       "Enabled": true,
       "Children": [
         {
           "__guid": "828ebc27-83ca-47c6-b739-b841d4cfd4a9",
           "Flags": 0,
           "Name": "PortalR",
-          "Rotation": "0,0,1,-0.00000004371139",
           "Tags": "portal",
           "Enabled": true,
           "Components": [

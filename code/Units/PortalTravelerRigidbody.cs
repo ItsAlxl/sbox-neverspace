@@ -8,10 +8,11 @@ public sealed class PortalTravelerRigidbody : PortalTraveler
 {
 	[RequireComponent] private Rigidbody Rigidbody { get; set; }
 
-	public override void TeleportTo( Transform destinationTransform )
+	public override void TeleportThrough( Portal portal )
 	{
+		var destinationTransform = portal.GetEgressTransform( TravelerTransform );
 		Rigidbody.Velocity = GetTransformedVector3( Rigidbody.Velocity, destinationTransform );
 		Rigidbody.AngularVelocity = GetTransformedVector3( Rigidbody.AngularVelocity, destinationTransform );
-		base.TeleportTo( destinationTransform );
+		base.TeleportThrough( portal );
 	}
 }

@@ -8,7 +8,7 @@ namespace Neverspace;
 
 public sealed class Interactor : Component
 {
-	const float INTERACT_RADIUS = 4.0f;
+	const float INTERACT_RADIUS = 2.0f;
 	const float INTERACT_RANGE = 75.0f;
 	const float EYE_HEIGHT = 64.0f;
 
@@ -21,6 +21,7 @@ public sealed class Interactor : Component
 
 	protected override void OnAwake()
 	{
+		base.OnAwake();
 		PlayerCamera ??= Scene.Camera;
 	}
 
@@ -36,6 +37,7 @@ public sealed class Interactor : Component
 
 	protected override void OnUpdate()
 	{
+		base.OnUpdate();
 		FacingInput();
 	}
 
@@ -56,28 +58,12 @@ public sealed class Interactor : Component
 				return;
 			}
 
-			var start = PlayerCamera.WorldPosition;
-			var end = start + (PlayerCamera.WorldTransform.Forward * INTERACT_RANGE * WorldScale.x);
-			var radius = INTERACT_RADIUS * WorldScale.x;
-			var tr = Scene.Trace.Ray( start, end )
-				.Size( radius )
-				.IgnoreGameObjectHierarchy( GameObject )
-				.HitTriggers()
-				.Run();
-
-			Gizmo.Draw.LineCylinder( start, end, radius, radius, 8 );
-
-			if ( tr.Hit )
-			{
-				tr.GetFirstGoComponent<IInteractable>()?.OnInteract( this );
-
-				tr.GetFirstGoComponent<Portal>()?.ContinueEgressTrace(
-					tr.HitPosition,
-					end,
-					radius,
-					GameObject
-				).GetFirstGoComponent<IInteractable>()?.OnInteract( this );
-			}
+			Portal.RunTrace(
+				Scene.Trace.HitTriggers().IgnoreGameObjectHierarchy( GameObject ),
+				PlayerCamera.WorldPosition,
+				PlayerCamera.WorldPosition + (PlayerCamera.WorldTransform.Forward * INTERACT_RANGE * WorldScale.x),
+				INTERACT_RADIUS * WorldScale.x
+			).GetFirstGoComponent<IInteractable>()?.OnInteract( this );
 		}
 	}
 

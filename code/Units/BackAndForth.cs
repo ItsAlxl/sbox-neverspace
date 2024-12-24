@@ -16,7 +16,8 @@ public sealed class BackAndForth : PortalTraveler
 	private float dir = 1;
 
 	public override void OnMovement()
-	{	
+	{
+		base.OnMovement();
 		float dProgress = speed * Time.Delta * dir * WorldScale.x;
 		WorldPosition += WorldTransform.NormalToWorld( localDirection ) * dProgress;
 		progress += dProgress;

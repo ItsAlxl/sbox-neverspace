@@ -27,6 +27,7 @@ public sealed class Portal : Component, Component.ITriggerListener
 
 	protected override void OnAwake()
 	{
+		base.OnAwake();
 		ViewScreen ??= GameObject.Components.GetInChildren<ModelRenderer>();
 		GhostCamera ??= GameObject.Components.GetInChildren<CameraComponent>();
 		PlayerCamera ??= Scene.Camera;
@@ -34,12 +35,14 @@ public sealed class Portal : Component, Component.ITriggerListener
 
 	protected override void OnStart()
 	{
+		base.OnStart();
 		ViewScreen.MaterialOverride = Material.FromShader( "shaders/portal" ).CreateCopy();
 		GhostCamera.Enabled = false;
 	}
 
 	protected override void OnPreRender()
 	{
+		base.OnPreRender();
 		ViewScreen.SceneObject.RenderingEnabled = EgressPortal != null;
 		if ( ViewScreen.SceneObject.RenderingEnabled )
 		{
@@ -62,7 +65,8 @@ public sealed class Portal : Component, Component.ITriggerListener
 				GhostCamera.WorldTransform = GetEgressTransform( PlayerCamera.WorldTransform );
 
 				Plane p = EgressPortal.WorldPlane;
-				p.Distance -= 1.0f * GetOffsetSide( GhostCamera.WorldPosition ); // TODO: this is wrong
+				// TODO: this is wrong, depends on portals' relative rotations
+				p.Distance -= 1.0f * GetOffsetSide( GhostCamera.WorldPosition );
 				// s&box's Plane::GetDistance function is bad
 				GhostCamera.CustomProjectionMatrix = p.SnapToPlane( GhostCamera.WorldPosition ).DistanceSquared( GhostCamera.WorldPosition ) < 50.0f ? null : GhostCamera.CalculateObliqueMatrix( p );
 			}
@@ -83,7 +87,7 @@ public sealed class Portal : Component, Component.ITriggerListener
 					traveler.SwapPassage();
 					EgressPortal.AcceptTravelerPassage( traveler, newSide );
 					OnTravelerExited( kv.Key );
-					traveler.TeleportTo( GetEgressTransform( traveler.TravelerTransform ) );
+					traveler.TeleportThrough( this );
 					travelerPassage[traveler] = 0;
 					needsCleanup = true;
 				}
@@ -121,20 +125,31 @@ public sealed class Portal : Component, Component.ITriggerListener
 		return WorldTransform.Forward.Dot( worldPosition - WorldPosition ) < 0.0f ? -1 : 1;
 	}
 
-	public SceneTraceResult ContinueEgressTrace( Vector3 worldStart, Vector3 worldEnd, float radius, GameObject ignore )
+	static public SceneTraceResult RunTrace( SceneTrace trace, Vector3 worldStart, Vector3 worldEnd, float radius )
+	{
+		var result = trace
+			.Ray( worldStart, worldEnd )
+			.Size( radius )
+			.Run();
+		var portal = result.GetFirstGoComponent<Portal>();
+		while ( result.Hit && result.GameObject != null && portal != null )
+		{
+			result = portal.ContinueEgressTrace( trace, result.HitPosition, worldEnd, ref radius );
+			portal = result.GetFirstGoComponent<Portal>();
+		}
+		return result;
+	}
+
+	public SceneTraceResult ContinueEgressTrace( SceneTrace trace, Vector3 worldStart, Vector3 worldEnd, ref float radius )
 	{
 		return
 			( // sorry lol
 				GetOffsetSide( worldStart ) == GetOffsetSide( worldEnd ) ?
-					Scene.Trace.Ray( worldStart, worldEnd )
-						.Size( radius )
-						.IgnoreGameObjectHierarchy( GameObject ) :
-					Scene.Trace.Ray( GetEgressPosition( worldStart ), GetEgressPosition( worldEnd ) )
-						.Size( radius * EgressPortal.WorldScale.x / WorldScale.x )
+					trace.IgnoreGameObjectHierarchy( GameObject ) :
+					trace.Ray( GetEgressPosition( worldStart ), GetEgressPosition( worldEnd ) )
+						.Size( radius *= EgressPortal.WorldScale.x / WorldScale.x )
 						.IgnoreGameObjectHierarchy( EgressPortal.GameObject )
 			)
-			.HitTriggers()
-			.IgnoreGameObjectHierarchy( ignore )
 			.Run();
 	}
 

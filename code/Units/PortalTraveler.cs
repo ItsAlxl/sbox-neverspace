@@ -25,6 +25,8 @@ public class PortalTraveler : Component
 	private IEnumerable<ModelRenderer> VisualComponentsLegit { get => GetGoVisualComponents( GameObject ); }
 	private IEnumerable<ModelRenderer> VisualComponentsProxy { get => goToProxy.SelectMany( kv => GetGoVisualComponents( kv.Value ) ); }
 
+	public event Action<Portal> OnTeleport;
+
 	protected override void OnAwake()
 	{
 		base.OnAwake();
@@ -37,10 +39,11 @@ public class PortalTraveler : Component
 		}
 	}
 
-	public virtual void TeleportTo( Transform destinationTransform )
+	public virtual void TeleportThrough( Portal portal )
 	{
-		TravelerTransform = destinationTransform;
+		TravelerTransform = portal.GetEgressTransform( TravelerTransform );
 		Transform.ClearInterpolation();
+		OnTeleport?.Invoke( portal );
 	}
 
 	protected Vector3 GetTransformedVector3( Vector3 worldVect, Transform destinationTransform )
@@ -168,11 +171,13 @@ public class PortalTraveler : Component
 
 	protected override void OnPreRender()
 	{
+		base.OnPreRender();
 		DriveProxy();
 	}
 
 	protected override void OnDestroy()
 	{
+		base.OnDestroy();
 		DestroyProxy();
 	}
 }

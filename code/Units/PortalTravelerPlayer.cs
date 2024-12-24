@@ -41,15 +41,16 @@ public sealed class PortalTravelerPlayer : PortalTraveler
 		cc.StepHeight = CC_STEP_HEIGHT * WorldScale.z;
 	}
 
-	public override void TeleportTo( Transform destinationTransform )
+	public override void TeleportThrough( Portal portal )
 	{
-		CharacterController.Velocity = GetTransformedVector3( CharacterController.Velocity, destinationTransform );
-		base.TeleportTo( destinationTransform );
+		CharacterController.Velocity = GetTransformedVector3( CharacterController.Velocity, portal.GetEgressTransform( TravelerTransform ) );
+		base.TeleportThrough( portal );
 		ApplyCharConfig();
 	}
 
 	public override void OnMovement()
 	{
+		base.OnMovement();
 		if ( CharacterController is null ) return;
 
 		var cc = CharacterController;

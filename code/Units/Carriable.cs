@@ -13,21 +13,47 @@ public sealed class Carriable : Component, IInteractable
 
 	[RequireComponent] private Rigidbody Rigidbody { get; set; }
 
-	private Transform CarrierTransform { get => carrier.PlayerCamera.WorldTransform; }
 	public Transform TargetCarrierTransform { get; set; }
-	public Transform TargetWorldTransform { get => CarrierTransform.ToWorld( TargetCarrierTransform ); }
+	public Transform TargetWorldTransform { get => PortaledOrigin.ToWorld( CarrierTransform ).ToWorld( TargetCarrierTransform ); }
+
+	private Transform PortaledOrigin { get; set; }
+	private Transform CarrierTransform { get => carrier.PlayerCamera.WorldTransform; }
 
 	private Interactor carrier;
+
+	protected override void OnAwake()
+	{
+		base.OnAwake();
+		var traveler = GameObject.GetFirstComponent<PortalTraveler>();
+		if ( traveler != null )
+			traveler.OnTeleport += OnTeleport;
+	}
 
 	public void OnInteract( Interactor interacter )
 	{
 		carrier = interacter;
+		ListenToCarrierTeleport( true );
+		PortaledOrigin = global::Transform.Zero;
 		TargetCarrierTransform = CarrierTransform.ToLocal( WorldTransform );
 		interacter.StartCarrying( this );
 	}
 
+	private void OnTeleport( Portal portal )
+	{
+		if ( carrier != null )
+		{
+			PortaledOrigin = portal.GetEgressTransform( PortaledOrigin );
+		}
+	}
+
+	private void OnCarrierTeleport( Portal portal )
+	{
+		PortaledOrigin = portal.GetEgressTransform( global::Transform.Zero ).ToLocal( PortaledOrigin );
+	}
+
 	protected override void OnFixedUpdate()
 	{
+		base.OnFixedUpdate();
 		if ( carrier != null )
 		{
 			Rigidbody.SmoothRotate( TargetWorldTransform.Rotation, FOLLOW_ROT_TIME, Time.Delta );
@@ -37,6 +63,19 @@ public sealed class Carriable : Component, IInteractable
 
 	public void Uncarry()
 	{
+		ListenToCarrierTeleport( false );
 		carrier = null;
+	}
+
+	private void ListenToCarrierTeleport( bool listen )
+	{
+		var traveler = carrier.GetComponent<PortalTraveler>();
+		if ( traveler != null )
+		{
+			if ( listen )
+				traveler.OnTeleport += OnCarrierTeleport;
+			else
+				traveler.OnTeleport -= OnCarrierTeleport;
+		}
 	}
 }
