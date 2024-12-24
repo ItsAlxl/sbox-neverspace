@@ -22,10 +22,10 @@ public sealed class Player : Component
 	const float INTERACT_RADIUS = 4.0f;
 	const float INTERACT_RANGE = 75.0f;
 
+	[Property] public CameraComponent PlayerCamera { get; set; }
 	[RequireComponent] private CharacterController CharacterController { get; set; }
 	[RequireComponent] private PortalTraveler PortalTraveler { get; set; }
 	[RequireComponent] private GravityPawn GravityPawn { get; set; }
-	[Property] CameraComponent PlayerCamera { get; set; }
 
 	private float FacingPitch { get; set; }
 	private Vector3 WishVelocity { get; set; }
@@ -35,6 +35,8 @@ public sealed class Player : Component
 	private RealTimeSince lastGrounded;
 	private RealTimeSince lastJump;
 	private readonly Vector3 eyePos = new( 0, 0, EYE_HEIGHT );
+
+	private Carriable heldCarriable;
 
 	protected override void OnAwake()
 	{
@@ -154,6 +156,12 @@ public sealed class Player : Component
 	{
 		if ( Input.Pressed( "use" ) )
 		{
+			if ( heldCarriable != null )
+			{
+				StopCarrying();
+				return;
+			}
+
 			var start = PlayerCamera.WorldPosition;
 			var end = start + (PlayerCamera.WorldTransform.Forward * INTERACT_RANGE * WorldScale.x);
 			var radius = INTERACT_RADIUS * WorldScale.x;
@@ -177,5 +185,16 @@ public sealed class Player : Component
 				).GetFirstGoComponent<IInteractable>()?.OnInteract( this );
 			}
 		}
+	}
+
+	public void StartCarrying( Carriable c )
+	{
+		heldCarriable = c;
+	}
+
+	public void StopCarrying()
+	{
+		heldCarriable.Uncarry();
+		heldCarriable = null;
 	}
 }
