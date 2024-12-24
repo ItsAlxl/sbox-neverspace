@@ -151,6 +151,7 @@ public sealed class PortalTraveler : Component
 				proxy = new GameObject();
 				proxy.Tags.Add( "tp-proxy" );
 				proxy.Tags.Add( m.Tags );
+				proxy.Tags.Remove( "player" );
 
 				proxy.Name = m.GameObject.Name + "_TPPROXY";
 				proxy.MakeNameUnique();

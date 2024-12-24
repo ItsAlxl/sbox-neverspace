@@ -102,7 +102,7 @@
           "Orthographic": false,
           "OrthographicHeight": 1204,
           "Priority": 16,
-          "RenderExcludeTags": "",
+          "RenderExcludeTags": "player",
           "RenderTags": "",
           "TargetEye": "None",
           "Viewport": "0,0,1,1",
@@ -117,6 +117,7 @@
       "Name": "Player",
       "Position": "-443.1644,-0.00002456336,64.54408",
       "Rotation": "0,0,1,-0.00000004371139",
+      "Tags": "player",
       "Enabled": true,
       "Components": [
         {
@@ -189,7 +190,6 @@
       "Flags": 0,
       "Name": "BaFCube",
       "Position": "-450,10.02966,50.51786",
-      "Scale": "0.5,0.5,0.5",
       "Enabled": true,
       "Components": [
         {
@@ -225,7 +225,6 @@
         {
           "__type": "Neverspace.BackAndForth",
           "__guid": "f15cd004-df64-419a-bf36-e02f8382eb4a",
-          "__enabled": false,
           "distance": 200,
           "localDirection": "-1,0,0",
           "speed": 50
@@ -533,7 +532,7 @@
       "Flags": 0,
       "Name": "PlatformR",
       "Position": "-550,-150,34.99995",
-      "Scale": "0.25,0.25,0.25",
+      "Scale": "0.5,0.5,0.5",
       "Enabled": true,
       "Children": [
         {

@@ -36,7 +36,7 @@ public sealed class BackAndForth : Component
 
 	public void Movement()
 	{	
-		float dProgress = speed * Time.Delta * dir;
+		float dProgress = speed * Time.Delta * dir * WorldScale.x;
 		WorldPosition += WorldTransform.NormalToWorld( localDirection ) * dProgress;
 		progress += dProgress;
 		if ( (dir > 0 && progress >= distance) || (dir < 0 && progress <= 0.0f) )
