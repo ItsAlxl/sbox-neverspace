@@ -8,6 +8,8 @@ namespace Neverspace;
 
 public sealed class Portal : Component, Component.ITriggerListener
 {
+	const float MIN_WORLD_SCALE = 0.5f;
+
 	const FindMode FIND_MODE_TRAVELER = FindMode.Enabled | FindMode.InSelf | FindMode.InParent;
 
 	[Property] Portal EgressPortal { get; set; }
@@ -110,7 +112,8 @@ public sealed class Portal : Component, Component.ITriggerListener
 
 	public Transform GetPortalTransform( Portal to, Transform sourceWorldTransform )
 	{
-		return to.WorldTransform.ToWorld( WorldTransform.ToLocal( sourceWorldTransform ) );
+		var t = to.WorldTransform.ToWorld( WorldTransform.ToLocal( sourceWorldTransform ) );
+		return t.Scale.x <= MIN_WORLD_SCALE ? t.WithScale(MIN_WORLD_SCALE) : t;
 	}
 
 	public Transform GetEgressTransform( Transform sourceWorldTransform )

@@ -33,7 +33,7 @@ public sealed class Player : Component
 
 	private RealTimeSince lastGrounded;
 	private RealTimeSince lastJump;
-	private readonly Vector3 eyePos = new Vector3( 0, 0, EYE_HEIGHT );
+	private readonly Vector3 eyePos = new( 0, 0, EYE_HEIGHT );
 
 	protected override void OnAwake()
 	{
@@ -76,11 +76,12 @@ public sealed class Player : Component
 	{
 		var velAmt = CharacterController.Velocity.Length;
 		var velDir = WorldTransform.NormalToLocal( CharacterController.Velocity );
+		var prevScale = WorldScale;
 
 		PortalTraveler.BaseTeleport( destinationTransform );
 
 		ApplyCharConfig();
-		CharacterController.Velocity = WorldTransform.NormalToWorld( velDir ) * WorldScale * velAmt;
+		CharacterController.Velocity = WorldTransform.NormalToWorld( velDir ) * (WorldScale / prevScale) * velAmt;
 	}
 
 	private void FacingInput()
@@ -96,14 +97,14 @@ public sealed class Player : Component
 
 		var cc = CharacterController;
 
-		Vector3 halfGravity = GravityPawn.GetCurrentGravity() * Time.Delta * 0.5f;
+		Vector3 halfGravity = GravityPawn.GetCurrentGravity() * Time.Delta * 0.5f * WorldScale.z;
 
 		WishVelocity = Input.AnalogMove;
 
 		if ( lastGrounded < 0.2f && lastJump > 0.3f && Input.Pressed( "jump" ) )
 		{
 			lastJump = 0;
-			cc.Punch( Vector3.Up * JUMP_POWER );
+			cc.Punch( Vector3.Up * JUMP_POWER * WorldScale.z );
 		}
 
 		if ( !WishVelocity.IsNearlyZero() )
