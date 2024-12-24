@@ -3,10 +3,10 @@ using System;
 namespace Neverspace;
 
 [Group( "Neverspace - Units" )]
-[Title( "Back and Forth" )]
+[Title( "Portal Traveler - Back and Forth" )]
 [Icon( "swap_horiz" )]
 
-public sealed class BackAndForth : Component
+public sealed class BackAndForth : PortalTraveler
 {
 	[Property] public float speed = 50.0f;
 	[Property] public float distance = 200.0f;
@@ -15,26 +15,7 @@ public sealed class BackAndForth : Component
 	private float progress = 0.0f;
 	private float dir = 1;
 
-	private PortalTraveler portalTraveler;
-
-	protected override void OnAwake()
-	{
-		portalTraveler = GetComponent<PortalTraveler>();
-		if (portalTraveler != null)
-		{
-			portalTraveler.MovtHook = Movement;
-		}
-	}
-
-	protected override void OnFixedUpdate()
-	{
-		if (portalTraveler == null)
-		{
-			Movement();
-		}
-	}
-
-	public void Movement()
+	public override void OnMovement()
 	{	
 		float dProgress = speed * Time.Delta * dir * WorldScale.x;
 		WorldPosition += WorldTransform.NormalToWorld( localDirection ) * dProgress;

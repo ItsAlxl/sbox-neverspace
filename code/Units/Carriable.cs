@@ -17,9 +17,9 @@ public sealed class Carriable : Component, IInteractable
 	public Transform TargetCarrierTransform { get; set; }
 	public Transform TargetWorldTransform { get => CarrierTransform.ToWorld( TargetCarrierTransform ); }
 
-	private Player carrier;
+	private Interactor carrier;
 
-	public void OnInteract( Player interacter )
+	public void OnInteract( Interactor interacter )
 	{
 		carrier = interacter;
 		TargetCarrierTransform = CarrierTransform.ToLocal( WorldTransform );

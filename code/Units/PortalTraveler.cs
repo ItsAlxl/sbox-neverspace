@@ -2,18 +2,16 @@ using System;
 
 namespace Neverspace;
 
-[Group( "Neverspace - Portals" )]
-[Title( "Traveler" )]
+[Group( "Neverspace - Units" )]
+[Title( "Portal Traveler - Base" )]
 [Icon( "login" )]
 
-public sealed class PortalTraveler : Component
+public class PortalTraveler : Component
 {
 	[Property] public bool IsCameraViewer = false;
 
-	public Action<Transform> TeleportHook = null;
-	public Action MovtHook = null;
-
 	public Transform TravelerTransform { get => WorldTransform; set => WorldTransform = value; }
+	public bool IsInPassage { get => passageSource != null; }
 
 	private readonly Dictionary<GameObject, GameObject> goToProxy = new();
 	private Portal passageSource;
@@ -27,28 +25,25 @@ public sealed class PortalTraveler : Component
 	private IEnumerable<ModelRenderer> VisualComponentsLegit { get => GetGoVisualComponents( GameObject ); }
 	private IEnumerable<ModelRenderer> VisualComponentsProxy { get => goToProxy.SelectMany( kv => GetGoVisualComponents( kv.Value ) ); }
 
-	public void BaseTeleport( Transform destinationTransform )
+	protected override void OnAwake()
+	{
+		base.OnAwake();
+		foreach ( var m in VisualComponentsLegit )
+		{
+			if ( m.MaterialOverride.ResourceName == "neverspace-generic" )
+			{
+				m.MaterialOverride = m.MaterialOverride.CreateCopy();
+			}
+		}
+	}
+
+	public virtual void TeleportTo( Transform destinationTransform )
 	{
 		TravelerTransform = destinationTransform;
 		Transform.ClearInterpolation();
 	}
 
-	public void TeleportTo( Transform destinationTransform )
-	{
-		if ( TeleportHook == null )
-		{
-			BaseTeleport( destinationTransform );
-		}
-		else
-		{
-			TeleportHook( destinationTransform );
-		}
-	}
-
-	public void OnMovement()
-	{
-		MovtHook?.Invoke();
-	}
+	public virtual void OnMovement() { }
 
 	static private IEnumerable<ModelRenderer> GetGoVisualComponents( GameObject go )
 	{
@@ -57,7 +52,7 @@ public sealed class PortalTraveler : Component
 
 	public void BeginPassage( Portal from, Portal to, int side )
 	{
-		if ( IsInPassage() )
+		if ( IsInPassage )
 			return;
 
 		passageSource = from;
@@ -93,11 +88,6 @@ public sealed class PortalTraveler : Component
 			DestroyProxy();
 			EndSlice( VisualComponentsLegit );
 		}
-	}
-
-	public bool IsInPassage()
-	{
-		return passageSource != null;
 	}
 
 	private static void BeginSlice( Plane p, IEnumerable<ModelRenderer> models, int side )

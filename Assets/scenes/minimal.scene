@@ -22,8 +22,7 @@
       "__guid": "bfc59c12-1ed2-4f91-8956-a95a315eac3c",
       "Flags": 0,
       "Name": "Sun",
-      "Position": "-535.4558,0,0",
-      "Rotation": "-0.0729315,0.4822396,0.1305433,0.8631827",
+      "Rotation": "0,0.7071067,0,0.7071068",
       "Tags": "light_directional,light",
       "Enabled": true,
       "Components": [
@@ -32,9 +31,49 @@
           "__guid": "d3659344-a90d-48fa-927a-095f70fe041f",
           "FogMode": "Enabled",
           "FogStrength": 1,
-          "LightColor": "0.94419,0.97767,1,1",
+          "LightColor": "0.8,0.8,0.8,0",
           "Shadows": true,
-          "SkyColor": "0.2532,0.32006,0.35349,1"
+          "SkyColor": "0.13953,0.13953,0.13953,1"
+        }
+      ]
+    },
+    {
+      "__guid": "d82e554a-8495-432f-9ad6-6726e185fd90",
+      "Flags": 0,
+      "Name": "Kick1",
+      "Position": "0,32,-0.0000009834766",
+      "Rotation": "-0.8365163,0.2241438,0.4829629,0.1294095",
+      "Tags": "light_directional,light",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.DirectionalLight",
+          "__guid": "5697f4f4-7ed6-4b58-8d7f-06a8fe0d45ad",
+          "FogMode": "Enabled",
+          "FogStrength": 1,
+          "LightColor": "0.15349,0.15349,0.15349,1",
+          "Shadows": false,
+          "SkyColor": "0,0,0,0"
+        }
+      ]
+    },
+    {
+      "__guid": "a0b5df6a-2861-46e5-a963-1760bad80d46",
+      "Flags": 0,
+      "Name": "Kick2",
+      "Position": "0,-32,-0.0000009834766",
+      "Rotation": "-0.2241439,-0.8365163,0.1294095,-0.4829629",
+      "Tags": "light_directional,light",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.DirectionalLight",
+          "__guid": "5a31f589-97fd-480e-b7a9-525641356e2b",
+          "FogMode": "Enabled",
+          "FogStrength": 1,
+          "LightColor": "0.15349,0.15349,0.15349,1",
+          "Shadows": false,
+          "SkyColor": "0,0,0,0"
         }
       ]
     },
@@ -115,7 +154,7 @@
       "__guid": "66b1c722-08bb-44c9-8917-1f02af0c989c",
       "Flags": 0,
       "Name": "Player",
-      "Position": "-443.1644,-0.00002456336,64.54408",
+      "Position": "-443.1644,-0.00002456336,0.09375",
       "Rotation": "0,0,1,-0.00000004371139",
       "Scale": "2,2,2",
       "Tags": "player",
@@ -143,18 +182,18 @@
           "SurfaceVelocity": "0,0,0"
         },
         {
-          "__type": "Neverspace.PortalTraveler",
-          "__guid": "590dde0a-b7e0-4b90-85d7-b5d0a1db4226",
-          "IsCameraViewer": true
-        },
-        {
           "__type": "Neverspace.GravityPawn",
           "__guid": "246deaee-f016-4ba5-a720-9d32eb12478e",
           "BaseGravity": "0,0,-800"
         },
         {
-          "__type": "Neverspace.Player",
-          "__guid": "b280ec09-c87d-41c6-be0c-f1173530b8eb"
+          "__type": "Neverspace.PortalTravelerPlayer",
+          "__guid": "b786fc3a-1112-4b30-8e9e-ca2d1b8c3133",
+          "IsCameraViewer": true
+        },
+        {
+          "__type": "Neverspace.Interactor",
+          "__guid": "4f3588de-4968-4646-a227-8482ea8048f3"
         }
       ],
       "Children": [
@@ -190,7 +229,7 @@
       "__guid": "bf0c797f-336b-4916-9711-e55636226741",
       "Flags": 0,
       "Name": "BaFCube",
-      "Position": "-450,10.02966,50.51786",
+      "Position": "-450,10,75",
       "Enabled": true,
       "Components": [
         {
@@ -198,7 +237,7 @@
           "__guid": "e0c5a8e9-c1ac-4324-bafa-e490760ce227",
           "BodyGroups": 18446744073709551615,
           "CreateAttachments": false,
-          "MaterialOverride": "materials/coob.vmat",
+          "MaterialOverride": "materials/neverspace-generic.vmat",
           "Model": "models/dev/box.vmdl",
           "RenderOptions": {
             "GameLayer": true,
@@ -207,7 +246,7 @@
             "AfterUILayer": true
           },
           "RenderType": "On",
-          "Tint": "1,1,1,1"
+          "Tint": "0.08333,1,0,1"
         },
         {
           "__type": "Sandbox.BoxCollider",
@@ -219,15 +258,11 @@
           "SurfaceVelocity": "0,0,0"
         },
         {
-          "__type": "Neverspace.PortalTraveler",
-          "__guid": "482be047-1e55-4da8-a776-a7f9bec138ad",
-          "IsCameraViewer": false
-        },
-        {
           "__type": "Neverspace.BackAndForth",
-          "__guid": "f15cd004-df64-419a-bf36-e02f8382eb4a",
+          "__guid": "7634a25f-b472-4e6f-9186-ec4605c4bac7",
           "__enabled": false,
           "distance": 200,
+          "IsCameraViewer": false,
           "localDirection": "-1,0,0",
           "speed": 50
         }
@@ -338,7 +373,7 @@
               "__guid": "ac284ab8-cdb7-4ba6-92de-d9be36088b1b",
               "BodyGroups": 18446744073709551615,
               "CreateAttachments": false,
-              "MaterialOverride": "materials/default.vmat",
+              "MaterialOverride": "materials/neverspace-generic.vmat",
               "Model": "models/dev/box.vmdl",
               "RenderOptions": {
                 "GameLayer": true,
@@ -382,6 +417,11 @@
             {
               "__type": "Neverspace.Carriable",
               "__guid": "c6bffdbf-a966-4118-9062-416b0ba3ebdd"
+            },
+            {
+              "__type": "Neverspace.PortalTravelerRigidbody",
+              "__guid": "50907aa0-0b94-41c6-952f-cc99dfc6d72b",
+              "IsCameraViewer": false
             }
           ]
         },
@@ -399,7 +439,7 @@
               "__guid": "9e8a546d-a41d-44b5-9906-22cea00e1066",
               "BodyGroups": 18446744073709551615,
               "CreateAttachments": false,
-              "MaterialOverride": "materials/default.vmat",
+              "MaterialOverride": "materials/neverspace-generic.vmat",
               "Model": "models/dev/box.vmdl",
               "RenderOptions": {
                 "GameLayer": true,
@@ -456,7 +496,7 @@
               "__guid": "c836a23a-db68-40b8-8aba-a17177378286",
               "BodyGroups": 18446744073709551615,
               "CreateAttachments": false,
-              "MaterialOverride": "materials/default.vmat",
+              "MaterialOverride": "materials/neverspace-generic.vmat",
               "Model": "models/dev/box.vmdl",
               "RenderOptions": {
                 "GameLayer": true,
@@ -513,7 +553,7 @@
               "__guid": "b9121ffa-617c-4ccc-a2aa-8acc98727590",
               "BodyGroups": 18446744073709551615,
               "CreateAttachments": false,
-              "MaterialOverride": "materials/default.vmat",
+              "MaterialOverride": "materials/neverspace-generic.vmat",
               "Model": "models/dev/box.vmdl",
               "RenderOptions": {
                 "GameLayer": true,
@@ -699,7 +739,7 @@
               "__guid": "bb4926f6-4a9f-4aa1-8bf6-c6865b61f3a2",
               "BodyGroups": 18446744073709551615,
               "CreateAttachments": false,
-              "MaterialOverride": "materials/default.vmat",
+              "MaterialOverride": "materials/neverspace-generic.vmat",
               "Model": "models/dev/box.vmdl",
               "RenderOptions": {
                 "GameLayer": true,
@@ -756,7 +796,7 @@
               "__guid": "a3642a74-8e9c-4612-a664-e0305888bbe5",
               "BodyGroups": 18446744073709551615,
               "CreateAttachments": false,
-              "MaterialOverride": "materials/default.vmat",
+              "MaterialOverride": "materials/neverspace-generic.vmat",
               "Model": "models/dev/box.vmdl",
               "RenderOptions": {
                 "GameLayer": true,
@@ -813,7 +853,7 @@
               "__guid": "cb9b27fb-379e-4527-8556-e79f7e49fb84",
               "BodyGroups": 18446744073709551615,
               "CreateAttachments": false,
-              "MaterialOverride": "materials/default.vmat",
+              "MaterialOverride": "materials/neverspace-generic.vmat",
               "Model": "models/dev/box.vmdl",
               "RenderOptions": {
                 "GameLayer": true,

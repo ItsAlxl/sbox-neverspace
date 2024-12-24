@@ -2,7 +2,7 @@ using Microsoft.VisualBasic;
 
 namespace Neverspace;
 
-[Group( "Neverspace - Portals" )]
+[Group( "Neverspace - Gimmicks" )]
 [Title( "Portal" )]
 [Icon( "join_left" )]
 
@@ -62,7 +62,7 @@ public sealed class Portal : Component, Component.ITriggerListener
 				GhostCamera.WorldTransform = GetEgressTransform( PlayerCamera.WorldTransform );
 
 				Plane p = EgressPortal.WorldPlane;
-				p.Distance -= 1.0f * GetOffsetSide( GhostCamera.WorldPosition );
+				p.Distance -= 1.0f * GetOffsetSide( GhostCamera.WorldPosition ); // TODO: this is wrong
 				// s&box's Plane::GetDistance function is bad
 				GhostCamera.CustomProjectionMatrix = p.SnapToPlane( GhostCamera.WorldPosition ).DistanceSquared( GhostCamera.WorldPosition ) < 50.0f ? null : GhostCamera.CalculateObliqueMatrix( p );
 			}
@@ -166,7 +166,7 @@ public sealed class Portal : Component, Component.ITriggerListener
 	public void OnTriggerEnter( Collider other )
 	{
 		var t = other.GameObject.Components.Get<PortalTraveler>( FIND_MODE_TRAVELER );
-		if ( t != null && !travelerPassage.ContainsKey( t ) )
+		if ( t != null && !t.IsInPassage && !travelerPassage.ContainsKey( t ) )
 		{
 			AcceptTravelerPassage( t, GetOffsetSide( t.TravelerTransform.Position ) );
 		}
@@ -201,7 +201,7 @@ public class PortalGoSystem : GameObjectSystem
 
 	void DrivePlayerCamera()
 	{
-		foreach ( var p in Scene.GetAllComponents<Player>() )
+		foreach ( var p in Scene.GetAllComponents<Interactor>() )
 		{
 			p.OnCameraUpdate();
 		}
