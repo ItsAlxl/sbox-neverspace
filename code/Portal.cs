@@ -20,6 +20,8 @@ public sealed class Portal : Component, Component.ITriggerListener
 	ModelRenderer ViewScreen { get; set; }
 	CameraComponent GhostCamera { get; set; }
 
+	public Plane WorldPlane { get => new( WorldTransform.Position, WorldTransform.Forward ); }
+
 	private Texture renderTarget;
 	private readonly Dictionary<PortalTraveler, int> travelerPassage = new( 1 );
 
@@ -59,7 +61,7 @@ public sealed class Portal : Component, Component.ITriggerListener
 				GhostCamera.FieldOfView = PlayerCamera.FieldOfView;
 				GhostCamera.WorldTransform = GetEgressTransform( PlayerCamera.WorldTransform );
 
-				Plane p = EgressPortal.GetWorldPlane();
+				Plane p = EgressPortal.WorldPlane;
 				p.Distance -= 1.0f * GetOffsetSide( GhostCamera.WorldPosition );
 				// s&box's Plane::GetDistance function is bad
 				GhostCamera.CustomProjectionMatrix = p.SnapToPlane( GhostCamera.WorldPosition ).DistanceSquared( GhostCamera.WorldPosition ) < 50.0f ? null : GhostCamera.CalculateObliqueMatrix( p );
@@ -71,8 +73,6 @@ public sealed class Portal : Component, Component.ITriggerListener
 	{
 		if ( travelerPassage.Count > 0 )
 		{
-			Plane p = EgressPortal.GetWorldPlane();
-
 			var needsCleanup = false;
 			foreach ( var kv in travelerPassage )
 			{
@@ -98,11 +98,6 @@ public sealed class Portal : Component, Component.ITriggerListener
 				}
 			}
 		}
-	}
-
-	public Plane GetWorldPlane()
-	{
-		return new( WorldTransform.Position, WorldTransform.Forward );
 	}
 
 	public Transform GetPortalTransform( Portal to, Transform sourceWorldTransform )

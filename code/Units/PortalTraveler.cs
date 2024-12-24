@@ -21,6 +21,12 @@ public sealed class PortalTraveler : Component
 	private int passageSide;
 	private bool passageSwapped;
 
+	private Portal PassagePortalLegit { get => passageSwapped ? passageTarget : passageSource; }
+	private Portal PassagePortalProxy { get => passageSwapped ? passageSource : passageTarget; }
+
+	private IEnumerable<ModelRenderer> VisualComponentsLegit { get => GetGoVisualComponents( GameObject ); }
+	private IEnumerable<ModelRenderer> VisualComponentsProxy { get => goToProxy.SelectMany( kv => GetGoVisualComponents( kv.Value ) ); }
+
 	public void BaseTeleport( Transform destinationTransform )
 	{
 		TravelerTransform = destinationTransform;
@@ -49,16 +55,6 @@ public sealed class PortalTraveler : Component
 		return go.Components.GetAll<ModelRenderer>( FindMode.EverythingInSelfAndDescendants );
 	}
 
-	private IEnumerable<ModelRenderer> GetVisualComponents()
-	{
-		return GetGoVisualComponents( GameObject );
-	}
-
-	private IEnumerable<ModelRenderer> GetProxyVisualComponents()
-	{
-		return goToProxy.SelectMany( kv => GetGoVisualComponents( kv.Value ) );
-	}
-
 	public void BeginPassage( Portal from, Portal to, int side )
 	{
 		if ( IsInPassage() )
@@ -73,21 +69,11 @@ public sealed class PortalTraveler : Component
 		ConfigurePassageSlices();
 	}
 
-	public Portal GetRealPassagePortal()
-	{
-		return passageSwapped ? passageTarget : passageSource;
-	}
-
-	public Portal GetProxyPassagePortal()
-	{
-		return passageSwapped ? passageSource : passageTarget;
-	}
-
 	private void ConfigurePassageSlices()
 	{
 		var swapSide = passageSwapped ? -passageSide : passageSide;
-		BeginSlice( GetRealPassagePortal().GetWorldPlane(), GetVisualComponents(), swapSide );
-		BeginSlice( GetProxyPassagePortal().GetWorldPlane(), GetProxyVisualComponents(), -swapSide );
+		BeginSlice( PassagePortalLegit.WorldPlane, VisualComponentsLegit, swapSide );
+		BeginSlice( PassagePortalProxy.WorldPlane, VisualComponentsProxy, -swapSide );
 	}
 
 	public void SwapPassage()
@@ -105,7 +91,7 @@ public sealed class PortalTraveler : Component
 			passageTarget = null;
 			passageSide = 0;
 			DestroyProxy();
-			EndSlice( GetVisualComponents() );
+			EndSlice( VisualComponentsLegit );
 		}
 	}
 
@@ -142,7 +128,7 @@ public sealed class PortalTraveler : Component
 			Cloning = true
 		};
 
-		foreach ( var m in GetVisualComponents() )
+		foreach ( var m in VisualComponentsLegit )
 		{
 			goToProxy.TryGetValue( m.GameObject, out GameObject proxy );
 
@@ -180,7 +166,7 @@ public sealed class PortalTraveler : Component
 		{
 			foreach ( var kv in goToProxy )
 			{
-				kv.Value.WorldTransform = GetRealPassagePortal().GetPortalTransform( GetProxyPassagePortal(), kv.Key.WorldTransform );
+				kv.Value.WorldTransform = PassagePortalLegit.GetPortalTransform( PassagePortalProxy, kv.Key.WorldTransform );
 			}
 		}
 	}

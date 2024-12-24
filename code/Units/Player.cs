@@ -100,7 +100,7 @@ public sealed class Player : Component
 
 		var cc = CharacterController;
 
-		Vector3 halfGravity = GravityPawn.GetCurrentGravity() * Time.Delta * 0.5f * WorldScale.z;
+		Vector3 halfGravity = GravityPawn.CurrentGravity * Time.Delta * 0.5f * WorldScale.z;
 
 		WishVelocity = Input.AnalogMove;
 

@@ -8,11 +8,7 @@ namespace Neverspace;
 
 public sealed class GravityPawn : Component
 {
-
 	[Property] Vector3 BaseGravity { get; set; } = new( 0.0f, 0.0f, -800.0f );
 
-	public Vector3 GetCurrentGravity()
-	{
-		return BaseGravity;
-	}
+	public Vector3 CurrentGravity { get => BaseGravity; }
 }
