@@ -206,9 +206,12 @@ public class PortalGoSystem : GameObjectSystem
 {
 	public PortalGoSystem( Scene scene ) : base( scene )
 	{
-		Listen( Stage.StartFixedUpdate, 1, CheckPassage, "CheckPassage" );
-		Listen( Stage.StartFixedUpdate, 2, DrivePlayerCamera, "DrivePlayerCamera" );
-		Listen( Stage.StartFixedUpdate, 3, TravelerMovement, "TravelerMovement" );
+		if ( !scene.IsEditor )
+		{
+			Listen( Stage.StartFixedUpdate, 1, CheckPassage, "CheckPassage" );
+			Listen( Stage.StartFixedUpdate, 2, DrivePlayerCamera, "DrivePlayerCamera" );
+			Listen( Stage.StartFixedUpdate, 3, TravelerMovement, "TravelerMovement" );
+		}
 	}
 
 	void CheckPassage()

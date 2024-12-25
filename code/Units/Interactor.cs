@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.Tracing;
 
 namespace Neverspace;
 
@@ -13,6 +14,9 @@ public sealed class Interactor : Component
 	const float EYE_HEIGHT = 64.0f;
 
 	[Property] public CameraComponent PlayerCamera { get; set; }
+
+	public Transform CarryTransform { get => PlayerCamera.WorldTransform; }
+	public bool IsCarrying { get => heldCarriable != null; }
 
 	private float FacingPitch { get; set; }
 	private readonly Vector3 eyePos = new( 0, 0, EYE_HEIGHT );
@@ -52,20 +56,31 @@ public sealed class Interactor : Component
 	{
 		if ( Input.Pressed( "use" ) )
 		{
-			if ( heldCarriable != null )
+			if ( IsCarrying )
 			{
 				StopCarrying();
 				return;
 			}
 
-			Transform portaledOrigin;
 			Portal.RunTrace(
 				Scene.Trace.HitTriggers().IgnoreGameObjectHierarchy( GameObject ),
 				PlayerCamera.WorldPosition,
 				PlayerCamera.WorldPosition + (PlayerCamera.WorldTransform.Forward * INTERACT_RANGE * WorldScale.x),
 				INTERACT_RADIUS * WorldScale.x,
-				out portaledOrigin
+				out Transform portaledOrigin
 			).GetFirstGoComponent<IInteractable>()?.OnInteract( this, portaledOrigin );
+		}
+		else if ( IsCarrying )
+		{
+			Portal.RunTrace(
+				Scene.Trace.HitTriggers().IgnoreGameObjectHierarchy( GameObject ),
+				PlayerCamera.WorldPosition,
+				PlayerCamera.WorldPosition + (PlayerCamera.WorldTransform.Forward * INTERACT_RANGE * WorldScale.x),
+				INTERACT_RADIUS * WorldScale.x,
+				out Transform portaledOrigin
+			);
+			if ( portaledOrigin != heldCarriable.PortaledOrigin )
+				StopCarrying();
 		}
 	}
 

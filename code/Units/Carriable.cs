@@ -13,12 +13,11 @@ public sealed class Carriable : Component, IInteractable
 
 	[RequireComponent] private Rigidbody Rigidbody { get; set; }
 
-	public Transform TargetCarrierTransform { get; set; }
-	public Transform TargetWorldTransform { get => PortaledCarrierTransform.ToWorld( TargetCarrierTransform ); }
+	public Transform PortaledOrigin { get; set; }
+	private Transform PortaledCarrierTransform { get => PortaledOrigin.ToWorld( carrier.CarryTransform ); }
 
-	private Transform PortaledOrigin { get; set; }
-	private Transform CarrierTransform { get => carrier.PlayerCamera.WorldTransform; }
-	private Transform PortaledCarrierTransform { get => PortaledOrigin.ToWorld( CarrierTransform ); }
+	private Transform TargetCarrierTransform { get; set; }
+	private Transform TargetWorldTransform { get => PortaledCarrierTransform.ToWorld( TargetCarrierTransform ); }
 
 	private Interactor carrier;
 

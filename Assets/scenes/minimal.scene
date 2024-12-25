@@ -145,8 +145,8 @@
           "RenderTags": "",
           "TargetEye": "None",
           "Viewport": "0,0,1,1",
-          "ZFar": 1000,
-          "ZNear": 0.1
+          "ZFar": 5000,
+          "ZNear": 0.25
         }
       ]
     },
@@ -218,7 +218,7 @@
                 "BloomLayer": false,
                 "AfterUILayer": true
               },
-              "RenderType": "On",
+              "RenderType": "Off",
               "Tint": "1,1,1,1"
             }
           ]
@@ -887,7 +887,7 @@
           "__guid": "668e0dca-4446-4d0e-9e13-e5fe3eae7b22",
           "Flags": 0,
           "Name": "Cube (3)",
-          "Position": "30.56891,39.44763,24.27328",
+          "Position": "192.8624,-72.87994,24.27319",
           "Rotation": "0.00000001575584,-0.00000000909664,0.7404782,0.6720808",
           "Scale": "0.5632889,0.5632889,0.5632889",
           "Enabled": true,
