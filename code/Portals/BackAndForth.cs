@@ -1,8 +1,6 @@
-using System;
-
 namespace Neverspace;
 
-[Group( "Neverspace - Units" )]
+[Group( "Neverspace - Portals" )]
 [Title( "Portal Traveler - Back and Forth" )]
 [Icon( "swap_horiz" )]
 

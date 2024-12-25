@@ -1,8 +1,6 @@
-using Sandbox;
-
 namespace Neverspace;
 
-[Group( "Neverspace - Units" )]
+[Group( "Neverspace - Interaction" )]
 [Title( "Interact Strobe" )]
 [Icon( "tips_and_updates" )]
 

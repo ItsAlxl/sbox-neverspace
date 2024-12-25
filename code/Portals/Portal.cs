@@ -1,6 +1,6 @@
 namespace Neverspace;
 
-[Group( "Neverspace - Gimmicks" )]
+[Group( "Neverspace - Portals" )]
 [Title( "Portal" )]
 [Icon( "join_left" )]
 

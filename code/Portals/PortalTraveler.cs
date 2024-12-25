@@ -2,7 +2,7 @@ using System;
 
 namespace Neverspace;
 
-[Group( "Neverspace - Units" )]
+[Group( "Neverspace - Portals" )]
 [Title( "Portal Traveler - Base" )]
 [Icon( "login" )]
 

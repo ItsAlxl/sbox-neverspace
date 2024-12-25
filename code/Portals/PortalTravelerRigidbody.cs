@@ -1,6 +1,6 @@
 namespace Neverspace;
 
-[Group( "Neverspace - Units" )]
+[Group( "Neverspace - Portals" )]
 [Title( "Portal Traveler - Rigidbody" )]
 [Icon( "all_out" )]
 

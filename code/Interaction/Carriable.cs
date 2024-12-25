@@ -2,7 +2,7 @@ using Sandbox;
 
 namespace Neverspace;
 
-[Group( "Neverspace - Units" )]
+[Group( "Neverspace - Interaction" )]
 [Title( "Carriable" )]
 [Icon( "open_in_new" )]
 

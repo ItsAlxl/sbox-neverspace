@@ -1,9 +1,6 @@
-using System;
-using System.Diagnostics.Tracing;
-
 namespace Neverspace;
 
-[Group( "Neverspace - Units" )]
+[Group( "Neverspace - Interaction" )]
 [Title( "Interactor" )]
 [Icon( "keyboard_hide" )]
 
