@@ -1,5 +1,3 @@
-using Microsoft.VisualBasic;
-
 namespace Neverspace;
 
 [Group( "Neverspace - Gimmicks" )]
@@ -65,8 +63,7 @@ public sealed class Portal : Component, Component.ITriggerListener
 				GhostCamera.WorldTransform = GetEgressTransform( PlayerCamera.WorldTransform );
 
 				Plane p = EgressPortal.WorldPlane;
-				// TODO: this is wrong, depends on portals' relative rotations
-				p.Distance -= 1.0f * GetOffsetSide( GhostCamera.WorldPosition );
+				p.Distance += 1.0f * EgressPortal.GetOffsetSide( GhostCamera.WorldPosition );
 				// s&box's Plane::GetDistance function is bad
 				GhostCamera.CustomProjectionMatrix = p.SnapToPlane( GhostCamera.WorldPosition ).DistanceSquared( GhostCamera.WorldPosition ) < 50.0f ? null : GhostCamera.CalculateObliqueMatrix( p );
 			}
@@ -122,7 +119,7 @@ public sealed class Portal : Component, Component.ITriggerListener
 
 	public int GetOffsetSide( Vector3 worldPosition )
 	{
-		return WorldTransform.Forward.Dot( worldPosition - WorldPosition ) < 0.0f ? -1 : 1;
+		return WorldTransform.Forward.DotSign( worldPosition - WorldPosition );
 	}
 
 	static public SceneTraceResult RunTrace( SceneTrace trace, Vector3 worldStart, Vector3 worldEnd, float radius )
