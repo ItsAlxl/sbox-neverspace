@@ -8,7 +8,7 @@ namespace Neverspace;
 
 public sealed class InteractStrobe : Component, IInteractable
 {
-	public void OnInteract( Interactor interacter )
+	public void OnInteract( Interactor interacter, Transform _ )
 	{
 		foreach ( var m in GameObject.Components.GetAll<ModelRenderer>() )
 		{

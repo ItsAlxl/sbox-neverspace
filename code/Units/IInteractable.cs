@@ -2,5 +2,5 @@ namespace Neverspace;
 
 public interface IInteractable
 {
-	void OnInteract( Interactor interacter );
+	void OnInteract( Interactor interacter, Transform portaledOrigin );
 }

@@ -6,7 +6,7 @@ namespace Neverspace;
 
 public sealed class Portal : Component, Component.ITriggerListener
 {
-	const float MIN_WORLD_SCALE = 0.5f;
+	const float MIN_WORLD_SCALE = 0.25f;
 
 	const FindMode FIND_MODE_TRAVELER = FindMode.Enabled | FindMode.InSelf | FindMode.InParent;
 
@@ -122,8 +122,9 @@ public sealed class Portal : Component, Component.ITriggerListener
 		return WorldTransform.Forward.DotSign( worldPosition - WorldPosition );
 	}
 
-	static public SceneTraceResult RunTrace( SceneTrace trace, Vector3 worldStart, Vector3 worldEnd, float radius )
+	static public SceneTraceResult RunTrace( SceneTrace trace, Vector3 worldStart, Vector3 worldEnd, float radius, out Transform originTransform )
 	{
+		originTransform = global::Transform.Zero;
 		var result = trace
 			.Ray( worldStart, worldEnd )
 			.Size( radius )
@@ -131,21 +132,28 @@ public sealed class Portal : Component, Component.ITriggerListener
 		var portal = result.GetFirstGoComponent<Portal>();
 		while ( result.Hit && result.GameObject != null && portal != null )
 		{
-			result = portal.ContinueEgressTrace( trace, result.HitPosition, worldEnd, ref radius );
+			result = portal.ContinueEgressTrace( trace, result.HitPosition, worldEnd, ref radius, ref originTransform );
 			portal = result.GetFirstGoComponent<Portal>();
 		}
 		return result;
 	}
 
-	public SceneTraceResult ContinueEgressTrace( SceneTrace trace, Vector3 worldStart, Vector3 worldEnd, ref float radius )
+	static public SceneTraceResult RunTrace( SceneTrace trace, Vector3 worldStart, Vector3 worldEnd, float radius )
 	{
+		return RunTrace( trace, worldStart, worldEnd, radius, out _ );
+	}
+
+	private SceneTraceResult ContinueEgressTrace( SceneTrace trace, Vector3 worldStart, Vector3 worldEnd, ref float radius, ref Transform trans )
+	{
+		var egress = GetOffsetSide( worldStart ) != GetOffsetSide( worldEnd );
+		trans = egress ? GetEgressTransform( trans ) : trans;
 		return
 			( // sorry lol
-				GetOffsetSide( worldStart ) == GetOffsetSide( worldEnd ) ?
-					trace.IgnoreGameObjectHierarchy( GameObject ) :
+				egress ?
 					trace.Ray( GetEgressPosition( worldStart ), GetEgressPosition( worldEnd ) )
 						.Size( radius *= EgressPortal.WorldScale.x / WorldScale.x )
 						.IgnoreGameObjectHierarchy( EgressPortal.GameObject )
+					: trace.IgnoreGameObjectHierarchy( GameObject )
 			)
 			.Run();
 	}

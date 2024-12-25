@@ -58,12 +58,14 @@ public sealed class Interactor : Component
 				return;
 			}
 
+			Transform portaledOrigin;
 			Portal.RunTrace(
 				Scene.Trace.HitTriggers().IgnoreGameObjectHierarchy( GameObject ),
 				PlayerCamera.WorldPosition,
 				PlayerCamera.WorldPosition + (PlayerCamera.WorldTransform.Forward * INTERACT_RANGE * WorldScale.x),
-				INTERACT_RADIUS * WorldScale.x
-			).GetFirstGoComponent<IInteractable>()?.OnInteract( this );
+				INTERACT_RADIUS * WorldScale.x,
+				out portaledOrigin
+			).GetFirstGoComponent<IInteractable>()?.OnInteract( this, portaledOrigin );
 		}
 	}
 

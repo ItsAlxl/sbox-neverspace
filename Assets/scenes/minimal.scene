@@ -479,6 +479,15 @@
               "OverrideMassCenter": false,
               "RigidbodyFlags": 0,
               "StartAsleep": false
+            },
+            {
+              "__type": "Neverspace.Carriable",
+              "__guid": "b267d821-34bf-46c1-b596-c4d1397ef85c"
+            },
+            {
+              "__type": "Neverspace.PortalTravelerRigidbody",
+              "__guid": "37b27bde-6ea0-4d43-aa1e-489b2f106a67",
+              "IsCameraViewer": false
             }
           ]
         },
@@ -536,6 +545,15 @@
               "OverrideMassCenter": false,
               "RigidbodyFlags": 0,
               "StartAsleep": false
+            },
+            {
+              "__type": "Neverspace.Carriable",
+              "__guid": "4950585d-d78d-455f-afb7-094e48d3602b"
+            },
+            {
+              "__type": "Neverspace.PortalTravelerRigidbody",
+              "__guid": "718f3982-60c4-461b-aff6-6356e13295e7",
+              "IsCameraViewer": false
             }
           ]
         },
@@ -593,6 +611,15 @@
               "OverrideMassCenter": false,
               "RigidbodyFlags": 0,
               "StartAsleep": false
+            },
+            {
+              "__type": "Neverspace.Carriable",
+              "__guid": "9cb5eebb-8010-4815-82c8-ef5847d8871e"
+            },
+            {
+              "__type": "Neverspace.PortalTravelerRigidbody",
+              "__guid": "3ecff8af-082e-4714-8476-16d33393cad2",
+              "IsCameraViewer": false
             }
           ]
         },
@@ -637,7 +664,7 @@
       "Flags": 0,
       "Name": "PlatformR",
       "Position": "-260.5399,-564.86,50.00007",
-      "Rotation": "0,0,0.7071068,0.7071068",
+      "Rotation": "0,-0,-0.7071068,0.7071068",
       "Enabled": true,
       "Children": [
         {
@@ -778,6 +805,15 @@
               "OverrideMassCenter": false,
               "RigidbodyFlags": 0,
               "StartAsleep": false
+            },
+            {
+              "__type": "Neverspace.Carriable",
+              "__guid": "a7db1acb-6946-4ed6-9676-35f26634dc96"
+            },
+            {
+              "__type": "Neverspace.PortalTravelerRigidbody",
+              "__guid": "20b66f3b-9017-4f98-bba6-3706da5d4394",
+              "IsCameraViewer": false
             }
           ]
         },
@@ -835,6 +871,15 @@
               "OverrideMassCenter": false,
               "RigidbodyFlags": 0,
               "StartAsleep": false
+            },
+            {
+              "__type": "Neverspace.Carriable",
+              "__guid": "3606a122-42a6-4a2a-a2bd-d014ddb3ee25"
+            },
+            {
+              "__type": "Neverspace.PortalTravelerRigidbody",
+              "__guid": "6e5d2c70-8476-445a-84a3-23291bc3d937",
+              "IsCameraViewer": false
             }
           ]
         },
@@ -894,8 +939,13 @@
               "StartAsleep": false
             },
             {
-              "__type": "Neverspace.InteractStrobe",
-              "__guid": "0dbbad31-6516-4db8-baf8-082682d3317b"
+              "__type": "Neverspace.Carriable",
+              "__guid": "088a7f44-5100-4c7c-9ca4-7cf9da47f536"
+            },
+            {
+              "__type": "Neverspace.PortalTravelerRigidbody",
+              "__guid": "4949bb0a-4275-4732-9f1d-d7b446326625",
+              "IsCameraViewer": false
             }
           ]
         },

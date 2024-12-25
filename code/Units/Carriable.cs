@@ -14,10 +14,11 @@ public sealed class Carriable : Component, IInteractable
 	[RequireComponent] private Rigidbody Rigidbody { get; set; }
 
 	public Transform TargetCarrierTransform { get; set; }
-	public Transform TargetWorldTransform { get => PortaledOrigin.ToWorld( CarrierTransform ).ToWorld( TargetCarrierTransform ); }
+	public Transform TargetWorldTransform { get => PortaledCarrierTransform.ToWorld( TargetCarrierTransform ); }
 
 	private Transform PortaledOrigin { get; set; }
 	private Transform CarrierTransform { get => carrier.PlayerCamera.WorldTransform; }
+	private Transform PortaledCarrierTransform { get => PortaledOrigin.ToWorld( CarrierTransform ); }
 
 	private Interactor carrier;
 
@@ -29,12 +30,12 @@ public sealed class Carriable : Component, IInteractable
 			traveler.OnTeleport += OnTeleport;
 	}
 
-	public void OnInteract( Interactor interacter )
+	public void OnInteract( Interactor interacter, Transform portaledOrigin )
 	{
 		carrier = interacter;
 		ListenToCarrierTeleport( true );
-		PortaledOrigin = global::Transform.Zero;
-		TargetCarrierTransform = CarrierTransform.ToLocal( WorldTransform );
+		PortaledOrigin = portaledOrigin;
+		TargetCarrierTransform = PortaledCarrierTransform.ToLocal( WorldTransform );
 		interacter.StartCarrying( this );
 	}
 
@@ -43,6 +44,7 @@ public sealed class Carriable : Component, IInteractable
 		if ( carrier != null )
 		{
 			PortaledOrigin = portal.GetEgressTransform( PortaledOrigin );
+			Log.Info( PortaledOrigin );
 		}
 	}
 
