@@ -9,15 +9,18 @@ public sealed class Interactor : Component
 	const float INTERACT_RADIUS = 2.0f;
 	const float INTERACT_RANGE = 75.0f;
 	const float EYE_HEIGHT = 64.0f;
+	const float VIEW_ROT_SPEED = 8.0f;
 
 	[Property] public CameraComponent PlayerCamera { get; set; }
 
+	private readonly Vector3 eyePos = new( 0, 0, EYE_HEIGHT );
+	private float FacingPitch { get; set; }
+	private Angles EyeAngles { get => new( FacingPitch, 0, 0 ); }
+	private Transform cameraReference;
+	private bool skipNextCamLerp = true;
+
 	public Transform CarryTransform { get => PlayerCamera.WorldTransform; }
 	public bool IsCarrying { get => heldCarriable != null; }
-
-	private float FacingPitch { get; set; }
-	private readonly Vector3 eyePos = new( 0, 0, EYE_HEIGHT );
-
 	private Carriable heldCarriable;
 
 	protected override void OnAwake()
@@ -30,10 +33,18 @@ public sealed class Interactor : Component
 	{
 		PlayerCamera.WorldScale = WorldScale;
 		PlayerCamera.WorldPosition = WorldTransform.PointToWorld( eyePos );
-		PlayerCamera.WorldRotation = WorldTransform.RotationToWorld( new Angles( FacingPitch, 0, 0 ) );
-		PlayerCamera.Transform.ClearInterpolation();
 
+		cameraReference = skipNextCamLerp ? WorldTransform : cameraReference.RotateAround( Vector3.Zero, Rotation.FromToRotation( cameraReference.Up, WorldTransform.Up ) * Time.Delta * VIEW_ROT_SPEED );
+		skipNextCamLerp = false;
+		PlayerCamera.WorldRotation = cameraReference.RotationToWorld( EyeAngles );
+
+		PlayerCamera.Transform.ClearInterpolation();
 		PollInteraction();
+	}
+
+	public void SkipLerps()
+	{
+		skipNextCamLerp = true;
 	}
 
 	protected override void OnUpdate()
@@ -45,8 +56,9 @@ public sealed class Interactor : Component
 	private void FacingInput()
 	{
 		var f = Input.AnalogLook;
-		FacingPitch = (FacingPitch + f.pitch).Clamp( -90, 90 );
-		WorldRotation = WorldTransform.RotationToWorld( new Angles( 0, f.yaw, 0 ) );
+		FacingPitch = (FacingPitch + f.pitch).Clamp( -90.0f, 90.0f );
+		WorldRotation = WorldRotation.RotateAroundAxis( Vector3.Up, f.yaw );
+		cameraReference.Rotation = cameraReference.Rotation.RotateAroundAxis( Vector3.Up, f.yaw );
 	}
 
 	private void PollInteraction()

@@ -1,3 +1,5 @@
+using System;
+
 namespace Neverspace;
 
 [Group( "Neverspace - Portals" )]
@@ -18,6 +20,7 @@ public sealed class PortalTravelerPlayer : PortalTraveler
 
 	[RequireComponent] private CharacterController CharacterController { get; set; }
 	[RequireComponent] private GravityPawn GravityPawn { get; set; }
+	[RequireComponent] private Interactor Interactor { get; set; }
 
 	private RealTimeSince lastGrounded;
 	private RealTimeSince lastJump;
@@ -44,6 +47,7 @@ public sealed class PortalTravelerPlayer : PortalTraveler
 	public override void TeleportThrough( Portal portal )
 	{
 		CharacterController.Velocity = GetTransformedVector3( CharacterController.Velocity, portal.GetEgressTransform( TravelerTransform ) );
+		Interactor.SkipLerps();
 		base.TeleportThrough( portal );
 		ApplyCharConfig();
 	}
@@ -52,17 +56,25 @@ public sealed class PortalTravelerPlayer : PortalTraveler
 	{
 		base.OnMovement();
 		if ( CharacterController is null ) return;
+		var gravity = GravityPawn.CurrentGravity;
+
+		var gravityNormal = gravity.Normal;
+		if ( !(WorldTransform.Down - gravityNormal).IsNearlyZero( 0.05f ) )
+		{
+			var cross = WorldTransform.Down.Cross( gravityNormal );
+			WorldRotation = WorldRotation.RotateAroundAxis( WorldTransform.NormalToLocal( cross ), MathX.RadianToDegree( (float)Math.Asin( cross.Length ) ) );
+		}
 
 		var cc = CharacterController;
 
-		Vector3 halfGravity = GravityPawn.CurrentGravity * Time.Delta * 0.5f * WorldScale.z;
+		Vector3 halfGravity = gravity * Time.Delta * 0.5f * WorldScale.z;
 
 		WishVelocity = Input.AnalogMove;
 
 		if ( lastGrounded < 0.2f && lastJump > 0.3f && Input.Pressed( "jump" ) )
 		{
 			lastJump = 0;
-			cc.Punch( Vector3.Up * JUMP_POWER * WorldScale.z );
+			cc.Punch( JUMP_POWER * WorldRotation.Up * WorldScale.z );
 		}
 
 		if ( !WishVelocity.IsNearlyZero() )

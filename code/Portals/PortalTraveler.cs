@@ -121,11 +121,6 @@ public class PortalTraveler : Component
 		if ( goToProxy.Count > 0 )
 			return;
 
-		GameObject.SerializeOptions serializeOptions = new()
-		{
-			Cloning = true
-		};
-
 		foreach ( var m in VisualComponentsLegit )
 		{
 			goToProxy.TryGetValue( m.GameObject, out GameObject proxy );
@@ -144,8 +139,7 @@ public class PortalTraveler : Component
 				goToProxy.Add( m.GameObject, proxy );
 			}
 
-			var proxyComponent = proxy.Components.Create( TypeLibrary.GetType( m.GetType() ) );
-			proxyComponent.DeserializeImmediately( m.Serialize( serializeOptions ).AsObject() );
+			m.CreateDuplicate( proxy );
 		}
 	}
 
