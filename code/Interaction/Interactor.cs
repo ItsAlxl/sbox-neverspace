@@ -61,6 +61,17 @@ public sealed class Interactor : Component
 		cameraReference.Rotation = cameraReference.Rotation.RotateAroundAxis( Vector3.Up, f.yaw );
 	}
 
+	private SceneTraceResult RunInteractTrace( out Transform portaledOrigin )
+	{
+		return Portal.RunTrace(
+				Scene.Trace.IgnoreGameObjectHierarchy( GameObject ).WithoutTags( "walkway" ),
+				PlayerCamera.WorldPosition,
+				PlayerCamera.WorldPosition + (PlayerCamera.WorldTransform.Forward * INTERACT_RANGE * WorldScale.x),
+				INTERACT_RADIUS * WorldScale.x,
+				out portaledOrigin
+			);
+	}
+
 	private void PollInteraction()
 	{
 		if ( Input.Pressed( "use" ) )
@@ -71,23 +82,11 @@ public sealed class Interactor : Component
 				return;
 			}
 
-			Portal.RunTrace(
-				Scene.Trace.HitTriggers().IgnoreGameObjectHierarchy( GameObject ),
-				PlayerCamera.WorldPosition,
-				PlayerCamera.WorldPosition + (PlayerCamera.WorldTransform.Forward * INTERACT_RANGE * WorldScale.x),
-				INTERACT_RADIUS * WorldScale.x,
-				out Transform portaledOrigin
-			).GetFirstGoComponent<IInteractable>()?.OnInteract( this, portaledOrigin );
+			RunInteractTrace( out Transform portaledOrigin ).GetFirstGoComponent<IInteractable>()?.OnInteract( this, portaledOrigin );
 		}
 		else if ( IsCarrying )
 		{
-			Portal.RunTrace(
-				Scene.Trace.HitTriggers().IgnoreGameObjectHierarchy( GameObject ),
-				PlayerCamera.WorldPosition,
-				PlayerCamera.WorldPosition + (PlayerCamera.WorldTransform.Forward * INTERACT_RANGE * WorldScale.x),
-				INTERACT_RADIUS * WorldScale.x,
-				out Transform portaledOrigin
-			);
+			RunInteractTrace( out Transform portaledOrigin );
 			if ( portaledOrigin != heldCarriable.PortaledOrigin )
 				StopCarrying();
 		}

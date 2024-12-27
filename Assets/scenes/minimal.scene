@@ -172,15 +172,6 @@
           "UseCollisionRules": false
         },
         {
-          "__type": "Sandbox.BoxCollider",
-          "__guid": "64069172-cc6e-4f2c-b1ad-ad1a885068b7",
-          "Center": "0,0,36",
-          "IsTrigger": true,
-          "Scale": "32,32,72",
-          "Static": false,
-          "SurfaceVelocity": "0,0,0"
-        },
-        {
           "__type": "Neverspace.GravityPawn",
           "__guid": "246deaee-f016-4ba5-a720-9d32eb12478e",
           "BaseGravity": "0,0,-800"
@@ -190,9 +181,28 @@
           "__guid": "4f3588de-4968-4646-a227-8482ea8048f3"
         },
         {
+          "__type": "Sandbox.SphereCollider",
+          "__guid": "d23cfd3d-9e89-49ca-8e9f-1986a421ec39",
+          "Center": "0,0,0",
+          "IsTrigger": true,
+          "Radius": 16,
+          "Static": false,
+          "SurfaceVelocity": "0,0,0"
+        },
+        {
           "__type": "Neverspace.PortalTravelerPlayer",
-          "__guid": "9757787a-09b6-4195-ba8e-dcaa61004a0e",
+          "__guid": "6fa88259-1cfa-4ab0-9289-b7e10e8fe2c1",
           "IsCameraViewer": false
+        },
+        {
+          "__type": "Sandbox.CapsuleCollider",
+          "__guid": "afbd8301-e481-4028-9640-26f9afc603cb",
+          "End": "0,0,56",
+          "IsTrigger": false,
+          "Radius": 16,
+          "Start": "0,0,16",
+          "Static": false,
+          "SurfaceVelocity": "0,0,0"
         }
       ],
       "Children": [
@@ -426,8 +436,8 @@
       "__guid": "7ba09d78-51bb-4a97-9931-ffb19ec1a2db",
       "Flags": 0,
       "Name": "PlatformR",
-      "Position": "-260.5399,-564.86,50.00007",
-      "Rotation": "0,-0,-0.7071068,0.7071068",
+      "Position": "-859.1846,-50.90204,314.0811",
+      "Rotation": "0.7071068,-0.7071068,0.00000003090862,-0.00000003090862",
       "Enabled": true,
       "Children": [
         {
@@ -545,6 +555,10 @@
               "Scale": "100,100,10",
               "Static": false,
               "SurfaceVelocity": "0,0,0"
+            },
+            {
+              "__type": "Neverspace.Walkway",
+              "__guid": "3fcb0573-4729-4789-ae8f-6596c97b8527"
             }
           ]
         }
@@ -554,7 +568,7 @@
       "__guid": "e24b4824-6530-4c37-a549-05b5304c62f4",
       "Flags": 0,
       "Name": "Walkway",
-      "Position": "-171.9186,486.669,170.6626",
+      "Position": "-170,473.4169,175.9622",
       "Rotation": "0.3826834,0,0,0.9238796",
       "Scale": "2,5,1",
       "Enabled": true,
@@ -590,17 +604,17 @@
       ]
     },
     {
-      "__guid": "a2d07ede-96a6-4779-be30-7b3ed7141347",
+      "__guid": "9ab46541-7d6f-4353-bd62-d6220db93b0f",
       "Flags": 0,
-      "Name": "Walkway (1)",
-      "Position": "-171.9186,-79.70152,338.5186",
-      "Rotation": "1,0,0,-0.00000004371139",
+      "Name": "Walkway (2)",
+      "Position": "-170,642.1776,591.1292",
+      "Rotation": "0.7071068,0,0,0.7071068",
       "Scale": "2,5,1",
       "Enabled": true,
       "Components": [
         {
           "__type": "Sandbox.ModelRenderer",
-          "__guid": "6e397551-02da-4a42-a6d2-3973357cca7d",
+          "__guid": "a974d736-19ea-40ef-8fed-3044e673c78f",
           "BodyGroups": 18446744073709551615,
           "CreateAttachments": false,
           "Model": "models/dev/plane.vmdl",
@@ -615,7 +629,7 @@
         },
         {
           "__type": "Sandbox.BoxCollider",
-          "__guid": "b2644bb2-6014-4fa3-973e-99c5b434c71e",
+          "__guid": "6d49c837-d150-4001-94db-71d7a204a76c",
           "Center": "0,0,-8",
           "IsTrigger": false,
           "Scale": "100,100,16",
@@ -624,7 +638,85 @@
         },
         {
           "__type": "Neverspace.Walkway",
-          "__guid": "9f4e856f-50a7-4577-aa3c-3dbf725b0f02"
+          "__guid": "7bfbf914-acb1-4e1a-af3e-9eec2e2dadf0"
+        }
+      ]
+    },
+    {
+      "__guid": "7577c0be-6cd3-4025-8293-d9cf0b03ffd7",
+      "Flags": 0,
+      "Name": "Walkway (3)",
+      "Position": "-170,472.4962,991.2782",
+      "Rotation": "0.9238795,0,0,0.3826834",
+      "Scale": "2,5,1",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "49dd87a7-2c95-41d3-82ea-5e62a4984587",
+          "BodyGroups": 18446744073709551615,
+          "CreateAttachments": false,
+          "Model": "models/dev/plane.vmdl",
+          "RenderOptions": {
+            "GameLayer": true,
+            "OverlayLayer": false,
+            "BloomLayer": false,
+            "AfterUILayer": true
+          },
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "Sandbox.BoxCollider",
+          "__guid": "1bffd65e-9126-4884-b699-e34eabaa1776",
+          "Center": "0,0,-8",
+          "IsTrigger": false,
+          "Scale": "100,100,16",
+          "Static": false,
+          "SurfaceVelocity": "0,0,0"
+        },
+        {
+          "__type": "Neverspace.Walkway",
+          "__guid": "cc64e55a-9f01-460c-8ad6-0c0e95df4746"
+        }
+      ]
+    },
+    {
+      "__guid": "aaba7dfb-89b5-4eba-a86d-9c1cddd5c6d9",
+      "Flags": 0,
+      "Name": "Walkway (4)",
+      "Position": "-170,73.67325,1159.855",
+      "Rotation": "1,0,0,-0.00000004371139",
+      "Scale": "2,5,1",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "5dd88cbb-e315-436f-b37c-9cf76f48b4cc",
+          "BodyGroups": 18446744073709551615,
+          "CreateAttachments": false,
+          "Model": "models/dev/plane.vmdl",
+          "RenderOptions": {
+            "GameLayer": true,
+            "OverlayLayer": false,
+            "BloomLayer": false,
+            "AfterUILayer": true
+          },
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "Sandbox.BoxCollider",
+          "__guid": "080d3f0f-7821-4685-8717-164464a900a6",
+          "Center": "0,0,-8",
+          "IsTrigger": false,
+          "Scale": "100,100,16",
+          "Static": false,
+          "SurfaceVelocity": "0,0,0"
+        },
+        {
+          "__type": "Neverspace.Walkway",
+          "__guid": "d128b8c8-e199-4e0f-82a5-d43a5b077ee3"
         }
       ]
     }

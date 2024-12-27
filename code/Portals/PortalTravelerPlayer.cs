@@ -8,8 +8,9 @@ namespace Neverspace;
 
 public sealed class PortalTravelerPlayer : PortalTraveler
 {
-	const float CC_RADIUS = 16.0f;
-	const float CC_HEIGHT = 72.0f;
+	const float FLOOR_CHECK_LENGTH = 1.0f;
+	const float CC_RADIUS = 0.5f;
+	const float CC_HEIGHT = 0.5f;
 	const float CC_STEP_HEIGHT = 18.0f;
 
 	const float SPEED_RUN = 200.0f;
@@ -27,7 +28,8 @@ public sealed class PortalTravelerPlayer : PortalTraveler
 
 	private Vector3 WishVelocity { get; set; }
 
-	private float CurrentFriction { get => CharacterController.IsOnGround ? FRICTION_GROUND : FRICTION_AIR; }
+	private bool IsGrounded { get; set; } = false;
+	private float CurrentFriction { get => IsGrounded ? FRICTION_GROUND : FRICTION_AIR; }
 
 	protected override void OnAwake()
 	{
@@ -77,14 +79,10 @@ public sealed class PortalTravelerPlayer : PortalTraveler
 			cc.Punch( JUMP_POWER * WorldRotation.Up * WorldScale.z );
 		}
 
-		if ( !WishVelocity.IsNearlyZero() )
+		if ( !WishVelocity.IsNearlyZero( 0.01f ) )
 		{
-			WishVelocity = WorldRotation * WishVelocity;
-			WishVelocity = WishVelocity.WithZ( 0 );
-			WishVelocity = WishVelocity.ClampLength( 1 );
-			WishVelocity *= SPEED_RUN;
-
-			if ( !cc.IsOnGround )
+			WishVelocity = WorldTransform.NormalToWorld( WishVelocity ) * SPEED_RUN;
+			if ( !IsGrounded )
 			{
 				WishVelocity = WishVelocity.ClampLength( SPEED_AIR_MAX );
 			}
@@ -93,10 +91,9 @@ public sealed class PortalTravelerPlayer : PortalTraveler
 
 		cc.ApplyFriction( CurrentFriction * WorldScale.x );
 
-		if ( cc.IsOnGround )
+		if ( IsGrounded )
 		{
 			cc.Accelerate( WishVelocity );
-			cc.Velocity = cc.Velocity.WithZ( 0 );
 		}
 		else
 		{
@@ -105,10 +102,15 @@ public sealed class PortalTravelerPlayer : PortalTraveler
 		}
 
 		cc.Move();
+		var floorTr = Scene.Trace
+			.Ray( WorldPosition, WorldPosition + WorldTransform.Down * FLOOR_CHECK_LENGTH * WorldScale.z )
+			.IgnoreGameObjectHierarchy( GameObject )
+			.Run();
+		IsGrounded = floorTr.Hit;
 
-		if ( cc.IsOnGround )
+		if ( IsGrounded )
 		{
-			cc.Velocity = cc.Velocity.WithZ( 0 );
+			cc.Velocity = cc.Velocity.SubtractDirection( WorldTransform.Down );
 			lastGrounded = 0;
 		}
 		else

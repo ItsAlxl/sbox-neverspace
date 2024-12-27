@@ -43,7 +43,6 @@ public sealed class Carriable : Component, IInteractable
 		if ( carrier != null )
 		{
 			PortaledOrigin = portal.GetEgressTransform( PortaledOrigin );
-			Log.Info( PortaledOrigin );
 		}
 	}
 

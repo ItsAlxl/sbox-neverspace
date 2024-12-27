@@ -29,6 +29,9 @@ public sealed class Portal : Component, Component.ITriggerListener
 		ViewScreen ??= GameObject.Components.GetInChildren<ModelRenderer>();
 		GhostCamera ??= GameObject.Components.GetInChildren<CameraComponent>();
 		PlayerCamera ??= Scene.Camera;
+
+		Tags.Add( "walkway" );
+		ViewScreen.Tags.Add( "ptl-viewscreen" );
 	}
 
 	protected override void OnStart()
@@ -128,6 +131,7 @@ public sealed class Portal : Component, Component.ITriggerListener
 		var result = trace
 			.Ray( worldStart, worldEnd )
 			.Size( radius )
+			.HitTriggers()
 			.Run();
 		var portal = result.GetFirstGoComponent<Portal>();
 		while ( result.Hit && result.GameObject != null && portal != null )

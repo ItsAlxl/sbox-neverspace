@@ -20,8 +20,9 @@ public sealed class Walkway : Component
 		trigger.OnTriggerExit += OnTriggerExit;
 		if ( trigger is BoxCollider b )
 		{
-			b.Center = b.Center.WithZ( b.Center.z + 32.0f );
+			b.Center = b.Center.WithZ( b.Center.z + b.Scale.z );
 		}
+		Tags.Add( "walkway" );
 	}
 
 	private void OnTriggerEntered( Collider c )
@@ -30,7 +31,6 @@ public sealed class Walkway : Component
 		if ( gravPawn != null )
 		{
 			gravPawn.ActiveWalkway = this;
-			Log.Info( $"{GameObject.Name} gravs {c}" );
 		}
 	}
 
@@ -40,7 +40,6 @@ public sealed class Walkway : Component
 		if ( gravPawn != null && gravPawn.ActiveWalkway == this )
 		{
 			gravPawn.ActiveWalkway = null;
-			Log.Info( $"{GameObject.Name} ungravs {c}" );
 		}
 	}
 }
