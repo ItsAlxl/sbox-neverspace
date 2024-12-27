@@ -46,7 +46,7 @@ public sealed class GravityPawnControlled : GravityPawn
 		if ( !(WorldTransform.Down - gravityNormal).IsNearlyZero( 0.05f ) )
 		{
 			var cross = WorldTransform.Down.Cross( gravityNormal );
-			WorldRotation = WorldRotation.RotateAroundAxis( WorldTransform.NormalToLocal( cross ), MathX.RadianToDegree( (float)Math.Asin( cross.Length ) ) );
+			WorldRotation = cross.IsNearlyZero( 0.05f ) ? (WorldRotation.RotateAroundAxis( Vector3.Right, 180.0f )) : WorldRotation.RotateAroundAxis( WorldTransform.NormalToLocal( cross ), MathX.RadianToDegree( (float)Math.Asin( cross.Length ) ) );
 		}
 
 		if ( IsGrounded )
