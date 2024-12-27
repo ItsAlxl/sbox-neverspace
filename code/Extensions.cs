@@ -22,14 +22,9 @@ public static class Extensions
 		return c.GetFrustum( new Rect( 0, 0, Screen.Width, Screen.Height ) ).IsInside( m.Bounds, true );
 	}
 
-	public static T GetFirstComponent<T>( this GameObject go ) where T : class
+	public static T GetGoComponent<T>( this SceneTraceResult tr ) where T : class
 	{
-		return go.Components.FirstOrDefault( c => c is T ) as T;
-	}
-
-	public static T GetFirstGoComponent<T>( this SceneTraceResult tr ) where T : class
-	{
-		return tr.GameObject?.GetFirstComponent<T>();
+		return tr.GameObject?.Components.Get<T>();
 	}
 
 	public static int DotSign( this Vector3 a, Vector3 b )

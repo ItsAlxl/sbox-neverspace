@@ -133,11 +133,11 @@ public sealed class Portal : Component, Component.ITriggerListener
 			.Size( radius )
 			.HitTriggers()
 			.Run();
-		var portal = result.GetFirstGoComponent<Portal>();
+		var portal = result.GetGoComponent<Portal>();
 		while ( result.Hit && result.GameObject != null && portal != null )
 		{
 			result = portal.ContinueEgressTrace( trace, result.HitPosition, worldEnd, ref radius, ref originTransform );
-			portal = result.GetFirstGoComponent<Portal>();
+			portal = result.GetGoComponent<Portal>();
 		}
 		return result;
 	}

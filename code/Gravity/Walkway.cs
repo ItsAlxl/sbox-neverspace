@@ -27,21 +27,34 @@ public sealed class Walkway : Component
 		Tags.Add( "walkway" );
 	}
 
+	public void AddGravPawn( GravityPawn gp )
+	{
+		gp.ActiveWalkway = this;
+	}
+
+	public void RemoveGravPawn( GravityPawn gp )
+	{
+		if ( gp.ActiveWalkway == this )
+		{
+			gp.ActiveWalkway = null;
+		}
+	}
+
 	private void OnTriggerEntered( Collider c )
 	{
 		var gravPawn = c.GetComponent<GravityPawn>();
 		if ( gravPawn != null && gravPawn.IsValidGravTrigger( c ) )
 		{
-			gravPawn.ActiveWalkway = this;
+			AddGravPawn( gravPawn );
 		}
 	}
 
 	private void OnTriggerExit( Collider c )
 	{
 		var gravPawn = c.GetComponent<GravityPawn>();
-		if ( gravPawn != null && gravPawn.IsValidGravTrigger( c ) && gravPawn.ActiveWalkway == this )
+		if ( gravPawn != null && gravPawn.IsValidGravTrigger( c ) )
 		{
-			gravPawn.ActiveWalkway = null;
+			RemoveGravPawn( gravPawn );
 		}
 	}
 }

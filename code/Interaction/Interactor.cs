@@ -84,7 +84,7 @@ public sealed class Interactor : Component
 				return;
 			}
 
-			RunInteractTrace( out Transform portaledOrigin ).GetFirstGoComponent<IInteractable>()?.OnInteract( this, portaledOrigin );
+			RunInteractTrace( out Transform portaledOrigin ).GetGoComponent<IInteractable>()?.OnInteract( this, portaledOrigin );
 		}
 		else if ( IsCarrying )
 		{

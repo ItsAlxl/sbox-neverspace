@@ -100,15 +100,21 @@ public sealed class GravityPawnControlled : GravityPawn
 		if ( tr.Hit )
 		{
 			LocalVelocity = LocalVelocity.SubtractDirection( WorldTransform.NormalToLocal( tr.Normal ) );
-			IsGrounded = tr.Normal.Dot( WorldTransform.Up ) > FLOOR_THRESHOLD;
+			HandleFloor( tr );
 		}
 		else
 		{
-			var groundCheck = Scene.Trace
-				.Ray( WorldPosition, WorldPosition + WorldTransform.Down * WorldScale.z * 1.0f )
-				.Run();
-			IsGrounded = groundCheck.Hit && groundCheck.Normal.Dot( WorldTransform.Up ) > FLOOR_THRESHOLD;
+			HandleFloor(
+				Scene.Trace
+					.Ray( WorldPosition, WorldPosition + WorldTransform.Down * WorldScale.z * 1.0f )
+					.Run()
+			);
 		}
+	}
+
+	private void HandleFloor( SceneTraceResult tr )
+	{
+		IsGrounded = tr.Hit && tr.Normal.Dot( WorldTransform.Up ) > FLOOR_THRESHOLD;
 	}
 
 	public override bool IsValidGravTrigger( Collider c )
