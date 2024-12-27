@@ -30,7 +30,7 @@ public sealed class Portal : Component, Component.ITriggerListener
 		GhostCamera ??= GameObject.Components.GetInChildren<CameraComponent>();
 		PlayerCamera ??= Scene.Camera;
 
-		Tags.Add( "walkway" );
+		Tags.Add( "portal" );
 		ViewScreen.Tags.Add( "ptl-viewscreen" );
 	}
 

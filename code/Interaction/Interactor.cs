@@ -22,6 +22,7 @@ public sealed class Interactor : Component
 	public Transform CarryTransform { get => PlayerCamera.WorldTransform; }
 	public bool IsCarrying { get => heldCarriable != null; }
 	private Carriable heldCarriable;
+	private TimeSince carriedItemInReach;
 
 	protected override void OnAwake()
 	{
@@ -61,10 +62,11 @@ public sealed class Interactor : Component
 		cameraReference.Rotation = cameraReference.Rotation.RotateAroundAxis( Vector3.Up, f.yaw );
 	}
 
-	private SceneTraceResult RunInteractTrace( out Transform portaledOrigin )
+	private SceneTraceResult RunInteractTrace( out Transform portaledOrigin, bool portalsOnly = false )
 	{
+		var trace = Scene.Trace.IgnoreGameObjectHierarchy( GameObject ).WithoutTags( "walkway" );
 		return Portal.RunTrace(
-				Scene.Trace.IgnoreGameObjectHierarchy( GameObject ).WithoutTags( "walkway" ),
+				trace,
 				PlayerCamera.WorldPosition,
 				PlayerCamera.WorldPosition + (PlayerCamera.WorldTransform.Forward * INTERACT_RANGE * WorldScale.x),
 				INTERACT_RADIUS * WorldScale.x,
@@ -86,8 +88,10 @@ public sealed class Interactor : Component
 		}
 		else if ( IsCarrying )
 		{
-			RunInteractTrace( out Transform portaledOrigin );
-			if ( portaledOrigin != heldCarriable.PortaledOrigin )
+			var tr = RunInteractTrace( out Transform portaledOrigin, true );
+			if ( (tr.Hit && tr.GameObject == heldCarriable.GameObject) || portaledOrigin.AlmostEqual( heldCarriable.PortaledOrigin ) )
+				carriedItemInReach = 0.0f;
+			if ( carriedItemInReach > 0.2f )
 				StopCarrying();
 		}
 	}
@@ -95,6 +99,7 @@ public sealed class Interactor : Component
 	public void StartCarrying( Carriable c )
 	{
 		heldCarriable = c;
+		carriedItemInReach = 0.0f;
 	}
 
 	public void StopCarrying()

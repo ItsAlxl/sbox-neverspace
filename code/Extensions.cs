@@ -36,4 +36,19 @@ public static class Extensions
 	{
 		return Math.Sign( a.Dot( b ) );
 	}
+
+	private static bool RotationComponentsAlmostEqual( Rotation a, Rotation b, float delta = 0.001f )
+	{
+		return a.x.AlmostEqual( b.x, delta ) && a.y.AlmostEqual( b.y, delta ) && a.z.AlmostEqual( b.z, delta ) && a.w.AlmostEqual( b.w, delta );
+	}
+
+	public static bool AlmostEqual( this Rotation a, Rotation b, float delta = 0.001f )
+	{
+		return RotationComponentsAlmostEqual( a, b, delta ) || RotationComponentsAlmostEqual( a, b, delta );
+	}
+
+	public static bool AlmostEqual( this Transform a, Transform b, float delta = 0.001f )
+	{
+		return a.Position.AlmostEqual( b.Position, delta ) && a.Scale.AlmostEqual( b.Scale, delta ) && a.Rotation.AlmostEqual( b.Rotation, delta );
+	}
 }

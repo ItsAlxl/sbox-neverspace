@@ -185,6 +185,7 @@
           "__guid": "d23cfd3d-9e89-49ca-8e9f-1986a421ec39",
           "Center": "0,0,0",
           "IsTrigger": true,
+          "OnComponentDisabled": null,
           "Radius": 16,
           "Static": false,
           "SurfaceVelocity": "0,0,0"
@@ -199,6 +200,7 @@
           "__guid": "afbd8301-e481-4028-9640-26f9afc603cb",
           "End": "0,0,56",
           "IsTrigger": false,
+          "OnComponentDisabled": null,
           "Radius": 16,
           "Start": "0,0,16",
           "Static": false,
@@ -254,6 +256,7 @@
               "__guid": "26be4dc7-e260-4909-8f84-af807955055e",
               "Center": "0,0,50",
               "IsTrigger": true,
+              "OnComponentDisabled": null,
               "Scale": "8,100,100",
               "Static": false,
               "SurfaceVelocity": "0,0,0"
@@ -424,6 +427,44 @@
               "__guid": "0715cb55-1733-4f5e-8560-c288b8695631",
               "Center": "0,0,-5",
               "IsTrigger": false,
+              "OnComponentDisabled": null,
+              "Scale": "100,100,10",
+              "Static": false,
+              "SurfaceVelocity": "0,0,0"
+            }
+          ]
+        },
+        {
+          "__guid": "0f257f1e-8afc-485e-a42f-08771289ae56",
+          "Flags": 0,
+          "Name": "Plane",
+          "Position": "-142.4142,136.6562,0.00001204014",
+          "Rotation": "0.7071067,0,0,0.7071068",
+          "Scale": "5,3,5",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.ModelRenderer",
+              "__guid": "aa00e2d0-4932-4225-a80b-0e4e1ba4caf4",
+              "BodyGroups": 18446744073709551615,
+              "CreateAttachments": false,
+              "MaterialOverride": "materials/default.vmat",
+              "Model": "models/dev/plane.vmdl",
+              "RenderOptions": {
+                "GameLayer": true,
+                "OverlayLayer": false,
+                "BloomLayer": false,
+                "AfterUILayer": true
+              },
+              "RenderType": "On",
+              "Tint": "0.39608,0.5098,0.27059,1"
+            },
+            {
+              "__type": "Sandbox.BoxCollider",
+              "__guid": "02d16342-a523-482c-98ad-b84309152c99",
+              "Center": "0,0,-5",
+              "IsTrigger": false,
+              "OnComponentDisabled": null,
               "Scale": "100,100,10",
               "Static": false,
               "SurfaceVelocity": "0,0,0"
@@ -437,7 +478,7 @@
       "Flags": 0,
       "Name": "PlatformR",
       "Position": "-859.1846,-50.90204,314.0811",
-      "Rotation": "0.7071068,-0.7071068,0.00000003090862,-0.00000003090862",
+      "Rotation": "0,-0,-0.7071068,0.7071068",
       "Enabled": true,
       "Children": [
         {
@@ -452,6 +493,7 @@
               "__guid": "c94a3754-2833-44c2-9622-fbb3a1ee0906",
               "Center": "0,0,50",
               "IsTrigger": true,
+              "OnComponentDisabled": null,
               "Scale": "8,100,100",
               "Static": false,
               "SurfaceVelocity": "0,0,0"
@@ -552,6 +594,7 @@
               "__guid": "faa1f152-2353-4075-b94a-5007db46f173",
               "Center": "0,0,-5",
               "IsTrigger": false,
+              "OnComponentDisabled": null,
               "Scale": "100,100,10",
               "Static": false,
               "SurfaceVelocity": "0,0,0"
