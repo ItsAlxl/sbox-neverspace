@@ -6,7 +6,7 @@ namespace Neverspace;
 
 public sealed class Walkway : Component
 {
-	public float GravityStrength { get; set; } = 800.0f;
+	[Property] public float GravityStrength { get; set; } = 800.0f;
 	public Vector3 Gravity { get => GravityStrength * WorldTransform.Down; }
 	private Collider col;
 
@@ -20,6 +20,8 @@ public sealed class Walkway : Component
 		trigger.OnTriggerExit += OnTriggerExit;
 		if ( trigger is BoxCollider b )
 		{
+			var downscale = b.Scale.z * 0.5f;
+			b.Scale = new( b.Scale.x - downscale, b.Scale.y - downscale, b.Scale.z );
 			b.Center = b.Center.WithZ( b.Center.z + b.Scale.z );
 		}
 		Tags.Add( "walkway" );
@@ -28,7 +30,7 @@ public sealed class Walkway : Component
 	private void OnTriggerEntered( Collider c )
 	{
 		var gravPawn = c.GetComponent<GravityPawn>();
-		if ( gravPawn != null )
+		if ( gravPawn != null && gravPawn.IsValidGravTrigger( c ) )
 		{
 			gravPawn.ActiveWalkway = this;
 		}
@@ -37,7 +39,7 @@ public sealed class Walkway : Component
 	private void OnTriggerExit( Collider c )
 	{
 		var gravPawn = c.GetComponent<GravityPawn>();
-		if ( gravPawn != null && gravPawn.ActiveWalkway == this )
+		if ( gravPawn != null && gravPawn.IsValidGravTrigger( c ) && gravPawn.ActiveWalkway == this )
 		{
 			gravPawn.ActiveWalkway = null;
 		}

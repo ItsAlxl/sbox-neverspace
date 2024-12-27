@@ -154,41 +154,14 @@
       "__guid": "66b1c722-08bb-44c9-8917-1f02af0c989c",
       "Flags": 0,
       "Name": "Player",
-      "Position": "-140.3564,-0.00002456336,0.09375",
+      "Position": "-140.3564,-0.00002456336,1.533956",
       "Scale": "2,2,2",
       "Tags": "player",
       "Enabled": true,
       "Components": [
         {
-          "__type": "Sandbox.CharacterController",
-          "__guid": "57433a4b-f742-4272-9a6f-a0b1720192bf",
-          "Acceleration": 10,
-          "Bounciness": 0.3,
-          "GroundAngle": 30,
-          "Height": 72,
-          "IgnoreLayers": "",
-          "Radius": 16,
-          "StepHeight": 18,
-          "UseCollisionRules": false
-        },
-        {
-          "__type": "Neverspace.GravityPawn",
-          "__guid": "246deaee-f016-4ba5-a720-9d32eb12478e",
-          "BaseGravity": "0,0,-800"
-        },
-        {
           "__type": "Neverspace.Interactor",
           "__guid": "4f3588de-4968-4646-a227-8482ea8048f3"
-        },
-        {
-          "__type": "Sandbox.SphereCollider",
-          "__guid": "d23cfd3d-9e89-49ca-8e9f-1986a421ec39",
-          "Center": "0,0,0",
-          "IsTrigger": true,
-          "OnComponentDisabled": null,
-          "Radius": 16,
-          "Static": false,
-          "SurfaceVelocity": "0,0,0"
         },
         {
           "__type": "Neverspace.PortalTravelerPlayer",
@@ -196,13 +169,25 @@
           "IsCameraViewer": false
         },
         {
+          "__type": "Neverspace.GravityPawnControlled",
+          "__guid": "452bce87-122a-4dc0-9426-f74c3b6bcf77"
+        },
+        {
           "__type": "Sandbox.CapsuleCollider",
           "__guid": "afbd8301-e481-4028-9640-26f9afc603cb",
           "End": "0,0,56",
           "IsTrigger": false,
-          "OnComponentDisabled": null,
           "Radius": 16,
           "Start": "0,0,16",
+          "Static": false,
+          "SurfaceVelocity": "0,0,0"
+        },
+        {
+          "__type": "Sandbox.SphereCollider",
+          "__guid": "d23cfd3d-9e89-49ca-8e9f-1986a421ec39",
+          "Center": "0,0,0",
+          "IsTrigger": true,
+          "Radius": 8,
           "Static": false,
           "SurfaceVelocity": "0,0,0"
         }
@@ -256,7 +241,6 @@
               "__guid": "26be4dc7-e260-4909-8f84-af807955055e",
               "Center": "0,0,50",
               "IsTrigger": true,
-              "OnComponentDisabled": null,
               "Scale": "8,100,100",
               "Static": false,
               "SurfaceVelocity": "0,0,0"
@@ -393,9 +377,8 @@
               "IsCameraViewer": false
             },
             {
-              "__type": "Neverspace.GravityPawn",
-              "__guid": "4625f81b-1d60-4899-86c4-f7f33c08f2ab",
-              "BaseGravity": "0,0,-800"
+              "__type": "Neverspace.GravityPawnRigidbody",
+              "__guid": "92089f3d-a386-4fc8-81cf-ebc2b64bda11"
             }
           ]
         },
@@ -427,7 +410,6 @@
               "__guid": "0715cb55-1733-4f5e-8560-c288b8695631",
               "Center": "0,0,-5",
               "IsTrigger": false,
-              "OnComponentDisabled": null,
               "Scale": "100,100,10",
               "Static": false,
               "SurfaceVelocity": "0,0,0"
@@ -438,8 +420,8 @@
           "__guid": "0f257f1e-8afc-485e-a42f-08771289ae56",
           "Flags": 0,
           "Name": "Plane",
-          "Position": "-142.4142,136.6562,0.00001204014",
-          "Rotation": "0.7071067,0,0,0.7071068",
+          "Position": "-120.852,-136.8698,0.00005082786",
+          "Rotation": "0.0000001376788,0.7071067,0.7071068,0.0000001376788",
           "Scale": "5,3,5",
           "Enabled": true,
           "Components": [
@@ -464,7 +446,6 @@
               "__guid": "02d16342-a523-482c-98ad-b84309152c99",
               "Center": "0,0,-5",
               "IsTrigger": false,
-              "OnComponentDisabled": null,
               "Scale": "100,100,10",
               "Static": false,
               "SurfaceVelocity": "0,0,0"
@@ -478,7 +459,7 @@
       "Flags": 0,
       "Name": "PlatformR",
       "Position": "-859.1846,-50.90204,314.0811",
-      "Rotation": "0,-0,-0.7071068,0.7071068",
+      "Rotation": "0.7071068,-0.7071068,0.00000003090862,-0.00000003090862",
       "Enabled": true,
       "Children": [
         {
@@ -493,7 +474,6 @@
               "__guid": "c94a3754-2833-44c2-9622-fbb3a1ee0906",
               "Center": "0,0,50",
               "IsTrigger": true,
-              "OnComponentDisabled": null,
               "Scale": "8,100,100",
               "Static": false,
               "SurfaceVelocity": "0,0,0"
@@ -594,7 +574,6 @@
               "__guid": "faa1f152-2353-4075-b94a-5007db46f173",
               "Center": "0,0,-5",
               "IsTrigger": false,
-              "OnComponentDisabled": null,
               "Scale": "100,100,10",
               "Static": false,
               "SurfaceVelocity": "0,0,0"
@@ -611,8 +590,8 @@
       "__guid": "e24b4824-6530-4c37-a549-05b5304c62f4",
       "Flags": 0,
       "Name": "Walkway",
-      "Position": "-170,473.4169,175.9622",
-      "Rotation": "0.3826834,0,0,0.9238796",
+      "Position": "-170,464.7437,175.0859",
+      "Rotation": "0.3826835,0,0,0.9238795",
       "Scale": "2,5,1",
       "Enabled": true,
       "Components": [
@@ -650,7 +629,7 @@
       "__guid": "9ab46541-7d6f-4353-bd62-d6220db93b0f",
       "Flags": 0,
       "Name": "Walkway (2)",
-      "Position": "-170,642.1776,591.1292",
+      "Position": "-170,642.1776,601.4661",
       "Rotation": "0.7071068,0,0,0.7071068",
       "Scale": "2,5,1",
       "Enabled": true,
@@ -689,7 +668,7 @@
       "__guid": "7577c0be-6cd3-4025-8293-d9cf0b03ffd7",
       "Flags": 0,
       "Name": "Walkway (3)",
-      "Position": "-170,472.4962,991.2782",
+      "Position": "-170,466.4725,1026.111",
       "Rotation": "0.9238795,0,0,0.3826834",
       "Scale": "2,5,1",
       "Enabled": true,
@@ -728,7 +707,7 @@
       "__guid": "aaba7dfb-89b5-4eba-a86d-9c1cddd5c6d9",
       "Flags": 0,
       "Name": "Walkway (4)",
-      "Position": "-170,73.67325,1159.855",
+      "Position": "-170,42.60069,1200.623",
       "Rotation": "1,0,0,-0.00000004371139",
       "Scale": "2,5,1",
       "Enabled": true,

@@ -1,16 +1,11 @@
 namespace Neverspace;
 
 [Group( "Neverspace - Gravity" )]
-[Title( "Gravity Pawn" )]
+[Title( "Gravity Pawn - Rigidbody" )]
 [Icon( "fitness_center" )]
 
-public class GravityPawn : Component
+public class GravityPawnRigidbody : GravityPawn
 {
-	[Property] Vector3 BaseGravity { get; set; } = new( 0.0f, 0.0f, -800.0f );
-
-	public Walkway ActiveWalkway { get; set; }
-	public Vector3 CurrentGravity { get => ActiveWalkway == null ? BaseGravity : ActiveWalkway.Gravity; }
-
 	private IEnumerable<Rigidbody> bodies;
 
 	protected override void OnAwake()
@@ -31,10 +26,5 @@ public class GravityPawn : Component
 		{
 			b.Velocity += CurrentGravity * Time.Delta;
 		}
-	}
-
-	public virtual bool IsValidGravTrigger( Collider c )
-	{
-		return !c.Tags.Has( "grav-ignore" );
 	}
 }
