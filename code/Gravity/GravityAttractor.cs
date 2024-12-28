@@ -8,8 +8,8 @@ public abstract class GravityAttractor : Component
 {
 	[Property] public float GravityStrength { get; set; } = 800.0f;
 
-	public abstract void AddGravPawn( GravityPawn gp );
-	public abstract void RemoveGravPawn( GravityPawn gp );
+	protected abstract void ForceAddGravPawn( GravityPawn gp );
+	protected abstract void ForceRemoveGravPawn( GravityPawn gp );
 	public abstract bool HasGravPawn( GravityPawn gp );
 	protected abstract Vector3 GetWorldGravity( GravityPawn gp );
 
@@ -18,12 +18,34 @@ public abstract class GravityAttractor : Component
 		return HasGravPawn( gp ) ? GetWorldGravity( gp ) : Vector3.Zero;
 	}
 
+	public virtual bool CanAddGravPawn( GravityPawn gp )
+	{
+		return !HasGravPawn( gp );
+	}
+
+	public void AddGravPawn( GravityPawn gp )
+	{
+		if ( CanAddGravPawn( gp ) )
+			ForceAddGravPawn( gp );
+	}
+
+
+	public virtual bool CanRemoveGravPawn( GravityPawn gp )
+	{
+		return HasGravPawn( gp );
+	}
+
+	public void RemoveGravPawn( GravityPawn gp )
+	{
+		if ( CanRemoveGravPawn( gp ) )
+			ForceRemoveGravPawn( gp );
+	}
+
 	protected void OnGravTriggerEntered( Collider c )
 	{
 		var gravPawn = c.GetComponent<GravityPawn>();
-		if ( gravPawn != null && gravPawn.IsValidGravTrigger( c ) && !HasGravPawn( gravPawn ) )
+		if ( gravPawn != null && gravPawn.IsValidGravTrigger( c ) )
 		{
-			Log.Info( $"{GameObject} gravs {gravPawn.GameObject}" );
 			AddGravPawn( gravPawn );
 		}
 	}
@@ -31,9 +53,8 @@ public abstract class GravityAttractor : Component
 	protected void OnGravTriggerExit( Collider c )
 	{
 		var gravPawn = c.GetComponent<GravityPawn>();
-		if ( gravPawn != null && gravPawn.IsValidGravTrigger( c ) && HasGravPawn( gravPawn ) )
+		if ( gravPawn != null && gravPawn.IsValidGravTrigger( c ) )
 		{
-			Log.Info( $"{GameObject} ungravs {gravPawn.GameObject}" );
 			RemoveGravPawn( gravPawn );
 		}
 	}

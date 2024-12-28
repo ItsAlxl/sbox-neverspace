@@ -487,6 +487,12 @@
                 "go": "30803411-2020-43bd-b99c-113ad6ba9472",
                 "component_type": "Portal"
               },
+              "InstantWalkway": {
+                "_type": "component",
+                "component_id": "3fcb0573-4729-4789-ae8f-6596c97b8527",
+                "go": "a1321d59-d66d-4cd5-b969-e09c00ed50f4",
+                "component_type": "Walkway"
+              },
               "PassageOffset": -5,
               "PassageXScale": 0.2
             }
@@ -751,7 +757,7 @@
       "__guid": "af731a8f-a3ff-43a9-8bcd-fa4d24c0d164",
       "Flags": 0,
       "Name": "Sphere",
-      "Position": "2508.274,-878.1398,-784.9841",
+      "Position": "2500,-1000,-750",
       "Scale": "20,20,20",
       "Enabled": true,
       "Components": [

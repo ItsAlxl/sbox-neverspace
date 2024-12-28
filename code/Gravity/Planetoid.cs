@@ -27,12 +27,12 @@ public sealed class Planetoid : GravityAttractor
 		Tags.Add( "planetoid" );
 	}
 
-	public override void AddGravPawn( GravityPawn gp )
+	protected override void ForceAddGravPawn( GravityPawn gp )
 	{
 		gp.Planetoids.Add( this );
 	}
 
-	public override void RemoveGravPawn( GravityPawn gp )
+	protected override void ForceRemoveGravPawn( GravityPawn gp )
 	{
 		gp.Planetoids.Remove( this );
 	}

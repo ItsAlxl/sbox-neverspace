@@ -25,12 +25,12 @@ public sealed class Walkway : GravityAttractor
 		Tags.Add( "walkway" );
 	}
 
-	public override void AddGravPawn( GravityPawn gp )
+	protected override void ForceAddGravPawn( GravityPawn gp )
 	{
 		gp.ActiveWalkway = this;
 	}
 
-	public override void RemoveGravPawn( GravityPawn gp )
+	protected override void ForceRemoveGravPawn( GravityPawn gp )
 	{
 		gp.ActiveWalkway = null;
 	}

@@ -42,6 +42,14 @@ public class PortalTraveler : Component
 	public virtual void TeleportThrough( Portal portal )
 	{
 		TravelerTransform = portal.GetEgressTransform( TravelerTransform );
+
+		var gravPawn = GetComponent<GravityPawn>();
+		if ( gravPawn != null )
+		{
+			gravPawn.ActiveWalkway?.RemoveGravPawn( gravPawn );
+			portal.EgressPortal.InstantWalkway?.AddGravPawn( gravPawn );
+		}
+
 		Transform.ClearInterpolation();
 		OnTeleport?.Invoke( portal );
 	}

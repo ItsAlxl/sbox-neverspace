@@ -10,10 +10,11 @@ public sealed class Portal : Component, Component.ITriggerListener
 
 	const FindMode FIND_MODE_TRAVELER = FindMode.Enabled | FindMode.InSelf | FindMode.InParent;
 
-	[Property] Portal EgressPortal { get; set; }
+	[Property] public Portal EgressPortal { get; set; }
 	[Property] CameraComponent PlayerCamera { get; set; }
 	[Property] float PassageXScale { get; set; } = 0.2f;
 	[Property] float PassageOffset { get; set; } = -5.0f;
+	[Property] public Walkway InstantWalkway { get; set; }
 
 	ModelRenderer ViewScreen { get; set; }
 	CameraComponent GhostCamera { get; set; }
