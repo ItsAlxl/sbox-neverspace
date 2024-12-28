@@ -23,7 +23,7 @@ public sealed class GravityPawnControlled : GravityPawn
 	public float AccelGround = 6.0f;
 	public float AccelAir = 0.2f;
 
-	public float MaxFallSpeed = -800.0f;
+	public float MaxFallSpeed = -1000.0f;
 	public float JumpPower = 250.0f;
 
 	public void ParseMovement( Vector3 wishMovement )
@@ -66,21 +66,27 @@ public sealed class GravityPawnControlled : GravityPawn
 		{
 			if ( LocalVelocity.z < MaxFallSpeed )
 			{
-				LocalVelocity = LocalVelocity.WithZ( (MaxFallSpeed - LocalVelocity.z) * Time.Delta * AccelAir );
+				LocalVelocity = LocalVelocity.WithZ( LocalVelocity.z + (MaxFallSpeed - LocalVelocity.z) * Time.Delta * AccelAir );
 			}
 			else
 			{
 				LocalVelocity = LocalVelocity.WithZ( LocalVelocity.z - gravLength * Time.Delta );
 			}
 		}
-		LocalVelocity += (TargetVelocity - LocalVelocity).WithZ( 0.0f );// * Time.Delta * (IsGrounded ? AccelGround : AccelAir);
+		LocalVelocity += (TargetVelocity - LocalVelocity).WithZ( 0.0f );// * Time.Delta * (IsGrounded ? AccelGround : AccelAir); // causes jitters, eg when walking into a wall
 
+		var worldVelocity = WorldTransform.NormalToWorld( LocalVelocity ) * LocalVelocity.Length * WorldScale.x * Time.Delta;
 		Capsule WorldBodyCapsule = new( WorldTransform.PointToWorld( CapsuleCollider.Start ), WorldTransform.PointToWorld( CapsuleCollider.End ), WorldScale.x * (CapsuleCollider.Radius + 1.0f) );
+		/*
+		Gizmo.Draw.Color = Color.Blue;
+		Gizmo.Draw.LineCapsule( WorldBodyCapsule );
+		Gizmo.Draw.Color = Color.Orange;
+		Gizmo.Draw.LineCapsule( new( WorldBodyCapsule.CenterA + worldVelocity, WorldBodyCapsule.CenterB + worldVelocity, WorldBodyCapsule.Radius ) );
+		//*/
 		var capsuleRef = WorldBodyCapsule.CenterA + WorldBodyCapsule.Radius * WorldTransform.Down;
 		WorldBodyCapsule.CenterB -= capsuleRef;
 		WorldBodyCapsule.CenterA -= capsuleRef;
 
-		var worldVelocity = WorldTransform.NormalToWorld( LocalVelocity ) * LocalVelocity.Length * WorldScale.x * Time.Delta;
 		var worldTargetPosition = WorldPosition + worldVelocity;
 		var tr = Scene.Trace
 			.Capsule( WorldBodyCapsule, WorldPosition, worldTargetPosition )
@@ -96,7 +102,6 @@ public sealed class GravityPawnControlled : GravityPawn
 		}
 		WorldPosition = tr.EndPosition + tr.Normal * WorldScale.x;
 
-		var wasGrounded = IsGrounded;
 		if ( tr.Hit )
 		{
 			LocalVelocity = LocalVelocity.SubtractDirection( WorldTransform.NormalToLocal( tr.Normal ) );
@@ -106,7 +111,7 @@ public sealed class GravityPawnControlled : GravityPawn
 		{
 			HandleFloor(
 				Scene.Trace
-					.Ray( WorldPosition, WorldPosition + WorldTransform.Down * WorldScale.z * 1.0f )
+					.Ray( WorldPosition, WorldPosition + WorldTransform.Down * WorldScale.z )
 					.Run()
 			);
 		}

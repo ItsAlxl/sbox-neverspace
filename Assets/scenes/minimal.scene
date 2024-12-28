@@ -154,7 +154,7 @@
       "__guid": "66b1c722-08bb-44c9-8917-1f02af0c989c",
       "Flags": 0,
       "Name": "Player",
-      "Position": "-140.3564,-0.00002456336,1.533956",
+      "Position": "-239.4583,-31.11386,23.12038",
       "Scale": "2,2,2",
       "Tags": "player",
       "Enabled": true,
@@ -458,7 +458,7 @@
       "__guid": "7ba09d78-51bb-4a97-9931-ffb19ec1a2db",
       "Flags": 0,
       "Name": "PlatformR",
-      "Position": "-859.1846,-50.90204,314.0811",
+      "Position": "-200.7432,-790.3539,314.0809",
       "Rotation": "0.7071068,-0.7071068,0.00000003090862,-0.00000003090862",
       "Enabled": true,
       "Children": [
@@ -580,7 +580,8 @@
             },
             {
               "__type": "Neverspace.Walkway",
-              "__guid": "3fcb0573-4729-4789-ae8f-6596c97b8527"
+              "__guid": "3fcb0573-4729-4789-ae8f-6596c97b8527",
+              "GravityStrength": 800
             }
           ]
         }
@@ -621,7 +622,8 @@
         },
         {
           "__type": "Neverspace.Walkway",
-          "__guid": "98b719b8-9811-4d66-a239-902b13e2b247"
+          "__guid": "98b719b8-9811-4d66-a239-902b13e2b247",
+          "GravityStrength": 800
         }
       ]
     },
@@ -660,7 +662,8 @@
         },
         {
           "__type": "Neverspace.Walkway",
-          "__guid": "7bfbf914-acb1-4e1a-af3e-9eec2e2dadf0"
+          "__guid": "7bfbf914-acb1-4e1a-af3e-9eec2e2dadf0",
+          "GravityStrength": 800
         }
       ]
     },
@@ -699,7 +702,8 @@
         },
         {
           "__type": "Neverspace.Walkway",
-          "__guid": "cc64e55a-9f01-460c-8ad6-0c0e95df4746"
+          "__guid": "cc64e55a-9f01-460c-8ad6-0c0e95df4746",
+          "GravityStrength": 800
         }
       ]
     },
@@ -738,7 +742,8 @@
         },
         {
           "__type": "Neverspace.Walkway",
-          "__guid": "d128b8c8-e199-4e0f-82a5-d43a5b077ee3"
+          "__guid": "d128b8c8-e199-4e0f-82a5-d43a5b077ee3",
+          "GravityStrength": 800
         }
       ]
     }
