@@ -8,7 +8,7 @@ namespace Neverspace;
 
 public sealed class PortalTravelerPlayer : PortalTraveler
 {
-	[RequireComponent] private GravityPawnControlled GravityPawn { get; set; }
+	[RequireComponent] private GravityPawnPlayer GravityPawn { get; set; }
 	[RequireComponent] private Interactor Interactor { get; set; }
 
 	protected override void OnAwake()

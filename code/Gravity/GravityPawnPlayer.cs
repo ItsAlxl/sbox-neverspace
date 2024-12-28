@@ -3,14 +3,15 @@ using System;
 namespace Neverspace;
 
 [Group( "Neverspace - Gravity" )]
-[Title( "Gravity Pawn - Controlled" )]
+[Title( "Gravity Pawn - Player" )]
 [Icon( "fitness_center" )]
 
-public sealed class GravityPawnControlled : GravityPawn
+public sealed class GravityPawnPlayer : GravityPawn
 {
 	const float FLOOR_THRESHOLD = -10.0f;
 
 	[RequireComponent] private CapsuleCollider CapsuleCollider { get; set; }
+	[RequireComponent] private Interactor Interactor { get; set; }
 
 	public Vector3 TargetVelocity = Vector3.Zero;
 	public Vector3 LocalVelocity = Vector3.Zero;
@@ -74,7 +75,8 @@ public sealed class GravityPawnControlled : GravityPawn
 		}
 		LocalVelocity += (TargetVelocity - LocalVelocity).WithZ( 0.0f );// * Time.Delta * (IsGrounded ? AccelGround : AccelAir); // causes jitters, eg when walking into a wall
 
-		var worldVelocity = WorldTransform.NormalToWorld( LocalVelocity ) * LocalVelocity.Length * WorldScale.x * Time.Delta;
+		var lookTransform = WorldTransform.WithRotation( WorldTransform.RotationToWorld( Interactor.EyeAngles.WithPitch( 0.0f ) ) );
+		var worldVelocity = lookTransform.NormalToWorld( LocalVelocity ) * LocalVelocity.Length * WorldScale.x * Time.Delta;
 		Capsule WorldBodyCapsule = new( WorldTransform.PointToWorld( CapsuleCollider.Start ), WorldTransform.PointToWorld( CapsuleCollider.End ), WorldScale.x * (CapsuleCollider.Radius + 1.0f) );
 		/*
 		Gizmo.Draw.Color = Color.Blue;

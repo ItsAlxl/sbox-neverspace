@@ -169,8 +169,8 @@
           "IsCameraViewer": false
         },
         {
-          "__type": "Neverspace.GravityPawnControlled",
-          "__guid": "452bce87-122a-4dc0-9426-f74c3b6bcf77"
+          "__type": "Neverspace.GravityPawnPlayer",
+          "__guid": "87da04d2-79b3-4687-bacf-5c4d302d5be2"
         },
         {
           "__type": "Sandbox.CapsuleCollider",
@@ -316,7 +316,7 @@
           "__guid": "523e3e8f-a4ec-4ec1-af9a-d86ffc9c17e1",
           "Flags": 0,
           "Name": "FriendBox",
-          "Position": "159.4939,71.40193,14.40153",
+          "Position": "104.077,71.40193,14.40153",
           "Rotation": "0.00000001819328,-0.00000000000000008235059,0.3052325,0.952278",
           "Scale": "0.5632889,0.5632889,0.5632889",
           "Enabled": true,
@@ -757,7 +757,7 @@
       "__guid": "af731a8f-a3ff-43a9-8bcd-fa4d24c0d164",
       "Flags": 0,
       "Name": "Sphere",
-      "Position": "2500,-1000,-750",
+      "Position": "10000,-1000,-750",
       "Scale": "20,20,20",
       "Enabled": true,
       "Components": [

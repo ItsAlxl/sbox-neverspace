@@ -14,8 +14,8 @@ public sealed class Interactor : Component
 	[Property] public CameraComponent PlayerCamera { get; set; }
 
 	private readonly Vector3 eyePos = new( 0, 0, EYE_HEIGHT );
-	private float FacingPitch { get; set; }
-	private Angles EyeAngles { get => new( FacingPitch, 0, 0 ); }
+	private Vector2 Facing { get; set; }
+	public Angles EyeAngles { get => new( Facing.x, Facing.y, 0 ); }
 	private Transform cameraReference;
 	private bool skipNextCamLerp = true;
 
@@ -44,7 +44,6 @@ public sealed class Interactor : Component
 		{
 			cameraReference.Rotation = Rotation.Lerp( cameraReference.Rotation, WorldRotation, Time.Delta * VIEW_ROT_SPEED );
 		}
-
 		PlayerCamera.WorldRotation = cameraReference.RotationToWorld( EyeAngles );
 
 		PlayerCamera.Transform.ClearInterpolation();
@@ -65,12 +64,12 @@ public sealed class Interactor : Component
 	private void FacingInput()
 	{
 		var f = Input.AnalogLook;
-		FacingPitch = (FacingPitch + f.pitch).Clamp( -90.0f, 90.0f );
-		WorldRotation = WorldRotation.RotateAroundAxis( Vector3.Up, f.yaw );
-		cameraReference.Rotation = cameraReference.Rotation.RotateAroundAxis( Vector3.Up, f.yaw );
+		Facing = new( (Facing.x + f.pitch).Clamp( -90.0f, 90.0f ), Facing.y + f.yaw );
+		//WorldRotation = WorldRotation.RotateAroundAxis( Vector3.Up, f.yaw );
+		//cameraReference.Rotation = cameraReference.Rotation.RotateAroundAxis( Vector3.Up, f.yaw );
 	}
 
-	private SceneTraceResult RunInteractTrace( out Transform portaledOrigin, bool portalsOnly = false )
+	private SceneTraceResult RunInteractTrace( out Transform portaledOrigin )
 	{
 		var trace = Scene.Trace.IgnoreGameObjectHierarchy( GameObject ).WithoutTags( "walkway", "planetoid" );
 		return Portal.RunTrace(
@@ -96,7 +95,7 @@ public sealed class Interactor : Component
 		}
 		else if ( IsCarrying )
 		{
-			var tr = RunInteractTrace( out Transform portaledOrigin, true );
+			var tr = RunInteractTrace( out Transform portaledOrigin );
 			if ( (tr.Hit && tr.GameObject == heldCarriable.GameObject) || portaledOrigin.AlmostEqual( heldCarriable.PortaledOrigin ) )
 				carriedItemInReach = 0.0f;
 			if ( carriedItemInReach > 0.2f )
