@@ -746,6 +746,63 @@
           "GravityStrength": 800
         }
       ]
+    },
+    {
+      "__guid": "af731a8f-a3ff-43a9-8bcd-fa4d24c0d164",
+      "Flags": 0,
+      "Name": "Sphere",
+      "Position": "2508.274,-878.1398,-784.9841",
+      "Scale": "20,20,20",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "05595f93-d758-4c97-99b0-f4b9c8337db8",
+          "BodyGroups": 18446744073709551615,
+          "CreateAttachments": false,
+          "Model": "models/dev/sphere.vmdl",
+          "RenderOptions": {
+            "GameLayer": true,
+            "OverlayLayer": false,
+            "BloomLayer": false,
+            "AfterUILayer": true
+          },
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "Sandbox.SphereCollider",
+          "__guid": "d9455997-75ea-4c72-ac3f-d6c9b469d497",
+          "Center": "0,0,0",
+          "IsTrigger": false,
+          "Radius": 32,
+          "Static": false,
+          "SurfaceVelocity": "0,0,0"
+        },
+        {
+          "__type": "Neverspace.Planetoid",
+          "__guid": "217d618a-543d-45d2-8deb-c7f7080d51c2",
+          "GravityStrength": 800,
+          "InfluenceCurve": [
+            {
+              "x": 0,
+              "y": 1,
+              "in": 0,
+              "out": 0,
+              "mode": "Mirrored"
+            },
+            {
+              "x": 1,
+              "y": 0,
+              "in": 3.1415927,
+              "out": -3.1415927,
+              "mode": "Mirrored"
+            }
+          ],
+          "InfluenceEnd": 128,
+          "InfluenceStart": 32
+        }
+      ]
     }
   ],
   "SceneProperties": {

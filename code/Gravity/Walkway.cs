@@ -4,20 +4,18 @@ namespace Neverspace;
 [Title( "Walkway" )]
 [Icon( "route" )]
 
-public sealed class Walkway : Component
+public sealed class Walkway : GravityAttractor
 {
-	[Property] public float GravityStrength { get; set; } = 800.0f;
 	public Vector3 Gravity { get => GravityStrength * WorldTransform.Down; }
-	private Collider col;
 
 	protected override void OnAwake()
 	{
 		base.OnAwake();
-		col = GetComponent<Collider>();
+		var col = GetComponent<Collider>();
 		var trigger = col.CreateDuplicate() as Collider;
 		trigger.IsTrigger = true;
-		trigger.OnTriggerEnter += OnTriggerEntered;
-		trigger.OnTriggerExit += OnTriggerExit;
+		trigger.OnTriggerEnter += OnGravTriggerEntered;
+		trigger.OnTriggerExit += OnGravTriggerExit;
 		if ( trigger is BoxCollider b )
 		{
 			var downscale = b.Scale.z * 0.5f;
@@ -27,34 +25,23 @@ public sealed class Walkway : Component
 		Tags.Add( "walkway" );
 	}
 
-	public void AddGravPawn( GravityPawn gp )
+	public override void AddGravPawn( GravityPawn gp )
 	{
 		gp.ActiveWalkway = this;
 	}
 
-	public void RemoveGravPawn( GravityPawn gp )
+	public override void RemoveGravPawn( GravityPawn gp )
 	{
-		if ( gp.ActiveWalkway == this )
-		{
-			gp.ActiveWalkway = null;
-		}
+		gp.ActiveWalkway = null;
 	}
 
-	private void OnTriggerEntered( Collider c )
+	public override bool HasGravPawn( GravityPawn gp )
 	{
-		var gravPawn = c.GetComponent<GravityPawn>();
-		if ( gravPawn != null && gravPawn.IsValidGravTrigger( c ) )
-		{
-			AddGravPawn( gravPawn );
-		}
+		return gp.ActiveWalkway == this;
 	}
 
-	private void OnTriggerExit( Collider c )
+	protected override Vector3 GetWorldGravity( GravityPawn _ )
 	{
-		var gravPawn = c.GetComponent<GravityPawn>();
-		if ( gravPawn != null && gravPawn.IsValidGravTrigger( c ) )
-		{
-			RemoveGravPawn( gravPawn );
-		}
+		return Gravity;
 	}
 }

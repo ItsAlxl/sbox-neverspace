@@ -18,7 +18,7 @@ public sealed class GravityPawnControlled : GravityPawn
 	public bool JumpNext = false;
 
 	public float MovtSpeed = 150.0f;
-	public float AirMovtClamp = 50.0f;
+	public float AirMovtClamp = 75.0f;
 
 	public float AccelGround = 6.0f;
 	public float AccelAir = 0.2f;
@@ -124,6 +124,6 @@ public sealed class GravityPawnControlled : GravityPawn
 
 	public override bool IsValidGravTrigger( Collider c )
 	{
-		return c == CapsuleCollider ? false : base.IsValidGravTrigger( c );
+		return c != CapsuleCollider && base.IsValidGravTrigger( c );
 	}
 }

@@ -64,7 +64,7 @@ public sealed class Interactor : Component
 
 	private SceneTraceResult RunInteractTrace( out Transform portaledOrigin, bool portalsOnly = false )
 	{
-		var trace = Scene.Trace.IgnoreGameObjectHierarchy( GameObject ).WithoutTags( "walkway" );
+		var trace = Scene.Trace.IgnoreGameObjectHierarchy( GameObject ).WithoutTags( "walkway", "planetoid" );
 		return Portal.RunTrace(
 				trace,
 				PlayerCamera.WorldPosition,
