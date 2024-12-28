@@ -35,8 +35,16 @@ public sealed class Interactor : Component
 		PlayerCamera.WorldScale = WorldScale;
 		PlayerCamera.WorldPosition = WorldTransform.PointToWorld( eyePos );
 
-		cameraReference = skipNextCamLerp ? WorldTransform : cameraReference.RotateAround( Vector3.Zero, Rotation.FromToRotation( cameraReference.Up, WorldTransform.Up ) * Time.Delta * VIEW_ROT_SPEED );
-		skipNextCamLerp = false;
+		if ( skipNextCamLerp )
+		{
+			skipNextCamLerp = false;
+			cameraReference.Rotation = WorldRotation;
+		}
+		else
+		{
+			cameraReference.Rotation = Rotation.Lerp( cameraReference.Rotation, WorldRotation, Time.Delta * VIEW_ROT_SPEED );
+		}
+
 		PlayerCamera.WorldRotation = cameraReference.RotationToWorld( EyeAngles );
 
 		PlayerCamera.Transform.ClearInterpolation();

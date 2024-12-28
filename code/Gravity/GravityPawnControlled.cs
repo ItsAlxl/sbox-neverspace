@@ -42,11 +42,10 @@ public sealed class GravityPawnControlled : GravityPawn
 	public void Move()
 	{
 		var gravLength = CurrentGravity.Length;
-		var gravityNormal = CurrentGravity / gravLength;
-		if ( !(WorldTransform.Down - gravityNormal).IsNearlyZero( 0.05f ) )
+		var upNormal = -CurrentGravity / gravLength;
+		if ( !(WorldTransform.Up - upNormal).IsNearlyZero( 0.05f ) )
 		{
-			var cross = WorldTransform.Down.Cross( gravityNormal );
-			WorldRotation = cross.IsNearlyZero( 0.05f ) ? (WorldRotation.RotateAroundAxis( Vector3.Right, 180.0f )) : WorldRotation.RotateAroundAxis( WorldTransform.NormalToLocal( cross ), MathX.RadianToDegree( (float)Math.Asin( cross.Length ) ) );
+			WorldRotation = Rotation.LookAt( Vector3.VectorPlaneProject( WorldTransform.Forward, upNormal ), upNormal );
 		}
 
 		if ( IsGrounded )
