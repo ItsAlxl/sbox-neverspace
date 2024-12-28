@@ -8,7 +8,7 @@ namespace Neverspace;
 
 public sealed class GravityPawnPlayer : GravityPawn
 {
-	const float FLOOR_THRESHOLD = -10.0f;
+	const float FLOOR_THRESHOLD = 0.5f;
 
 	[RequireComponent] private CapsuleCollider CapsuleCollider { get; set; }
 	[RequireComponent] private Interactor Interactor { get; set; }
@@ -53,7 +53,6 @@ public sealed class GravityPawnPlayer : GravityPawn
 		{
 			if ( JumpNext )
 			{
-				JumpNext = false;
 				LocalVelocity = LocalVelocity.WithZ( JumpPower );
 				IsGrounded = false;
 			}
@@ -73,6 +72,7 @@ public sealed class GravityPawnPlayer : GravityPawn
 				LocalVelocity = LocalVelocity.WithZ( LocalVelocity.z - gravLength * Time.Delta );
 			}
 		}
+		JumpNext = false;
 		LocalVelocity += (TargetVelocity - LocalVelocity).WithZ( 0.0f );// * Time.Delta * (IsGrounded ? AccelGround : AccelAir); // causes jitters, eg when walking into a wall
 
 		var lookTransform = WorldTransform.WithRotation( WorldTransform.RotationToWorld( Interactor.EyeAngles.WithPitch( 0.0f ) ) );
@@ -103,14 +103,15 @@ public sealed class GravityPawnPlayer : GravityPawn
 		}
 		WorldPosition = tr.EndPosition + tr.Normal * WorldScale.x;
 
+		IsGrounded = false;
 		if ( tr.Hit )
 		{
 			LocalVelocity = LocalVelocity.SubtractDirection( WorldTransform.NormalToLocal( tr.Normal ) );
-			HandleFloor( tr );
+			TestGroundedness( tr );
 		}
-		else
+		if ( !IsGrounded )
 		{
-			HandleFloor(
+			TestGroundedness(
 				Scene.Trace
 					.Ray( WorldPosition, WorldPosition + WorldTransform.Down * WorldScale.z )
 					.Run()
@@ -118,7 +119,7 @@ public sealed class GravityPawnPlayer : GravityPawn
 		}
 	}
 
-	private void HandleFloor( SceneTraceResult tr )
+	private void TestGroundedness( SceneTraceResult tr )
 	{
 		IsGrounded = tr.Hit && tr.Normal.Dot( WorldTransform.Up ) > FLOOR_THRESHOLD;
 	}
