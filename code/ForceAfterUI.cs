@@ -11,7 +11,7 @@ public class MyGameSystem : GameObjectSystem
 	{
 		foreach ( var m in Scene.GetAllComponents<ModelRenderer>() )
 		{
-            // shitty hack to circumvent the s&box bug that makes unlit materials' colors wrong
+			// shitty hack to circumvent the s&box bug that makes unlit materials' colors wrong
 			m.RenderOptions.AfterUI = true;
 		}
 	}

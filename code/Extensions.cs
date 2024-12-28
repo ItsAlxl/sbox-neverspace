@@ -18,9 +18,36 @@ public static class Extensions
 		return dupeComp;
 	}
 
+	public static BBox AggregateGoChildBounds( this List<GameObject> gos )
+	{
+		Queue<GameObject> scanQueue = new();
+		foreach ( var g in gos )
+			scanQueue.Enqueue( g );
+
+		var bounds = new BBox();
+		while ( scanQueue.Count > 0 )
+		{
+			var g = scanQueue.Dequeue();
+			bounds = bounds.Size.IsNearlyZero( 0.001f ) ? g.GetBounds() : bounds.AddBBox( g.GetBounds() );
+			foreach ( var c in g.Children )
+				scanQueue.Enqueue( c );
+		}
+		return bounds;
+	}
+
+	public static float DistanceSquaredToPoint( this BBox bounds, Vector3 p )
+	{
+		return bounds.ClosestPoint( p ).DistanceSquared( p );
+	}
+
+	public static bool IsInCameraBounds( this BBox bounds, CameraComponent c )
+	{
+		return c.GetFrustum( new Rect( 0, 0, Screen.Width, Screen.Height ) ).IsInside( bounds, true );
+	}
+
 	public static bool IsInCameraBounds( this ModelRenderer m, CameraComponent c )
 	{
-		return c.GetFrustum( new Rect( 0, 0, Screen.Width, Screen.Height ) ).IsInside( m.Bounds, true );
+		return m.Bounds.IsInCameraBounds( c );
 	}
 
 	public static T GetGoComponent<T>( this SceneTraceResult tr ) where T : class
