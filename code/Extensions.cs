@@ -11,9 +11,10 @@ public static class Extensions
 
 	public static Component CreateDuplicate( this Component c, GameObject go = null )
 	{
-		go ??= c.GameObject;
-		var dupeComp = go.Components.Create( TypeLibrary.GetType( c.GetType() ) );
-		dupeComp.DeserializeImmediately( c.Serialize( duplicateSerializeOptions ).AsObject() );
+		var dupeComp = (go ?? c.GameObject).Components.Create( TypeLibrary.GetType( c.GetType() ) );
+		var serial = c.Serialize( duplicateSerializeOptions ).AsObject();
+		serial["__guid"] = Guid.NewGuid();
+		dupeComp.DeserializeImmediately( serial );
 		return dupeComp;
 	}
 
