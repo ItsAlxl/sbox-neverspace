@@ -1,5 +1,3 @@
-using Sandbox;
-
 namespace Neverspace;
 
 [Group( "Neverspace - Interaction" )]
