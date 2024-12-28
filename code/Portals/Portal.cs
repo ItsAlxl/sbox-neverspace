@@ -6,7 +6,7 @@ namespace Neverspace;
 
 public sealed class Portal : Component, Component.ITriggerListener
 {
-	const float MIN_WORLD_SCALE = 0.25f;
+	const float MIN_WORLD_SCALE = 0.1f;
 
 	const FindMode FIND_MODE_TRAVELER = FindMode.Enabled | FindMode.InSelf | FindMode.InParent;
 
@@ -62,7 +62,8 @@ public sealed class Portal : Component, Component.ITriggerListener
 					ViewScreen.SceneObject.Batchable = false;
 					ViewScreen.SceneObject.Attributes.Set( "PortalViewTex", renderTarget );
 				}
-
+				GhostCamera.ZNear = PlayerCamera.ZNear;
+				GhostCamera.ZFar = PlayerCamera.ZFar;
 				GhostCamera.FieldOfView = PlayerCamera.FieldOfView;
 				GhostCamera.WorldTransform = GetEgressTransform( PlayerCamera.WorldTransform );
 
