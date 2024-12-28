@@ -154,7 +154,7 @@
       "__guid": "66b1c722-08bb-44c9-8917-1f02af0c989c",
       "Flags": 0,
       "Name": "Player",
-      "Position": "-239.4583,-31.11386,23.12038",
+      "Position": "-498.1707,170.0529,23.12043",
       "Scale": "2,2,2",
       "Tags": "player",
       "Enabled": true,
@@ -316,9 +316,9 @@
           "__guid": "523e3e8f-a4ec-4ec1-af9a-d86ffc9c17e1",
           "Flags": 0,
           "Name": "FriendBox",
-          "Position": "104.077,71.40193,14.40153",
+          "Position": "187.6358,94.03674,100",
           "Rotation": "0.00000001819328,-0.00000000000000008235059,0.3052325,0.952278",
-          "Scale": "0.5632889,0.5632889,0.5632889",
+          "Scale": "0.5,0.5,0.5",
           "Enabled": true,
           "Components": [
             {
@@ -375,10 +375,72 @@
               "__type": "Neverspace.PortalTravelerRigidbody",
               "__guid": "d5d913c3-239b-410f-888a-5fe4fd37f092",
               "IsCameraViewer": false
+            }
+          ]
+        },
+        {
+          "__guid": "ddb648c4-90ce-429b-a062-d17ad21e2d63",
+          "Flags": 0,
+          "Name": "BoxNograv",
+          "Position": "188.4938,-1.943434,100",
+          "Rotation": "0.00000001819328,-0.00000000000000008235059,0.3052325,0.952278",
+          "Scale": "0.5,0.5,0.5",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.ModelRenderer",
+              "__guid": "d979272b-3d66-48a8-aa80-e3d817063764",
+              "BodyGroups": 18446744073709551615,
+              "CreateAttachments": false,
+              "MaterialOverride": "materials/neverspace-generic.vmat",
+              "Model": "models/dev/box.vmdl",
+              "RenderOptions": {
+                "GameLayer": true,
+                "OverlayLayer": false,
+                "BloomLayer": false,
+                "AfterUILayer": true
+              },
+              "RenderType": "On",
+              "Tint": "0,0.33333,1,1"
             },
             {
-              "__type": "Neverspace.GravityPawnRigidbody",
-              "__guid": "92089f3d-a386-4fc8-81cf-ebc2b64bda11"
+              "__type": "Sandbox.BoxCollider",
+              "__guid": "408b8f6b-50c0-4366-bdf9-c8fd26fc1565",
+              "Center": "0,0,0",
+              "IsTrigger": false,
+              "Scale": "50,50,50",
+              "Static": false,
+              "SurfaceVelocity": "0,0,0"
+            },
+            {
+              "__type": "Sandbox.Rigidbody",
+              "__guid": "90178c13-046c-4426-95a4-206c4d03f2fa",
+              "AngularDamping": 0,
+              "Gravity": true,
+              "LinearDamping": 0,
+              "Locking": {
+                "X": false,
+                "Y": false,
+                "Z": false,
+                "Pitch": false,
+                "Yaw": false,
+                "Roll": false
+              },
+              "MassCenterOverride": "0,0,0",
+              "MassOverride": 0,
+              "MotionEnabled": true,
+              "OverrideMassCenter": false,
+              "RigidbodyFlags": 0,
+              "StartAsleep": false
+            },
+            {
+              "__type": "Neverspace.Carriable",
+              "__guid": "a024dc31-71c2-41a6-ae53-83c3b5270968"
+            },
+            {
+              "__type": "Neverspace.PortalTravelerRigidbody",
+              "__guid": "58f57f55-46b7-4a3d-b5f8-e1f01ccb1dd9",
+              "IsCameraViewer": false
             }
           ]
         },
