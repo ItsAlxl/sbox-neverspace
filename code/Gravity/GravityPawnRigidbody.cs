@@ -24,7 +24,7 @@ public class GravityPawnRigidbody : GravityPawn
 		base.OnFixedUpdate();
 		foreach ( var b in bodies )
 		{
-			b.ApplyForce( CurrentGravity * b.Mass * 2.5f ); // idk why the x2.5 is there either
+			b.ApplyForce( CurrentGravity * b.Mass * WorldScale.x );
 		}
 	}
 }
