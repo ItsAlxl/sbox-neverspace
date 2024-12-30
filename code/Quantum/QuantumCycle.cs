@@ -15,9 +15,9 @@ public sealed class QuantumCycle : QuantumController
 		ApplyCurrentStage();
 	}
 
-	protected override void OnObserved() { }
+	protected override void OnObserve() { }
 
-	protected override void OnUnobserved()
+	protected override void OnUnobserve()
 	{
 		ActiveStage++;
 		ApplyCurrentStage();

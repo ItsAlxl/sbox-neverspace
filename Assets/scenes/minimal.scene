@@ -246,13 +246,13 @@
               "SurfaceVelocity": "0,0,0"
             },
             {
-              "__type": "Neverspace.Portal",
-              "__guid": "457c7c39-06ed-4a44-9bd1-8be5ada2242b",
+              "__type": "Neverspace.Gateway",
+              "__guid": "78ba357a-3171-4809-817f-29fc6012128b",
               "EgressPortal": {
                 "_type": "component",
-                "component_id": "4c172b3e-f376-4021-a204-c725a92e8c8a",
+                "component_id": "d8573eff-2d1e-4552-bbd0-02c168f0ce5d",
                 "go": "828ebc27-83ca-47c6-b739-b841d4cfd4a9",
-                "component_type": "Portal"
+                "component_type": "Gateway"
               },
               "PassageOffset": -5,
               "PassageXScale": 0.2
@@ -509,7 +509,7 @@
               "__type": "Neverspace.QuantumCycle",
               "__guid": "2336882b-6a04-4495-8901-abffe4b1225e",
               "ActiveStage": 0,
-              "Cycle": true,
+              "LoopCycle": true,
               "ObservableBounds": {
                 "Mins": "0,0,0",
                 "Maxs": "0,0,0"
@@ -738,13 +738,13 @@
               "SurfaceVelocity": "0,0,0"
             },
             {
-              "__type": "Neverspace.Portal",
-              "__guid": "4c172b3e-f376-4021-a204-c725a92e8c8a",
+              "__type": "Neverspace.Gateway",
+              "__guid": "d8573eff-2d1e-4552-bbd0-02c168f0ce5d",
               "EgressPortal": {
                 "_type": "component",
-                "component_id": "457c7c39-06ed-4a44-9bd1-8be5ada2242b",
+                "component_id": "78ba357a-3171-4809-817f-29fc6012128b",
                 "go": "30803411-2020-43bd-b99c-113ad6ba9472",
-                "component_type": "Portal"
+                "component_type": "Gateway"
               },
               "InstantWalkway": {
                 "_type": "component",

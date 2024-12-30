@@ -14,11 +14,11 @@ public sealed class QuantumToggle : QuantumController
 		base.OnAwake();
 		if ( ObservedChild == null && UnobservedChild == null )
 		{
-			ObservedChild = GetControlledGos()[0];
+			ObservedChild = GetControlledGos().ElementAt( 0 );
 		}
 	}
 
-	protected override void OnObserved()
+	protected override void OnObserve()
 	{
 		foreach ( var g in GetControlledGos() )
 		{
@@ -26,7 +26,7 @@ public sealed class QuantumToggle : QuantumController
 		}
 	}
 
-	protected override void OnUnobserved()
+	protected override void OnUnobserve()
 	{
 		foreach ( var g in GetControlledGos() )
 		{

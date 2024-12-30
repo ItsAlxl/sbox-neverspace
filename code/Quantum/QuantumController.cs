@@ -17,8 +17,8 @@ public abstract class QuantumController : Component
 	public bool Observed = false;
 	protected bool ObservedState = false;
 
-	protected abstract void OnObserved();
-	protected abstract void OnUnobserved();
+	protected abstract void OnObserve();
+	protected abstract void OnUnobserve();
 
 	protected virtual List<GameObject> GetControlledGos()
 	{
@@ -47,15 +47,25 @@ public abstract class QuantumController : Component
 		{
 			if ( !nowObserved && ObservedState )
 			{
-				OnUnobserved();
+				OnUnobserve();
 				ObservedState = false;
 			}
 			if ( nowObserved && !Observed )
 			{
-				OnObserved();
+				OnObserve();
 				ObservedState = true;
 			}
 		}
 		Observed = nowObserved;
+	}
+
+	protected override void DrawGizmos()
+	{
+		base.DrawGizmos();
+		if ( !ObservableBounds.Size.IsNearlyZero(0.001f) )
+		{
+			Gizmo.Draw.Color = Color.Orange;
+			Gizmo.Draw.LineBBox( ObservableBounds );
+		}
 	}
 }

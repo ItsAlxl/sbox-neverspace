@@ -17,7 +17,7 @@ public sealed class GravityPawnPlayer : GravityPawn
 	public bool JumpNext = false;
 
 	public float MovtSpeed = 150.0f;
-	public float AirMovtClamp = 75.0f;
+	public float AirMovtClamp = 100.0f;
 
 	public float AccelGround = 6.0f;
 	public float AccelAir = 0.2f;

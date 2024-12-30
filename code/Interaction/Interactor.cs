@@ -65,20 +65,18 @@ public sealed class Interactor : Component
 	{
 		var f = Input.AnalogLook;
 		Facing = new( (Facing.x + f.pitch).Clamp( -90.0f, 90.0f ), Facing.y + f.yaw );
-		//WorldRotation = WorldRotation.RotateAroundAxis( Vector3.Up, f.yaw );
-		//cameraReference.Rotation = cameraReference.Rotation.RotateAroundAxis( Vector3.Up, f.yaw );
 	}
 
 	private SceneTraceResult RunInteractTrace( out Transform portaledOrigin )
 	{
 		var trace = Scene.Trace.IgnoreGameObjectHierarchy( GameObject ).WithoutTags( "walkway", "planetoid" );
-		return Portal.RunTrace(
-				trace,
-				PlayerCamera.WorldPosition,
-				PlayerCamera.WorldPosition + (PlayerCamera.WorldTransform.Forward * INTERACT_RANGE * WorldScale.x),
-				INTERACT_RADIUS * WorldScale.x,
-				out portaledOrigin
-			);
+		return Gateway.RunTrace(
+			trace,
+			PlayerCamera.WorldPosition,
+			PlayerCamera.WorldPosition + (PlayerCamera.WorldTransform.Forward * INTERACT_RANGE * WorldScale.x),
+			INTERACT_RADIUS * WorldScale.x,
+			out portaledOrigin
+		);
 	}
 
 	private void PollInteraction()

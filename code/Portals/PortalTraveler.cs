@@ -3,10 +3,10 @@ using System;
 namespace Neverspace;
 
 [Group( "Neverspace - Portals" )]
-[Title( "Portal Traveler - Base" )]
+[Title( "Portal Traveler" )]
 [Icon( "login" )]
 
-public class PortalTraveler : Component
+public abstract class PortalTraveler : Component
 {
 	[Property] public bool IsCameraViewer = false;
 
@@ -14,13 +14,13 @@ public class PortalTraveler : Component
 	public bool IsInPassage { get => passageSource != null; }
 
 	private readonly Dictionary<GameObject, GameObject> goToProxy = new();
-	private Portal passageSource;
-	private Portal passageTarget;
+	private Gateway passageSource;
+	private Gateway passageTarget;
 	private int passageSide;
 	private bool passageSwapped;
 
-	private Portal PassagePortalLegit { get => passageSwapped ? passageTarget : passageSource; }
-	private Portal PassagePortalProxy { get => passageSwapped ? passageSource : passageTarget; }
+	private Gateway PassageGatewayLegit { get => passageSwapped ? passageTarget : passageSource; }
+	private Gateway PassageGatewayProxy { get => passageSwapped ? passageSource : passageTarget; }
 
 	private IEnumerable<ModelRenderer> VisualComponentsLegit { get => GetGoVisualComponents( GameObject ); }
 	private IEnumerable<ModelRenderer> VisualComponentsProxy { get => goToProxy.SelectMany( kv => GetGoVisualComponents( kv.Value ) ); }
@@ -66,7 +66,7 @@ public class PortalTraveler : Component
 		return go.Components.GetAll<ModelRenderer>( FindMode.EverythingInSelfAndDescendants );
 	}
 
-	public void BeginPassage( Portal from, Portal to, int side )
+	public void BeginPassage( Gateway from, Gateway to, int side )
 	{
 		if ( IsInPassage )
 			return;
@@ -83,8 +83,8 @@ public class PortalTraveler : Component
 	private void ConfigurePassageSlices()
 	{
 		var swapSide = passageSwapped ? -passageSide : passageSide;
-		BeginSlice( PassagePortalLegit.WorldPlane, VisualComponentsLegit, swapSide );
-		BeginSlice( PassagePortalProxy.WorldPlane, VisualComponentsProxy, -swapSide );
+		BeginSlice( PassageGatewayLegit.WorldPlane, VisualComponentsLegit, swapSide );
+		BeginSlice( PassageGatewayProxy.WorldPlane, VisualComponentsProxy, -swapSide );
 	}
 
 	public void SwapPassage()
@@ -166,7 +166,7 @@ public class PortalTraveler : Component
 		{
 			foreach ( var kv in goToProxy )
 			{
-				kv.Value.WorldTransform = PassagePortalLegit.GetPortalTransform( PassagePortalProxy, kv.Key.WorldTransform );
+				kv.Value.WorldTransform = PassageGatewayLegit.GetPortalTransform( PassageGatewayProxy, kv.Key.WorldTransform );
 			}
 		}
 	}
