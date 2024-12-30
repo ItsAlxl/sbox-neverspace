@@ -43,19 +43,13 @@ PS
 {
 	#include "common/pixel.hlsl"
 
-	float3 ClipOgn < Attribute("ClipOgn"); >;
-	float3 ClipNormal < Attribute("ClipNormal"); >;
-	bool ClipEnabled < Attribute("ClipEnabled"); Default(0); >;
-
 	float4 MainPs( PixelInput i ) : SV_Target0
 	{
+		float3 worldPosition = i.vPositionWithOffsetWs.xyz + g_vHighPrecisionLightingOffsetWs.xyz;
+		i.vTextureCoords.xy = float2(worldPosition.x, worldPosition.y + worldPosition.z) * 0.01;
+
 		Material m = Material::From( i );
 		m.Albedo *= i.vVertexColor;
-		if (ClipEnabled)
-		{
-			float3 worldPosition = i.vPositionWithOffsetWs.xyz + g_vHighPrecisionLightingOffsetWs.xyz;
-			clip(dot(ClipNormal, worldPosition - ClipOgn) + 0.2);
-		}
 		return ShadingModelStandard::Shade( i, m );
 	}
 }
