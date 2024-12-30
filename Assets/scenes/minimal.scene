@@ -420,15 +420,17 @@
           "__guid": "891cac9b-3201-4bba-afcf-411f55debb81",
           "Flags": 0,
           "Name": "TestQuantumT",
-          "Position": "67.13971,0,0",
+          "Position": "-100,0,50",
+          "Rotation": "0.7071068,0,0,0.7071068",
+          "Scale": "0.5,0.5,0.5",
           "Enabled": true,
           "Components": [
             {
               "__type": "Neverspace.QuantumToggle",
               "__guid": "e621cbd5-8c06-4c20-99dd-dbac54bb4309",
               "ObservableBounds": {
-                "Mins": "0,0,0",
-                "Maxs": "0,0,0"
+                "Mins": "-50,-50,-4.000003",
+                "Maxs": "50,50,0"
               }
             }
           ],
@@ -437,9 +439,6 @@
               "__guid": "feb6d768-c98a-43ee-8d72-925491b54f60",
               "Flags": 0,
               "Name": "WallB",
-              "Position": "-145.3641,27.58321,51.17415",
-              "Rotation": "0.0000001376788,0.7071067,0.7071068,0.0000001376788",
-              "Scale": "0.5,0.5,0.5",
               "Enabled": true,
               "Components": [
                 {
@@ -503,6 +502,9 @@
           "__guid": "6d7a47b9-5410-40db-848c-c8301622b671",
           "Flags": 0,
           "Name": "TestQuantumC",
+          "Position": "-175,0.0001312704,50",
+          "Rotation": "0.7071068,0,0,0.7071068",
+          "Scale": "0.5,0.5,0.5",
           "Enabled": true,
           "Components": [
             {
@@ -511,8 +513,8 @@
               "ActiveStage": 0,
               "LoopCycle": true,
               "ObservableBounds": {
-                "Mins": "0,0,0",
-                "Maxs": "0,0,0"
+                "Mins": "-50,-50,-4.000003",
+                "Maxs": "50,50,0"
               }
             }
           ],
@@ -521,9 +523,6 @@
               "__guid": "98d19473-a33f-4f4b-a1b8-6564d2421fd3",
               "Flags": 0,
               "Name": "WallR",
-              "Position": "-145.3641,27.58321,51.17415",
-              "Rotation": "0.0000001376788,0.7071067,0.7071068,0.0000001376788",
-              "Scale": "0.5,0.5,0.5",
               "Enabled": true,
               "Components": [
                 {
@@ -585,9 +584,6 @@
               "__guid": "0f257f1e-8afc-485e-a42f-08771289ae56",
               "Flags": 0,
               "Name": "WallG",
-              "Position": "-145.3641,27.58321,51.17415",
-              "Rotation": "0.0000001376788,0.7071067,0.7071068,0.0000001376788",
-              "Scale": "0.5,0.5,0.5",
               "Enabled": true,
               "Components": [
                 {
@@ -649,9 +645,6 @@
               "__guid": "58c5ee31-8901-4d99-85f3-67ee6b21d064",
               "Flags": 0,
               "Name": "WallB",
-              "Position": "-145.3641,27.58321,51.17415",
-              "Rotation": "0.0000001376788,0.7071067,0.7071068,0.0000001376788",
-              "Scale": "0.5,0.5,0.5",
               "Enabled": true,
               "Components": [
                 {
@@ -710,6 +703,97 @@
               ]
             }
           ]
+        },
+        {
+          "__guid": "f12f5fa0-dbd7-4b69-806e-da2291255d68",
+          "Flags": 0,
+          "Name": "TestQuantumP-G",
+          "Position": "107.4822,-128.7715,49.99998",
+          "Rotation": "-0.5,0.5,0.5,0.5",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Neverspace.QuantumTeleporter",
+              "__guid": "3304ddae-03ee-433e-b7a5-05be48ecfeb7",
+              "AreaOfEffect": {
+                "Mins": "-50,-50,0",
+                "Maxs": "50,50,150"
+              },
+              "EgressPortal": {
+                "_type": "component",
+                "component_id": "36906fce-40c3-44e4-a9bb-9fc22731714a",
+                "go": "7719b2cc-2379-4629-b362-38802ac63e92",
+                "component_type": "QuantumTeleporter"
+              },
+              "Trigger": {
+                "Mins": "0,0,0",
+                "Maxs": "0,0,0"
+              }
+            }
+          ],
+          "Children": [
+            {
+              "__guid": "d7d61fe3-555a-4648-9bbd-cd5727575854",
+              "Flags": 0,
+              "Name": "WallB",
+              "Enabled": true,
+              "Components": [
+                {
+                  "__type": "Sandbox.ModelRenderer",
+                  "__guid": "ff48d1c4-be70-4e1c-ae02-33858e666fd8",
+                  "BodyGroups": 18446744073709551615,
+                  "CreateAttachments": false,
+                  "MaterialOverride": "materials/default.vmat",
+                  "Model": "models/dev/plane.vmdl",
+                  "RenderOptions": {
+                    "GameLayer": true,
+                    "OverlayLayer": false,
+                    "BloomLayer": false,
+                    "AfterUILayer": true
+                  },
+                  "RenderType": "On",
+                  "Tint": "0,0,1,1"
+                },
+                {
+                  "__type": "Sandbox.BoxCollider",
+                  "__guid": "cf8ef541-1852-4061-ba6a-79b7d8bf46d8",
+                  "Center": "0,0,-2",
+                  "IsTrigger": false,
+                  "Scale": "100,100,4",
+                  "Static": false,
+                  "SurfaceVelocity": "0,0,0"
+                }
+              ],
+              "Children": [
+                {
+                  "__guid": "e6569e47-b8c6-415e-8344-218f82eaef9b",
+                  "Flags": 0,
+                  "Name": "Flipside",
+                  "Position": "0,0,-4",
+                  "Rotation": "1,0.0000000000000000000003105881,0.000000000000007105427,-0.00000004371139",
+                  "Enabled": true,
+                  "Components": [
+                    {
+                      "__type": "Sandbox.ModelRenderer",
+                      "__guid": "7b3607e5-3a1a-46ea-bf7a-09f4b5aae241",
+                      "BodyGroups": 18446744073709551615,
+                      "CreateAttachments": false,
+                      "MaterialOverride": "materials/default.vmat",
+                      "Model": "models/dev/plane.vmdl",
+                      "RenderOptions": {
+                        "GameLayer": true,
+                        "OverlayLayer": false,
+                        "BloomLayer": false,
+                        "AfterUILayer": true
+                      },
+                      "RenderType": "On",
+                      "Tint": "0,0,1,1"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
         }
       ]
     },
@@ -718,7 +802,7 @@
       "Flags": 0,
       "Name": "PlatformR",
       "Position": "149.6736,22.60651,76.20484",
-      "Rotation": "0,-0,-0.7071068,0.7071068",
+      "Rotation": "0.5,-0.5,-0.5,0.5",
       "Enabled": true,
       "Children": [
         {
@@ -847,6 +931,103 @@
               "__type": "Neverspace.Walkway",
               "__guid": "3fcb0573-4729-4789-ae8f-6596c97b8527",
               "GravityStrength": 800
+            }
+          ]
+        },
+        {
+          "__guid": "7719b2cc-2379-4629-b362-38802ac63e92",
+          "Flags": 0,
+          "Name": "TestQuantumP-R",
+          "Position": "-239.105,0,50",
+          "Rotation": "0,0.7071068,0,0.7071068",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Neverspace.QuantumTeleporter",
+              "__guid": "36906fce-40c3-44e4-a9bb-9fc22731714a",
+              "AreaOfEffect": {
+                "Mins": "-50,-50,0",
+                "Maxs": "50,50,150"
+              },
+              "EgressPortal": {
+                "_type": "component",
+                "component_id": "3304ddae-03ee-433e-b7a5-05be48ecfeb7",
+                "go": "f12f5fa0-dbd7-4b69-806e-da2291255d68",
+                "component_type": "QuantumTeleporter"
+              },
+              "InstantWalkway": {
+                "_type": "component",
+                "component_id": "3fcb0573-4729-4789-ae8f-6596c97b8527",
+                "go": "a1321d59-d66d-4cd5-b969-e09c00ed50f4",
+                "component_type": "Walkway"
+              },
+              "Trigger": {
+                "Mins": "0,0,0",
+                "Maxs": "0,0,0"
+              }
+            }
+          ],
+          "Children": [
+            {
+              "__guid": "d7f4d8b1-7bd6-41a4-b7e7-356a4af03563",
+              "Flags": 0,
+              "Name": "WallB",
+              "Enabled": true,
+              "Components": [
+                {
+                  "__type": "Sandbox.ModelRenderer",
+                  "__guid": "bacf196e-3866-4ea0-bfa5-e078d3eb8e50",
+                  "BodyGroups": 18446744073709551615,
+                  "CreateAttachments": false,
+                  "MaterialOverride": "materials/default.vmat",
+                  "Model": "models/dev/plane.vmdl",
+                  "RenderOptions": {
+                    "GameLayer": true,
+                    "OverlayLayer": false,
+                    "BloomLayer": false,
+                    "AfterUILayer": true
+                  },
+                  "RenderType": "On",
+                  "Tint": "0,0,1,1"
+                },
+                {
+                  "__type": "Sandbox.BoxCollider",
+                  "__guid": "741e2d11-ebd4-40e4-9815-82459710f936",
+                  "Center": "0,0,-2",
+                  "IsTrigger": false,
+                  "Scale": "100,100,4",
+                  "Static": false,
+                  "SurfaceVelocity": "0,0,0"
+                }
+              ],
+              "Children": [
+                {
+                  "__guid": "f3dff8c5-17dd-405c-83d9-9e19b4b9908b",
+                  "Flags": 0,
+                  "Name": "Flipside",
+                  "Position": "0,0,-4",
+                  "Rotation": "1,0.0000000000000000000003105881,0.000000000000007105427,-0.00000004371139",
+                  "Enabled": true,
+                  "Components": [
+                    {
+                      "__type": "Sandbox.ModelRenderer",
+                      "__guid": "2b7dcbf4-9878-4fc7-afb9-ef83ce281c71",
+                      "BodyGroups": 18446744073709551615,
+                      "CreateAttachments": false,
+                      "MaterialOverride": "materials/default.vmat",
+                      "Model": "models/dev/plane.vmdl",
+                      "RenderOptions": {
+                        "GameLayer": true,
+                        "OverlayLayer": false,
+                        "BloomLayer": false,
+                        "AfterUILayer": true
+                      },
+                      "RenderType": "On",
+                      "Tint": "0,0,1,1"
+                    }
+                  ]
+                }
+              ]
             }
           ]
         }

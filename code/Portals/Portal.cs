@@ -38,6 +38,8 @@ public abstract class Portal : Component
 	{
 		return WorldTransform.Forward.DotSign( worldPosition - WorldPosition );
 	}
+
+	public abstract void OnPassageCheck();
 }
 
 public class PortalGoSystem : GameObjectSystem
@@ -54,7 +56,7 @@ public class PortalGoSystem : GameObjectSystem
 
 	void CheckPassage()
 	{
-		foreach ( var p in Scene.GetAllComponents<Gateway>() )
+		foreach ( var p in Scene.GetAllComponents<Portal>() )
 		{
 			p.OnPassageCheck();
 		}

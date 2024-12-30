@@ -70,7 +70,7 @@ public sealed class Gateway : Portal, Component.ITriggerListener
 		}
 	}
 
-	public void OnPassageCheck()
+	public override void OnPassageCheck()
 	{
 		if ( travelerPassage.Count > 0 )
 		{

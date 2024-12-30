@@ -35,14 +35,48 @@ public static class Extensions
 		return bounds;
 	}
 
+	public static BBox BBoxToLocal( this Transform t, BBox b )
+	{
+		return new( t.PointToLocal( b.Mins ), t.PointToLocal( b.Maxs ) );
+	}
+
+	public static BBox BBoxToWorld( this Transform t, BBox b )
+	{
+		return new( t.PointToWorld( b.Mins ), t.PointToWorld( b.Maxs ) );
+	}
+
+	public static float MinValue( this Vector3 v )
+	{
+		return MathF.Min( MathF.Min( v.x, v.y ), v.z );
+	}
+
+	public static float MaxValue( this Vector3 v )
+	{
+		return MathF.Max( MathF.Max( v.x, v.y ), v.z );
+	}
+
+	// slabs; im not gonna pretend to understand this
+	public static bool RayIntersects( this BBox b, Ray r )
+	{
+		var invR = Vector3.One / r.Forward;
+		var t0 = (b.Mins - r.Position) * invR;
+		var t1 = (b.Maxs - r.Position) * invR;
+		return Vector3.Min( t0, t1 ).MaxValue() <= Vector3.Max( t0, t1 ).MinValue();
+	}
+
 	public static float DistanceSquaredToPoint( this BBox bounds, Vector3 p )
 	{
 		return bounds.ClosestPoint( p ).DistanceSquared( p );
 	}
 
+	public static Frustum GetScreenFrustum( this CameraComponent c )
+	{
+		return c.GetFrustum( new Rect( 0, 0, Screen.Width, Screen.Height ) );
+	}
+
 	public static bool IsInCameraBounds( this BBox bounds, CameraComponent c )
 	{
-		return c.GetFrustum( new Rect( 0, 0, Screen.Width, Screen.Height ) ).IsInside( bounds, true );
+		return c.GetScreenFrustum().IsInside( bounds, true );
 	}
 
 	public static bool IsInCameraBounds( this ModelRenderer m, CameraComponent c )

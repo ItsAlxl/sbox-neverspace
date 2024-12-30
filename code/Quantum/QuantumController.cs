@@ -15,6 +15,7 @@ public abstract class QuantumController : Component
 	[Property] bool IgnoreProximity { get; set; } = false;
 
 	public bool Observed = false;
+	public bool ConvertBoundsToWorld = true;
 	protected bool ObservedState = false;
 
 	protected abstract void OnObserve();
@@ -25,17 +26,17 @@ public abstract class QuantumController : Component
 		return GameObject.Children;
 	}
 
-	protected override void OnAwake()
+	protected override void OnStart()
 	{
-		base.OnAwake();
+		base.OnStart();
 		Player ??= Scene.GetAllComponents<Interactor>().ElementAt( 0 );
 		if ( ObservableBounds.Size.IsNearlyZero( 0.001f ) )
 		{
 			ObservableBounds = GetControlledGos().AggregateGoChildBounds();
 		}
-		else
+		else if ( ConvertBoundsToWorld )
 		{
-			ObservableBounds = new( WorldTransform.PointToWorld( ObservableBounds.Mins ), WorldTransform.PointToWorld( ObservableBounds.Maxs ) );
+			ObservableBounds = WorldTransform.BBoxToWorld( ObservableBounds );
 		}
 	}
 
@@ -57,12 +58,16 @@ public abstract class QuantumController : Component
 			}
 		}
 		Observed = nowObserved;
+		/*
+		Gizmo.Draw.Color = Color.Orange;
+		Gizmo.Draw.LineBBox( ObservableBounds );
+		//*/
 	}
 
 	protected override void DrawGizmos()
 	{
 		base.DrawGizmos();
-		if ( !ObservableBounds.Size.IsNearlyZero(0.001f) )
+		if ( !ObservableBounds.Size.IsNearlyZero( 0.001f ) )
 		{
 			Gizmo.Draw.Color = Color.Orange;
 			Gizmo.Draw.LineBBox( ObservableBounds );
