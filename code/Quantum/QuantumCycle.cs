@@ -8,6 +8,7 @@ public sealed class QuantumCycle : QuantumController
 {
 	[Property] int ActiveStage { get; set; }
 	[Property] bool LoopCycle { get; set; } = true;
+	[Property] bool AddNullStage { get; set; } = false;
 
 	protected override void OnAwake()
 	{
@@ -27,7 +28,10 @@ public sealed class QuantumCycle : QuantumController
 	{
 		var controlledGos = GetControlledGos();
 		if ( LoopCycle )
-			ActiveStage %= controlledGos.Count;
+			ActiveStage %= AddNullStage ? (controlledGos.Count + 1) : controlledGos.Count;
+		else
+			ActiveStage = ActiveStage.Clamp( 0, AddNullStage ? controlledGos.Count : (controlledGos.Count - 1) );
+
 		for ( int i = 0; i < controlledGos.Count; i++ )
 			controlledGos[i].Enabled = i == ActiveStage;
 	}
