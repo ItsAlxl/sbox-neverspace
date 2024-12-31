@@ -206,7 +206,7 @@
               "__guid": "10266c8e-f9ea-4458-b86d-e57fc87bf938",
               "BodyGroups": 18446744073709551615,
               "CreateAttachments": false,
-              "MaterialOverride": "materials/player.vmat",
+              "MaterialOverride": "materials/units/player.vmat",
               "Model": "models/dev/box.vmdl",
               "RenderOptions": {
                 "GameLayer": true,
@@ -243,7 +243,7 @@
               "__guid": "9e8a546d-a41d-44b5-9906-22cea00e1066",
               "BodyGroups": 18446744073709551615,
               "CreateAttachments": false,
-              "MaterialOverride": "materials/neverspace-generic.vmat",
+              "MaterialOverride": "materials/units/neverspace-generic.vmat",
               "Model": "models/dev/box.vmdl",
               "RenderOptions": {
                 "GameLayer": true,
@@ -296,6 +296,90 @@
             {
               "__type": "Neverspace.GravityPawnRigidbody",
               "__guid": "fc49da88-61c3-4786-8030-547f3143a7e6"
+            }
+          ]
+        },
+        {
+          "__guid": "df3f435c-f3e7-4f31-8c85-cd17c3e3165f",
+          "Flags": 0,
+          "Name": "PortalG",
+          "Tags": "portal",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.BoxCollider",
+              "__guid": "30cb8555-0524-4ba1-a941-bc73a18bda3e",
+              "Center": "0,0,50",
+              "IsTrigger": true,
+              "Scale": "8,100,100",
+              "Static": false,
+              "SurfaceVelocity": "0,0,0"
+            },
+            {
+              "__type": "Neverspace.Gateway",
+              "__guid": "269c6839-19aa-47a1-bc5f-4281e9aab184",
+              "EgressPortal": {
+                "_type": "component",
+                "component_id": "d8573eff-2d1e-4552-bbd0-02c168f0ce5d",
+                "go": "828ebc27-83ca-47c6-b739-b841d4cfd4a9",
+                "component_type": "Gateway"
+              },
+              "PassageOffset": -5,
+              "PassageXScale": 0.2
+            }
+          ],
+          "Children": [
+            {
+              "__guid": "81398339-b40a-4c63-8b16-3091a2b8b383",
+              "Flags": 0,
+              "Name": "Screen",
+              "Position": "0,0,50",
+              "Scale": "0,2,2",
+              "Tags": "ptl-viewscreen",
+              "Enabled": true,
+              "Components": [
+                {
+                  "__type": "Sandbox.ModelRenderer",
+                  "__guid": "d1cc6808-080c-4d03-b764-17000a4f0e5a",
+                  "BodyGroups": 18446744073709551615,
+                  "CreateAttachments": false,
+                  "Model": "models/dev/box.vmdl",
+                  "RenderOptions": {
+                    "GameLayer": true,
+                    "OverlayLayer": false,
+                    "BloomLayer": false,
+                    "AfterUILayer": true
+                  },
+                  "RenderType": "Off",
+                  "Tint": "1,1,1,1"
+                }
+              ]
+            },
+            {
+              "__guid": "a8e24202-0b98-4098-90fa-942b85f2af50",
+              "Flags": 0,
+              "Name": "Camera",
+              "Position": "-0.0001220703,0,0",
+              "Enabled": true,
+              "Components": [
+                {
+                  "__type": "Sandbox.CameraComponent",
+                  "__guid": "b6d09487-1325-4107-a949-8b5339d6c05b",
+                  "BackgroundColor": "0.33333,0.46275,0.52157,1",
+                  "ClearFlags": "All",
+                  "FieldOfView": 60,
+                  "IsMainCamera": false,
+                  "Orthographic": false,
+                  "OrthographicHeight": 1204,
+                  "Priority": 1,
+                  "RenderExcludeTags": "ptl-viewscreen",
+                  "RenderTags": "",
+                  "TargetEye": "None",
+                  "Viewport": "0,0,1,1",
+                  "ZFar": 10000,
+                  "ZNear": 10
+                }
+              ]
             }
           ]
         },
@@ -660,7 +744,7 @@
                   "__guid": "ff48d1c4-be70-4e1c-ae02-33858e666fd8",
                   "BodyGroups": 18446744073709551615,
                   "CreateAttachments": false,
-                  "MaterialOverride": "materials/default.vmat",
+                  "MaterialOverride": "materials/signs/viewport.vmat",
                   "Model": "models/dev/plane.vmdl",
                   "RenderOptions": {
                     "GameLayer": true,
@@ -669,7 +753,7 @@
                     "AfterUILayer": true
                   },
                   "RenderType": "On",
-                  "Tint": "0,0,1,1"
+                  "Tint": "1,1,0,1"
                 },
                 {
                   "__type": "Sandbox.BoxCollider",
@@ -695,7 +779,7 @@
                       "__guid": "7b3607e5-3a1a-46ea-bf7a-09f4b5aae241",
                       "BodyGroups": 18446744073709551615,
                       "CreateAttachments": false,
-                      "MaterialOverride": "materials/default.vmat",
+                      "MaterialOverride": "materials/signs/viewport.vmat",
                       "Model": "models/dev/plane.vmdl",
                       "RenderOptions": {
                         "GameLayer": true,
@@ -704,7 +788,7 @@
                         "AfterUILayer": true
                       },
                       "RenderType": "On",
-                      "Tint": "0,0,1,1"
+                      "Tint": "1,1,0,1"
                     }
                   ]
                 }
@@ -719,7 +803,6 @@
       "Flags": 0,
       "Name": "PlatformR",
       "Position": "-682.7723,366.4737,234.5999",
-      "Rotation": "0.7071068,-0.00000005960464,-0.00000005960464,0.7071068",
       "Enabled": true,
       "Children": [
         {
@@ -743,8 +826,8 @@
               "__guid": "d8573eff-2d1e-4552-bbd0-02c168f0ce5d",
               "EgressPortal": {
                 "_type": "component",
-                "component_id": "78ba357a-3171-4809-817f-29fc6012128b",
-                "go": "30803411-2020-43bd-b99c-113ad6ba9472",
+                "component_id": "269c6839-19aa-47a1-bc5f-4281e9aab184",
+                "go": "df3f435c-f3e7-4f31-8c85-cd17c3e3165f",
                 "component_type": "Gateway"
               },
               "InstantWalkway": {
@@ -896,7 +979,7 @@
                   "__guid": "bacf196e-3866-4ea0-bfa5-e078d3eb8e50",
                   "BodyGroups": 18446744073709551615,
                   "CreateAttachments": false,
-                  "MaterialOverride": "materials/default.vmat",
+                  "MaterialOverride": "materials/signs/viewport.vmat",
                   "Model": "models/dev/plane.vmdl",
                   "RenderOptions": {
                     "GameLayer": true,
@@ -905,7 +988,7 @@
                     "AfterUILayer": true
                   },
                   "RenderType": "On",
-                  "Tint": "0,0,1,1"
+                  "Tint": "1,1,0,1"
                 },
                 {
                   "__type": "Sandbox.BoxCollider",
@@ -931,7 +1014,7 @@
                       "__guid": "2b7dcbf4-9878-4fc7-afb9-ef83ce281c71",
                       "BodyGroups": 18446744073709551615,
                       "CreateAttachments": false,
-                      "MaterialOverride": "materials/default.vmat",
+                      "MaterialOverride": "materials/signs/viewport.vmat",
                       "Model": "models/dev/plane.vmdl",
                       "RenderOptions": {
                         "GameLayer": true,
@@ -940,7 +1023,7 @@
                         "AfterUILayer": true
                       },
                       "RenderType": "On",
-                      "Tint": "0,0,1,1"
+                      "Tint": "1,1,0,1"
                     }
                   ]
                 }
@@ -1194,7 +1277,7 @@
               "__guid": "2cc999f9-cef1-4aa7-81d9-54d4ed899cd7",
               "BodyGroups": 18446744073709551615,
               "CreateAttachments": false,
-              "MaterialOverride": "materials/treadmill.vmat",
+              "MaterialOverride": "materials/world/checkers-small.vmat",
               "Model": "models/dev/plane.vmdl",
               "RenderOptions": {
                 "GameLayer": true,

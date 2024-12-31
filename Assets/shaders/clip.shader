@@ -50,7 +50,7 @@ PS
 	float4 MainPs( PixelInput i ) : SV_Target0
 	{
 		Material m = Material::From( i );
-		m.Albedo *= i.vVertexColor;
+		m.Albedo *= i.vVertexColor.xyz;
 		if (ClipEnabled)
 		{
 			float3 worldPosition = i.vPositionWithOffsetWs.xyz + g_vHighPrecisionLightingOffsetWs.xyz;

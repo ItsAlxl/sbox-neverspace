@@ -27,18 +27,6 @@ public abstract class PortalTraveler : Component
 
 	public event Action<Portal> OnTeleport;
 
-	protected override void OnAwake()
-	{
-		base.OnAwake();
-		foreach ( var m in VisualComponentsLegit )
-		{
-			if ( m.MaterialOverride.ResourceName == "neverspace-generic" )
-			{
-				m.MaterialOverride = m.MaterialOverride.CreateCopy();
-			}
-		}
-	}
-
 	public virtual void TeleportThrough( Portal portal )
 	{
 		TravelerTransform = portal.GetEgressTransform( TravelerTransform );

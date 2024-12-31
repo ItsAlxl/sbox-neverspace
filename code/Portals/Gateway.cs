@@ -33,7 +33,7 @@ public sealed class Gateway : Portal, Component.ITriggerListener
 	protected override void OnStart()
 	{
 		base.OnStart();
-		ViewScreen.MaterialOverride = Material.FromShader( "shaders/portal" ).CreateCopy();
+		ViewScreen.MaterialOverride = Material.FromShader( "shaders/portal" );
 		GhostCamera.Enabled = false;
 	}
 
