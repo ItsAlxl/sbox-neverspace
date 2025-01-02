@@ -12,7 +12,7 @@ public sealed class PortalTravelerRigidbody : PortalTraveler
 	{
 		var destinationTransform = portal.GetEgressTransform( TravelerTransform );
 		Rigidbody.Velocity = GetTransformedVector3( Rigidbody.Velocity, destinationTransform );
-		Rigidbody.AngularVelocity = GetTransformedVector3( Rigidbody.AngularVelocity, destinationTransform );
+		Rigidbody.AngularVelocity = GetTransformedVector3( Rigidbody.AngularVelocity, destinationTransform, false );
 		base.TeleportThrough( portal );
 	}
 }

@@ -17,7 +17,7 @@ public sealed class PortalTravelerPlayer : PortalTraveler
 
 	public override void TeleportThrough( Portal portal )
 	{
-		Interactor.SkipLerps();
+		Interactor.TeleportThrough( portal );
 		base.TeleportThrough( portal );
 	}
 

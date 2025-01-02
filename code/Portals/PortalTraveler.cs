@@ -8,6 +8,8 @@ namespace Neverspace;
 
 public abstract class PortalTraveler : Component
 {
+	public const float MIN_WORLD_SCALE = 0.1f;
+
 	[Property] public bool IsCameraViewer = false;
 
 	public Transform TravelerTransform { get => WorldTransform; set => WorldTransform = value; }
@@ -37,14 +39,17 @@ public abstract class PortalTraveler : Component
 			gravPawn.ActiveWalkway?.RemoveGravPawn( gravPawn );
 			portal.EgressPortal.InstantWalkway?.AddGravPawn( gravPawn );
 		}
-
 		Transform.ClearInterpolation();
 		OnTeleport?.Invoke( portal );
+		if ( WorldScale.z < MIN_WORLD_SCALE )
+		{
+			WorldScale = new( MIN_WORLD_SCALE, MIN_WORLD_SCALE, MIN_WORLD_SCALE );
+		}
 	}
 
-	protected Vector3 GetTransformedVector3( Vector3 worldVect, Transform destinationTransform )
+	protected Vector3 GetTransformedVector3( Vector3 worldVect, Transform destinationTransform, bool rescale = true )
 	{
-		return destinationTransform.NormalToWorld( WorldTransform.NormalToLocal( worldVect ) ) * (destinationTransform.Scale / WorldScale) * worldVect.Length;
+		return destinationTransform.NormalToWorld( WorldTransform.NormalToLocal( worldVect ) ) * worldVect.Length * (rescale ? (destinationTransform.Scale / WorldScale) : 1.0f);
 	}
 
 	public virtual void OnMovement() { }

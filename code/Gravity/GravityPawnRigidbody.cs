@@ -7,16 +7,18 @@ namespace Neverspace;
 public class GravityPawnRigidbody : GravityPawn
 {
 	private IEnumerable<Rigidbody> bodies;
+	private float StartScaleZ;
 
-	protected override void OnAwake()
+	protected override void OnStart()
 	{
-		base.OnAwake();
+		base.OnStart();
 		bodies = GameObject.Components.GetAll<Rigidbody>();
 
 		foreach ( var b in bodies )
 		{
 			b.Gravity = false;
 		}
+		StartScaleZ = WorldScale.z;
 	}
 
 	protected override void OnFixedUpdate()
@@ -24,7 +26,7 @@ public class GravityPawnRigidbody : GravityPawn
 		base.OnFixedUpdate();
 		foreach ( var b in bodies )
 		{
-			b.ApplyForce( CurrentGravity * b.Mass * WorldScale.x / LocalScale.x );
+			b.ApplyForce( b.Mass * CurrentGravity * WorldScale / LocalScale * WorldScale.z / StartScaleZ );
 		}
 	}
 }

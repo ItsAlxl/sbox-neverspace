@@ -6,7 +6,6 @@ namespace Neverspace;
 
 public abstract class Portal : Component
 {
-	public const float MIN_WORLD_SCALE = 0.1f;
 	public const FindMode FIND_MODE_TRAVELER = FindMode.Enabled | FindMode.InSelf | FindMode.InParent;
 
 	[Property] public Portal EgressPortal { get; set; }
@@ -20,8 +19,7 @@ public abstract class Portal : Component
 
 	public Transform GetPortalTransform( Portal to, Transform sourceWorldTransform )
 	{
-		var t = to.WorldTransform.ToWorld( WorldTransform.ToLocal( sourceWorldTransform ) );
-		return t.Scale.x <= MIN_WORLD_SCALE ? t.WithScale( MIN_WORLD_SCALE ) : t;
+		return to.WorldTransform.ToWorld( WorldTransform.ToLocal( sourceWorldTransform ) );
 	}
 
 	public Transform GetEgressTransform( Transform sourceWorldTransform )

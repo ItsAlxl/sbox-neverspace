@@ -57,6 +57,7 @@ public sealed class Gateway : Portal, Component.ITriggerListener
 					ViewScreen.SceneObject.Batchable = false;
 					ViewScreen.SceneObject.Attributes.Set( "PortalViewTex", renderTarget );
 				}
+				GhostCamera.BackgroundColor = PlayerCamera.BackgroundColor;
 				GhostCamera.ZNear = PlayerCamera.ZNear;
 				GhostCamera.ZFar = PlayerCamera.ZFar;
 				GhostCamera.FieldOfView = PlayerCamera.FieldOfView;
@@ -109,12 +110,14 @@ public sealed class Gateway : Portal, Component.ITriggerListener
 			.Size( radius )
 			.HitTriggers()
 			.Run();
+
 		var gateway = result.GetGoComponent<Gateway>();
 		while ( result.Hit && result.GameObject != null && gateway != null )
 		{
 			result = gateway.ContinueEgressTrace( trace, result.HitPosition, worldEnd, ref radius, ref originTransform );
 			gateway = result.GetGoComponent<Gateway>();
 		}
+
 		return result;
 	}
 
@@ -140,8 +143,10 @@ public sealed class Gateway : Portal, Component.ITriggerListener
 
 	private void ApplyViewerConfig( bool passage, int side = 0 )
 	{
-		ViewScreen.LocalScale = ViewScreen.LocalScale.WithX( passage ? PassageXScale : 0.0f );
-		ViewScreen.LocalPosition = ViewScreen.LocalPosition.WithX( side * PassageOffset );
+		var scale = 1.0f / WorldScale.x;
+		ViewScreen.LocalScale = ViewScreen.LocalScale.WithX( passage ? (scale * PassageXScale) : 0.0f );
+		ViewScreen.LocalPosition = ViewScreen.LocalPosition.WithX( scale * side * PassageOffset );
+		ViewScreen.Transform.ClearInterpolation();
 	}
 
 	private void AcceptTravelerPassage( PortalTraveler t, int side )

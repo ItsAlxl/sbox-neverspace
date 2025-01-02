@@ -50,9 +50,9 @@ public sealed class Interactor : Component
 		PollInteraction();
 	}
 
-	public void SkipLerps()
+	public void TeleportThrough( Portal p )
 	{
-		skipNextCamLerp = true;
+		cameraReference.Rotation = p.GetEgressTransform( cameraReference ).Rotation;
 	}
 
 	protected override void OnUpdate()

@@ -47,4 +47,11 @@ public sealed class Planetoid : GravityAttractor
 		var pawnToPlanet = WorldPosition - gp.WorldPosition;
 		return pawnToPlanet.Normal * GravityStrength * InfluenceCurve.Evaluate( (pawnToPlanet.Length - InfluenceStart) / (InfluenceEnd - InfluenceStart) );
 	}
+
+	protected override void DrawGizmos()
+	{
+		base.DrawGizmos();
+		Gizmo.Draw.Color = Color.Blue;
+		Gizmo.Draw.LineSphere( Vector3.Zero, InfluenceEnd, 16 );
+	}
 }

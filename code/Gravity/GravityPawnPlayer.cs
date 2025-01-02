@@ -41,10 +41,13 @@ public sealed class GravityPawnPlayer : GravityPawn
 	public void Move()
 	{
 		var gravLength = CurrentGravity.Length;
-		var upNormal = -CurrentGravity / gravLength;
-		if ( !(WorldTransform.Up - upNormal).IsNearlyZero( 0.05f ) )
+		if ( gravLength > 0.01f )
 		{
-			WorldRotation = Rotation.LookAt( Vector3.VectorPlaneProject( WorldTransform.Forward, upNormal ), upNormal );
+			var upNormal = -CurrentGravity / gravLength;
+			if ( !(WorldTransform.Up - upNormal).IsNearlyZero( 0.01f ) )
+			{
+				WorldRotation = Rotation.LookAt( Vector3.VectorPlaneProject( WorldTransform.Forward, upNormal ), upNormal );
+			}
 		}
 
 		if ( IsGrounded )
