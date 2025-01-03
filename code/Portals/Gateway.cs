@@ -64,7 +64,7 @@ public sealed class Gateway : Portal, Component.ITriggerListener
 				GhostCamera.WorldTransform = GetEgressTransform( PlayerCamera.WorldTransform );
 
 				Plane p = EgressGateway.WorldPlane;
-				p.Distance += 1.0f * EgressPortal.GetOffsetSide( GhostCamera.WorldPosition );
+				p.Distance += GetEgressCameraSide();
 				// s&box's Plane::GetDistance function is bad
 				GhostCamera.CustomProjectionMatrix = p.SnapToPlane( GhostCamera.WorldPosition ).DistanceSquared( GhostCamera.WorldPosition ) < 50.0f ? null : GhostCamera.CalculateObliqueMatrix( p );
 			}
@@ -184,5 +184,15 @@ public sealed class Gateway : Portal, Component.ITriggerListener
 		{
 			OnTravelerExited( t );
 		}
+	}
+
+	public int GetCameraSide()
+	{
+		return GetOffsetSide( PlayerCamera.WorldPosition );
+	}
+
+	public int GetEgressCameraSide()
+	{
+		return EgressGateway.GetOffsetSide( GhostCamera.WorldPosition );
 	}
 }

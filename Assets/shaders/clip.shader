@@ -46,6 +46,7 @@ PS
 	float3 ClipOgn < Attribute("ClipOgn"); >;
 	float3 ClipNormal < Attribute("ClipNormal"); >;
 	bool ClipEnabled < Attribute("ClipEnabled"); Default(0); >;
+	bool Overdraw < Attribute("Overdraw"); Default(0); >;
 
 	float4 MainPs( PixelInput i ) : SV_Target0
 	{
@@ -54,7 +55,7 @@ PS
 		if (ClipEnabled)
 		{
 			float3 worldPosition = i.vPositionWithOffsetWs.xyz + g_vHighPrecisionLightingOffsetWs.xyz;
-			clip(dot(ClipNormal, worldPosition - ClipOgn) + 0.2);
+			clip(dot(ClipNormal, worldPosition - ClipOgn) + (Overdraw ? 0.2 : -0.2));
 		}
 		return ShadingModelStandard::Shade( i, m );
 	}

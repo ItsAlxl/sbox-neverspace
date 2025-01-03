@@ -117,6 +117,21 @@ public abstract class PortalTraveler : Component
 		}
 	}
 
+	private static void OverdrawSlice( IEnumerable<ModelRenderer> models, bool overdraw )
+	{
+		foreach ( var m in models )
+		{
+			m.SceneObject.Attributes.Set( "Overdraw", overdraw );
+		}
+	}
+
+	private void UpdateOverdrawLegit()
+	{
+		var legitSide = PassageGatewayLegit.GetOffsetSide( WorldPosition );
+		OverdrawSlice( VisualComponentsLegit, legitSide == PassageGatewayLegit.GetCameraSide() );
+		OverdrawSlice( VisualComponentsProxy, -legitSide == PassageGatewayProxy.GetCameraSide() );
+	}
+
 	public void CreateProxy()
 	{
 		if ( goToProxy.Count > 0 )
@@ -168,6 +183,7 @@ public abstract class PortalTraveler : Component
 	{
 		base.OnPreRender();
 		DriveProxy();
+		UpdateOverdrawLegit();
 	}
 
 	protected override void OnDestroy()
