@@ -96,7 +96,7 @@ public sealed class Interactor : Component
 			var tr = RunInteractTrace( out Transform portaledOrigin );
 			if ( (tr.Hit && tr.GameObject == heldCarriable.GameObject) || portaledOrigin.AlmostEqual( heldCarriable.PortaledOrigin ) )
 				carriedItemInReach = 0.0f;
-			if ( carriedItemInReach > 0.2f )
+			if ( carriedItemInReach > 0.5f )
 				StopCarrying();
 		}
 	}
