@@ -19,9 +19,9 @@ public sealed class Carriable : Component, IInteractable
 
 	private Interactor carrier;
 
-	protected override void OnAwake()
+	protected override void OnStart()
 	{
-		base.OnAwake();
+		base.OnStart();
 		var traveler = GameObject.Components.Get<PortalTraveler>();
 		if ( traveler != null )
 			traveler.OnTeleport += OnTeleport;

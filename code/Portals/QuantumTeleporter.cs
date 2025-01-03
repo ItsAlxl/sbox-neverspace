@@ -59,6 +59,9 @@ public sealed class QuantumTeleporter : Portal
 
 	private void TeleportContents()
 	{
+		if ( EgressQTP == null )
+			return;
+
 		foreach ( var go in Scene.FindInPhysics( AreaOfEffect ) )
 		{
 			var traveler = go.GetComponent<PortalTraveler>();

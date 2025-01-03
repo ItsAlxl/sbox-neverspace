@@ -10,9 +10,9 @@ public sealed class QuantumCycle : QuantumController
 	[Property] bool LoopCycle { get; set; } = true;
 	[Property] bool AddNullStage { get; set; } = false;
 
-	protected override void OnAwake()
+	protected override void OnStart()
 	{
-		base.OnAwake();
+		base.OnStart();
 		ApplyCurrentStage();
 	}
 

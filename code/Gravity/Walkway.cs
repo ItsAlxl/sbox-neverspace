@@ -9,9 +9,9 @@ public sealed class Walkway : GravityAttractor
 	[Property] bool GravOnly { get; set; } = false;
 	public Vector3 Gravity { get => GravityStrength * WorldTransform.Down; }
 
-	protected override void OnAwake()
+	protected override void OnStart()
 	{
-		base.OnAwake();
+		base.OnStart();
 		var col = GetComponent<Collider>();
 		var trigger = GravOnly ? col : col.CreateDuplicate() as Collider;
 		trigger.IsTrigger = true;

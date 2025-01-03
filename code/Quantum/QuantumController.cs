@@ -1,5 +1,3 @@
-using System;
-
 namespace Neverspace;
 
 [Group( "Neverspace - Quantum" )]
@@ -44,7 +42,7 @@ public abstract class QuantumController : Component
 	{
 		base.OnUpdate();
 		var nowObserved = ObservableBounds.IsInCameraBounds( Player.PlayerCamera );
-		if ( IgnoreProximity || ObservableBounds.DistanceSquaredToPoint( Player.WorldPosition ) / Player.WorldScale.x > PROXIMITY_THRESHOLD )
+		if ( IgnoreProximity || ObservableBounds.DistanceSquaredToPoint( Player.WorldPosition ) > PROXIMITY_THRESHOLD * Player.WorldScale.x * Player.WorldScale.x )
 		{
 			if ( !nowObserved && ObservedState )
 			{

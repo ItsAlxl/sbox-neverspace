@@ -24,14 +24,17 @@ public sealed class Interactor : Component
 	private Carriable heldCarriable;
 	private TimeSince carriedItemInReach;
 
-	protected override void OnAwake()
+	protected override void OnStart()
 	{
-		base.OnAwake();
+		base.OnStart();
 		PlayerCamera ??= Scene.Camera;
 	}
 
 	public void OnCameraUpdate()
 	{
+		if ( PlayerCamera == null )
+			return;
+
 		PlayerCamera.WorldScale = WorldScale;
 		PlayerCamera.WorldPosition = WorldTransform.PointToWorld( eyePos );
 

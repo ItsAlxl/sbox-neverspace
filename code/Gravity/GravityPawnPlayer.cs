@@ -44,7 +44,7 @@ public sealed class GravityPawnPlayer : GravityPawn
 		if ( gravLength > 0.01f )
 		{
 			var upNormal = -CurrentGravity / gravLength;
-			if ( !(WorldTransform.Up - upNormal).IsNearlyZero( 0.01f ) )
+			if ( !(WorldTransform.Up - upNormal).IsNearlyZero( 0.001f ) )
 			{
 				WorldRotation = Rotation.LookAt( Vector3.VectorPlaneProject( WorldTransform.Forward, upNormal ), upNormal );
 			}

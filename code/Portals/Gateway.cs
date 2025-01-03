@@ -22,9 +22,9 @@ public sealed class Gateway : Portal, Component.ITriggerListener
 	private int viewerSide = 0;
 	private int currentViewerSide = 0;
 
-	protected override void OnAwake()
+	protected override void OnStart()
 	{
-		base.OnAwake();
+		base.OnStart();
 		ViewScreen ??= GameObject.Components.GetInChildren<ModelRenderer>();
 		GhostCamera ??= GameObject.Components.GetInChildren<CameraComponent>();
 		PlayerCamera ??= Scene.Camera;

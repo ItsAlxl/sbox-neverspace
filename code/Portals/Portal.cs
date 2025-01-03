@@ -11,9 +11,9 @@ public abstract class Portal : Component
 	[Property] public Portal EgressPortal { get; set; }
 	[Property] public GravityAttractor InstantGrav { get; set; }
 
-	protected override void OnAwake()
+	protected override void OnStart()
 	{
-		base.OnAwake();
+		base.OnStart();
 		Tags.Add( "portal" );
 	}
 
