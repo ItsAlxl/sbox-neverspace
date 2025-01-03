@@ -13,7 +13,7 @@ public sealed class QuantumTeleporter : Portal
 	[Property] BBox Trigger { get; set; }
 	public QuantumTeleporter EgressQTP { get => EgressPortal as QuantumTeleporter; }
 
-	private bool PlayerInPlace { get => AreaOfEffect.Contains( Player.PlayerCamera.WorldPosition ); }
+	private bool PlayerInPlace { get => Player != null && AreaOfEffect.Contains( Player.PlayerCamera.WorldPosition ); }
 	private bool TriggerContainsEntireView
 	{
 		get

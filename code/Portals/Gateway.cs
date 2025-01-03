@@ -19,6 +19,9 @@ public sealed class Gateway : Portal, Component.ITriggerListener
 	private Texture renderTarget;
 	private readonly Dictionary<PortalTraveler, int> travelerPassage = new( 1 );
 
+	private int viewerSide = 0;
+	private int currentViewerSide = 0;
+
 	protected override void OnAwake()
 	{
 		base.OnAwake();
@@ -26,20 +29,24 @@ public sealed class Gateway : Portal, Component.ITriggerListener
 		GhostCamera ??= GameObject.Components.GetInChildren<CameraComponent>();
 		PlayerCamera ??= Scene.Camera;
 
+		ViewScreen.MaterialOverride = Material.FromShader( "shaders/portal" );
+		GhostCamera.Enabled = false;
+
 		Tags.Add( "ptl-gateway" );
 		ViewScreen.Tags.Add( "ptl-viewscreen" );
 	}
 
-	protected override void OnStart()
+	public void OnViewerConfig()
 	{
-		base.OnStart();
-		ViewScreen.MaterialOverride = Material.FromShader( "shaders/portal" );
-		GhostCamera.Enabled = false;
-	}
+		if ( viewerSide != currentViewerSide )
+		{
+			var scale = 1.0f / WorldScale.x;
+			ViewScreen.LocalScale = ViewScreen.LocalScale.WithX( viewerSide == 0 ? 0.0f : (scale * PassageXScale) );
+			ViewScreen.LocalPosition = ViewScreen.LocalPosition.WithX( scale * viewerSide * PassageOffset );
+			ViewScreen.Transform.ClearInterpolation();
+			currentViewerSide = viewerSide;
+		}
 
-	protected override void OnPreRender()
-	{
-		base.OnPreRender();
 		ViewScreen.SceneObject.RenderingEnabled = EgressPortal != null;
 		if ( ViewScreen.SceneObject.RenderingEnabled )
 		{
@@ -69,11 +76,12 @@ public sealed class Gateway : Portal, Component.ITriggerListener
 				GhostCamera.CustomProjectionMatrix = p.SnapToPlane( GhostCamera.WorldPosition ).DistanceSquared( GhostCamera.WorldPosition ) < 50.0f ? null : GhostCamera.CalculateObliqueMatrix( p );
 			}
 		}
+
 	}
 
 	public override void OnPassageCheck()
 	{
-		if ( travelerPassage.Count > 0 )
+		if ( travelerPassage.Count > 0 && EgressGateway != null )
 		{
 			var needsCleanup = false;
 			foreach ( var kv in travelerPassage )
@@ -83,7 +91,7 @@ public sealed class Gateway : Portal, Component.ITriggerListener
 				if ( newSide != kv.Value )
 				{
 					traveler.SwapPassage();
-					EgressGateway.AcceptTravelerPassage( traveler, newSide );
+					EgressGateway.OnTravelerEntered( traveler, newSide );
 					OnTravelerExited( kv.Key );
 					traveler.TeleportThrough( this );
 					travelerPassage[traveler] = 0;
@@ -141,20 +149,17 @@ public sealed class Gateway : Portal, Component.ITriggerListener
 			.Run();
 	}
 
-	private void ApplyViewerConfig( bool passage, int side = 0 )
+	public void ApplyViewerConfig( int side )
 	{
-		var scale = 1.0f / WorldScale.x;
-		ViewScreen.LocalScale = ViewScreen.LocalScale.WithX( passage ? (scale * PassageXScale) : 0.0f );
-		ViewScreen.LocalPosition = ViewScreen.LocalPosition.WithX( scale * side * PassageOffset );
-		ViewScreen.Transform.ClearInterpolation();
+		viewerSide = side;
 	}
 
-	private void AcceptTravelerPassage( PortalTraveler t, int side )
+	private void OnTravelerEntered( PortalTraveler t, int side )
 	{
 		travelerPassage.Add( t, side );
 		if ( t.IsCameraViewer )
 		{
-			ApplyViewerConfig( true, side );
+			ApplyViewerConfig( side );
 		}
 		t.BeginPassage( this, EgressGateway, side );
 	}
@@ -163,7 +168,7 @@ public sealed class Gateway : Portal, Component.ITriggerListener
 	{
 		if ( t.IsCameraViewer )
 		{
-			ApplyViewerConfig( false );
+			ApplyViewerConfig( 0 );
 		}
 		t.EndPassage( this );
 	}
@@ -171,9 +176,9 @@ public sealed class Gateway : Portal, Component.ITriggerListener
 	public void OnTriggerEnter( Collider other )
 	{
 		var t = other.GameObject.Components.Get<PortalTraveler>( FIND_MODE_TRAVELER );
-		if ( t != null && !t.IsInPassage && !travelerPassage.ContainsKey( t ) )
+		if ( t != null && !t.IsInPassage && !travelerPassage.ContainsKey( t ) && EgressGateway != null )
 		{
-			AcceptTravelerPassage( t, GetOffsetSide( t.TravelerTransform.Position ) );
+			OnTravelerEntered( t, GetOffsetSide( t.TravelerTransform.Position ) );
 		}
 	}
 

@@ -9,7 +9,7 @@ public abstract class Portal : Component
 	public const FindMode FIND_MODE_TRAVELER = FindMode.Enabled | FindMode.InSelf | FindMode.InParent;
 
 	[Property] public Portal EgressPortal { get; set; }
-	[Property] public Walkway InstantWalkway { get; set; }
+	[Property] public GravityAttractor InstantGrav { get; set; }
 
 	protected override void OnAwake()
 	{
@@ -46,33 +46,34 @@ public class PortalGoSystem : GameObjectSystem
 	{
 		if ( !scene.IsEditor )
 		{
-			Listen( Stage.StartFixedUpdate, 1, CheckPassage, "CheckPassage" );
-			Listen( Stage.StartFixedUpdate, 2, DrivePlayerCamera, "DrivePlayerCamera" );
-			Listen( Stage.StartFixedUpdate, 3, TravelerMovement, "TravelerMovement" );
+			Listen( Stage.StartFixedUpdate, 1, PassageLogic, "PassageLogic" );
+			Listen( Stage.StartUpdate, -1, RenderLogic, "RenderLogic" );
 		}
 	}
 
-	void CheckPassage()
+	void PassageLogic()
 	{
 		foreach ( var p in Scene.GetAllComponents<Portal>() )
 		{
 			p.OnPassageCheck();
 		}
-	}
 
-	void DrivePlayerCamera()
-	{
 		foreach ( var p in Scene.GetAllComponents<Interactor>() )
 		{
 			p.OnCameraUpdate();
 		}
-	}
 
-	void TravelerMovement()
-	{
 		foreach ( var p in Scene.GetAllComponents<PortalTraveler>() )
 		{
 			p.OnMovement();
+		}
+	}
+
+	void RenderLogic()
+	{
+		foreach ( var g in Scene.GetAllComponents<Gateway>() )
+		{
+			g.OnViewerConfig();
 		}
 	}
 }

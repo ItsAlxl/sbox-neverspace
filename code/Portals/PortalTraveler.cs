@@ -36,8 +36,8 @@ public abstract class PortalTraveler : Component
 		var gravPawn = GetComponent<GravityPawn>();
 		if ( gravPawn != null )
 		{
-			gravPawn.ActiveWalkway?.RemoveGravPawn( gravPawn );
-			portal.EgressPortal.InstantWalkway?.AddGravPawn( gravPawn );
+			gravPawn.Clear();
+			portal.EgressPortal.InstantGrav?.AddGravPawn( gravPawn );
 		}
 		Transform.ClearInterpolation();
 		OnTeleport?.Invoke( portal );
@@ -61,7 +61,7 @@ public abstract class PortalTraveler : Component
 
 	public void BeginPassage( Gateway from, Gateway to, int side )
 	{
-		if ( IsInPassage )
+		if ( IsInPassage || to == null )
 			return;
 
 		passageSource = from;
@@ -83,6 +83,7 @@ public abstract class PortalTraveler : Component
 	public void SwapPassage()
 	{
 		passageSwapped = !passageSwapped;
+		passageSource = passageTarget.EgressGateway;
 		ConfigurePassageSlices();
 	}
 

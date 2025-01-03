@@ -34,4 +34,12 @@ public class GravityPawn : Component
 	{
 		return !c.Tags.Has( "grav-ignore" );
 	}
+
+	public void Clear()
+	{
+		ActiveWalkway?.RemoveGravPawn( this );
+		var planetoids = new List<Planetoid>( Planetoids );
+		foreach ( var p in planetoids )
+			p.RemoveGravPawn( this );
+	}
 }

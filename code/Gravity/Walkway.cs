@@ -6,13 +6,14 @@ namespace Neverspace;
 
 public sealed class Walkway : GravityAttractor
 {
+	[Property] bool GravOnly { get; set; } = false;
 	public Vector3 Gravity { get => GravityStrength * WorldTransform.Down; }
 
 	protected override void OnAwake()
 	{
 		base.OnAwake();
 		var col = GetComponent<Collider>();
-		var trigger = col.CreateDuplicate() as Collider;
+		var trigger = GravOnly ? col : col.CreateDuplicate() as Collider;
 		trigger.IsTrigger = true;
 		trigger.OnTriggerEnter += OnGravTriggerEntered;
 		trigger.OnTriggerExit += OnGravTriggerExit;
