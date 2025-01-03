@@ -86,10 +86,9 @@ public abstract class PortalTraveler : Component
 		ConfigurePassageSlices();
 	}
 
-	public void EndPassage( Portal from, Portal to )
+	public void EndPassage( Portal from )
 	{
-		if ( !passageSwapped && passageSource == from && passageTarget == to ||
-			passageSwapped && passageSource == to && passageTarget == from )
+		if ( from == (passageSwapped ? passageTarget : passageSource) )
 		{
 			passageSource = null;
 			passageTarget = null;
@@ -127,9 +126,12 @@ public abstract class PortalTraveler : Component
 
 	private void UpdateOverdrawLegit()
 	{
-		var legitSide = PassageGatewayLegit.GetOffsetSide( WorldPosition );
-		OverdrawSlice( VisualComponentsLegit, legitSide == PassageGatewayLegit.GetCameraSide() );
-		OverdrawSlice( VisualComponentsProxy, -legitSide == PassageGatewayProxy.GetCameraSide() );
+		if ( IsInPassage )
+		{
+			var legitSide = PassageGatewayLegit.GetOffsetSide( WorldPosition );
+			OverdrawSlice( VisualComponentsLegit, legitSide == PassageGatewayLegit.GetCameraSide() );
+			OverdrawSlice( VisualComponentsProxy, -legitSide == PassageGatewayProxy.GetCameraSide() );
+		}
 	}
 
 	public void CreateProxy()

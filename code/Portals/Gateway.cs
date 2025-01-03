@@ -165,7 +165,7 @@ public sealed class Gateway : Portal, Component.ITriggerListener
 		{
 			ApplyViewerConfig( false );
 		}
-		t.EndPassage( this, EgressPortal );
+		t.EndPassage( this );
 	}
 
 	public void OnTriggerEnter( Collider other )
