@@ -6,7 +6,6 @@ namespace Neverspace;
 
 public class QuantumDoor : QuantumController
 {
-	const float MIN_DIFF_SIZE = 0.01f;
 	[Property] GameObject WatchedGo { get; set; }
 	[Property] Vector3 MinDiff { get; set; }
 
@@ -15,7 +14,7 @@ public class QuantumDoor : QuantumController
 		get
 		{
 			var diff = WatchedGo.WorldPosition - WorldPosition;
-			return CompareAxis( diff.x, MinDiff.x ) && CompareAxis( diff.y, MinDiff.y ) && CompareAxis( diff.z, MinDiff.z );
+			return diff.x.MeetsThreshold( MinDiff.x ) && diff.y.MeetsThreshold( MinDiff.y ) && diff.z.MeetsThreshold( MinDiff.z );
 		}
 	}
 
@@ -29,11 +28,6 @@ public class QuantumDoor : QuantumController
 			g.Enabled = false;
 	}
 
-	private bool CompareAxis( float dist, float target )
-	{
-		return target <= -MIN_DIFF_SIZE ? (dist < target) : (target < MIN_DIFF_SIZE || dist > target);
-	}
-
 	protected override void OnObserve() { }
 
 	protected override void OnUnobserve()
@@ -43,7 +37,6 @@ public class QuantumDoor : QuantumController
 			foreach ( var g in GetControlledGos() )
 				g.Enabled = true;
 			Enabled = false;
-			Log.Info( "Blammo!" );
 		}
 	}
 

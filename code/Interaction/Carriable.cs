@@ -4,7 +4,7 @@ namespace Neverspace;
 [Title( "Carriable" )]
 [Icon( "open_in_new" )]
 
-public sealed class Carriable : Component, IInteractable
+public class Carriable : Component, IInteractable
 {
 	const float FOLLOW_ROT_TIME = 1.0f / 5.0f;
 	const float FOLLOW_POS_TIME = 1.0f / 7.5f;
@@ -17,7 +17,8 @@ public sealed class Carriable : Component, IInteractable
 	private Transform TargetCarrierTransform { get; set; }
 	private Transform TargetWorldTransform { get => PortaledCarrierTransform.ToWorld( TargetCarrierTransform ); }
 
-	private Interactor carrier;
+	protected Interactor carrier;
+	protected bool canBeCarried = true;
 
 	protected override void OnStart()
 	{
@@ -29,6 +30,8 @@ public sealed class Carriable : Component, IInteractable
 
 	public void OnInteract( Interactor interacter, Transform portaledOrigin )
 	{
+		if ( !canBeCarried )
+			return;
 		carrier = interacter;
 		ListenToCarrierTeleport( true );
 		PortaledOrigin = portaledOrigin;

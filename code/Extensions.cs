@@ -94,6 +94,11 @@ public static class Extensions
 		return Math.Sign( a.Dot( b ) );
 	}
 
+	public static bool MeetsThreshold(this float a, float threshold, float epsilon = 0.01f)
+	{
+		return threshold <= -epsilon ? (a < threshold) : (threshold < epsilon || a > threshold);
+	}
+
 	private static bool RotationComponentsAlmostEqual( Rotation a, Rotation b, float delta = 0.001f )
 	{
 		return a.x.AlmostEqual( b.x, delta ) && a.y.AlmostEqual( b.y, delta ) && a.z.AlmostEqual( b.z, delta ) && a.w.AlmostEqual( b.w, delta );
