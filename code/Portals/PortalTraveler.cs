@@ -78,6 +78,11 @@ public abstract class PortalTraveler : Component
 		var swapSide = passageSwapped ? -passageSide : passageSide;
 		BeginSlice( PassageGatewayLegit.WorldPlane, VisualComponentsLegit, swapSide );
 		BeginSlice( PassageGatewayProxy.WorldPlane, VisualComponentsProxy, -swapSide );
+
+		var p = PassageGatewayProxy.WorldPlane;
+		var clipPos = p.Position;
+		var clipNormal = p.Normal * -swapSide;
+		Log.Info($"Proxy clips on {clipPos} :: {clipNormal}");
 	}
 
 	public void SwapPassage()
@@ -101,10 +106,12 @@ public abstract class PortalTraveler : Component
 
 	private static void BeginSlice( Plane p, IEnumerable<ModelRenderer> models, int side )
 	{
+		var clipPos = p.Position;
+		var clipNormal = p.Normal * side;
 		foreach ( var m in models )
 		{
-			m.SceneObject.Attributes.Set( "ClipOgn", p.Position );
-			m.SceneObject.Attributes.Set( "ClipNormal", p.Normal * side );
+			m.SceneObject.Attributes.Set( "ClipOgn", clipPos );
+			m.SceneObject.Attributes.Set( "ClipNormal", clipNormal );
 			m.SceneObject.Attributes.Set( "ClipEnabled", true );
 		}
 	}

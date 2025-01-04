@@ -54,8 +54,11 @@ PS
 		m.Albedo *= i.vVertexColor.xyz;
 		if (ClipEnabled)
 		{
-			float3 worldPosition = i.vPositionWithOffsetWs.xyz + g_vHighPrecisionLightingOffsetWs.xyz;
-			clip(dot(ClipNormal, worldPosition - ClipOgn) + 0.2);//(Overdraw ? 0.2 : -0.2));
+			float3 worldPosition = m.WorldPosition;
+			float thresh = dot(ClipNormal, worldPosition - ClipOgn) + 0.2;//(Overdraw ? 0.2 : -0.2);
+			//m.Opacity = thresh <= 0.0 ? 0.0 : 1.0;
+			m.Albedo = thresh <= 0.0 ? float3(1.0, 0.0, 0.0) : m.Albedo;
+			//clip(thresh);
 		}
 		return ShadingModelStandard::Shade( i, m );
 	}
