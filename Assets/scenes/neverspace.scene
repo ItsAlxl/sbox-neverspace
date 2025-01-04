@@ -1353,7 +1353,7 @@
           "Name": "Wall",
           "Position": "50,-50,50",
           "Rotation": "-0.4999999,-0.5,-0.5,0.5000001",
-          "Scale": "1,4,2",
+          "Scale": "1,4,1",
           "Enabled": true,
           "Components": [
             {
@@ -5810,7 +5810,13 @@
             {
               "__type": "Neverspace.Keyhole",
               "__guid": "c68bd804-785c-4745-b601-9e93c1f8273e",
-              "KeyPos": "0,0,0.75"
+              "KeyPos": "0,0,0.75",
+              "PairedKey": {
+                "_type": "component",
+                "component_id": "d59f1ad9-b825-4275-8362-8294d8b7d35a",
+                "go": "bd68776e-b4a6-41b4-8a1e-a66fbd85a0f0",
+                "component_type": "Key"
+              }
             },
             {
               "__type": "Sandbox.ModelRenderer",
@@ -5849,59 +5855,10 @@
           ]
         },
         {
-          "__guid": "8780810e-531b-4344-a021-0a1bde1d58cd",
-          "Flags": 0,
-          "Name": "OrbKeyhole",
-          "Position": "125,-75,0",
-          "Scale": "0.5,0.5,1",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Neverspace.Keyhole",
-              "__guid": "48a0e559-6e41-4751-afea-bdb386177578",
-              "KeyPos": "0,0,0.75"
-            },
-            {
-              "__type": "Sandbox.ModelRenderer",
-              "__guid": "bcdbeea8-e8f7-4876-acee-07975b9d0e65",
-              "BodyGroups": 18446744073709551615,
-              "CreateAttachments": false,
-              "MaterialOverride": "materials/keys/orb_hole.vmat",
-              "Model": "models/dev/plane.vmdl",
-              "RenderOptions": {
-                "GameLayer": true,
-                "OverlayLayer": false,
-                "BloomLayer": false,
-                "AfterUILayer": true
-              },
-              "RenderType": "On",
-              "Tint": "1,1,1,1"
-            },
-            {
-              "__type": "Sandbox.BoxCollider",
-              "__guid": "a9c7514c-5963-463f-9115-3634cbde3fdd",
-              "Center": "0,0,-8",
-              "IsTrigger": false,
-              "Scale": "100,100,16",
-              "Static": true,
-              "SurfaceVelocity": "0,0,0"
-            },
-            {
-              "__type": "Sandbox.BoxCollider",
-              "__guid": "92cfa553-64eb-478b-ba90-af9b88c2648e",
-              "Center": "0,0,12.5",
-              "IsTrigger": true,
-              "Scale": "50,50,25",
-              "Static": false,
-              "SurfaceVelocity": "0,0,0"
-            }
-          ]
-        },
-        {
           "__guid": "077eadab-0d2f-4b77-8fed-70c77d2cba4b",
           "Flags": 0,
           "Name": "TriKeyhole",
-          "Position": "125,-125,0",
+          "Position": "125,-75,0",
           "Rotation": "0,0,1,0.0000001947072",
           "Scale": "0.5,0.5,1",
           "Enabled": true,
@@ -5948,6 +5905,55 @@
           ]
         },
         {
+          "__guid": "8780810e-531b-4344-a021-0a1bde1d58cd",
+          "Flags": 0,
+          "Name": "OrbKeyhole",
+          "Position": "125,-125,0",
+          "Scale": "0.5,0.5,1",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Neverspace.Keyhole",
+              "__guid": "48a0e559-6e41-4751-afea-bdb386177578",
+              "KeyPos": "0,0,0.75"
+            },
+            {
+              "__type": "Sandbox.ModelRenderer",
+              "__guid": "bcdbeea8-e8f7-4876-acee-07975b9d0e65",
+              "BodyGroups": 18446744073709551615,
+              "CreateAttachments": false,
+              "MaterialOverride": "materials/keys/orb_hole.vmat",
+              "Model": "models/dev/plane.vmdl",
+              "RenderOptions": {
+                "GameLayer": true,
+                "OverlayLayer": false,
+                "BloomLayer": false,
+                "AfterUILayer": true
+              },
+              "RenderType": "On",
+              "Tint": "1,1,1,1"
+            },
+            {
+              "__type": "Sandbox.BoxCollider",
+              "__guid": "a9c7514c-5963-463f-9115-3634cbde3fdd",
+              "Center": "0,0,-8",
+              "IsTrigger": false,
+              "Scale": "100,100,16",
+              "Static": true,
+              "SurfaceVelocity": "0,0,0"
+            },
+            {
+              "__type": "Sandbox.BoxCollider",
+              "__guid": "92cfa553-64eb-478b-ba90-af9b88c2648e",
+              "Center": "0,0,12.5",
+              "IsTrigger": true,
+              "Scale": "50,50,25",
+              "Static": false,
+              "SurfaceVelocity": "0,0,0"
+            }
+          ]
+        },
+        {
           "__guid": "fc2f0af0-651e-438b-bd55-bba07f941d55",
           "Flags": 0,
           "Name": "ExitDoor",
@@ -5962,6 +5968,24 @@
                   "_type": "component",
                   "component_id": "f96b5d40-8107-47fd-ad4e-c3ea4c602b5f",
                   "go": "a9160071-c79f-47fd-b774-5631cfebb0ec",
+                  "component_type": "Keyhole"
+                },
+                {
+                  "_type": "component",
+                  "component_id": "c68bd804-785c-4745-b601-9e93c1f8273e",
+                  "go": "b38ad3b3-369a-4603-943d-46d25cd3cc76",
+                  "component_type": "Keyhole"
+                },
+                {
+                  "_type": "component",
+                  "component_id": "48a0e559-6e41-4751-afea-bdb386177578",
+                  "go": "8780810e-531b-4344-a021-0a1bde1d58cd",
+                  "component_type": "Keyhole"
+                },
+                {
+                  "_type": "component",
+                  "component_id": "466fc57a-3a58-4d06-bb39-7f56ef981aea",
+                  "go": "077eadab-0d2f-4b77-8fed-70c77d2cba4b",
                   "component_type": "Keyhole"
                 }
               ],
@@ -6241,7 +6265,7 @@
               "__guid": "466643c9-e19e-4d06-b17c-a72b717fb386",
               "Flags": 0,
               "Name": "Wall",
-              "Position": "175,0.0004868499,50",
+              "Position": "80,0.0004133826,50",
               "Rotation": "-0.7071067,0.0000001376788,0.7071068,0.0000001078765",
               "Scale": "1,3,1",
               "Enabled": true,
@@ -6530,10 +6554,10 @@
         {
           "__guid": "1315667e-f3ba-47ca-8545-acdff7a29068",
           "Flags": 0,
-          "Name": "FriendBox",
+          "Name": "Stacko",
           "Position": "-262.2061,-72.57315,77.87345",
           "Rotation": "0.000000007767046,0.000000016452,0.9914448,0.1305262",
-          "Scale": "0.5,0.5,0.5",
+          "Scale": "0.75,0.75,0.75",
           "Enabled": true,
           "Components": [
             {
@@ -6541,7 +6565,7 @@
               "__guid": "9d4dfac6-ac3c-4161-b1a4-77db9b1b2042",
               "BodyGroups": 18446744073709551615,
               "CreateAttachments": false,
-              "MaterialOverride": "materials/units/friendbox.vmat",
+              "MaterialOverride": "materials/units/plainbox.vmat",
               "Model": "models/dev/box.vmdl",
               "RenderOptions": {
                 "GameLayer": true,
@@ -6893,6 +6917,114 @@
               ]
             },
             {
+              "__guid": "4fc472f4-37ef-4d0a-bf89-7b437ae06759",
+              "Flags": 0,
+              "Name": "Wall",
+              "Position": "-200,100,37.50016",
+              "Rotation": "-0.0000002980232,-0.7071067,0.0000002384186,-0.7071068",
+              "Scale": "1.25,3,2",
+              "Enabled": true,
+              "Components": [
+                {
+                  "__type": "Sandbox.ModelRenderer",
+                  "__guid": "2d56fcce-0737-453e-bf05-bc47705300e4",
+                  "BodyGroups": 18446744073709551615,
+                  "CreateAttachments": false,
+                  "MaterialOverride": "materials/world/grid-thickdark.vmat",
+                  "Model": "models/dev/plane.vmdl",
+                  "RenderOptions": {
+                    "GameLayer": true,
+                    "OverlayLayer": false,
+                    "BloomLayer": false,
+                    "AfterUILayer": true
+                  },
+                  "RenderType": "On",
+                  "Tint": "1,1,1,1"
+                },
+                {
+                  "__type": "Sandbox.BoxCollider",
+                  "__guid": "cdb78eac-072a-4252-bffb-9a190aceaaba",
+                  "Center": "0,0,-8",
+                  "IsTrigger": false,
+                  "Scale": "100,100,16",
+                  "Static": true,
+                  "SurfaceVelocity": "0,0,0"
+                }
+              ]
+            },
+            {
+              "__guid": "020a5134-61b2-495f-8be1-57813da4ca68",
+              "Flags": 0,
+              "Name": "Wall",
+              "Position": "-200,-100,-5",
+              "Rotation": "-0.0000002980232,-0.7071067,0.0000002384186,-0.7071068",
+              "Scale": "0.4,1,2",
+              "Enabled": true,
+              "Components": [
+                {
+                  "__type": "Sandbox.ModelRenderer",
+                  "__guid": "157e5b2f-cedb-4085-8301-a8114e913d6d",
+                  "BodyGroups": 18446744073709551615,
+                  "CreateAttachments": false,
+                  "MaterialOverride": "materials/world/grid-thickdark.vmat",
+                  "Model": "models/dev/plane.vmdl",
+                  "RenderOptions": {
+                    "GameLayer": true,
+                    "OverlayLayer": false,
+                    "BloomLayer": false,
+                    "AfterUILayer": true
+                  },
+                  "RenderType": "On",
+                  "Tint": "1,1,1,1"
+                },
+                {
+                  "__type": "Sandbox.BoxCollider",
+                  "__guid": "9371248b-3aea-4bcb-8da6-5533f37df856",
+                  "Center": "0,0,-8",
+                  "IsTrigger": false,
+                  "Scale": "100,100,16",
+                  "Static": true,
+                  "SurfaceVelocity": "0,0,0"
+                }
+              ]
+            },
+            {
+              "__guid": "75797a1d-6b40-4a7f-953b-03234b4dd956",
+              "Flags": 0,
+              "Name": "Wall",
+              "Position": "-200,-100,82.5",
+              "Rotation": "-0.0000002980232,-0.7071067,0.0000002384186,-0.7071068",
+              "Scale": "0.35,1,2",
+              "Enabled": true,
+              "Components": [
+                {
+                  "__type": "Sandbox.ModelRenderer",
+                  "__guid": "15efbb79-1c9d-4310-b65b-fd66f0d1ed6f",
+                  "BodyGroups": 18446744073709551615,
+                  "CreateAttachments": false,
+                  "MaterialOverride": "materials/world/grid-thickdark.vmat",
+                  "Model": "models/dev/plane.vmdl",
+                  "RenderOptions": {
+                    "GameLayer": true,
+                    "OverlayLayer": false,
+                    "BloomLayer": false,
+                    "AfterUILayer": true
+                  },
+                  "RenderType": "On",
+                  "Tint": "1,1,1,1"
+                },
+                {
+                  "__type": "Sandbox.BoxCollider",
+                  "__guid": "2a829c76-7177-44d5-b605-46060146848f",
+                  "Center": "0,0,-8",
+                  "IsTrigger": false,
+                  "Scale": "100,100,16",
+                  "Static": true,
+                  "SurfaceVelocity": "0,0,0"
+                }
+              ]
+            },
+            {
               "__guid": "6eb9eee3-511a-467a-8064-5b187ebf4df4",
               "Flags": 0,
               "Name": "Wall",
@@ -7178,6 +7310,270 @@
                       ]
                     }
                   ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "__guid": "470a914d-2e53-4432-9098-2533b7ecac86",
+          "Flags": 0,
+          "Name": "Mousehole",
+          "Position": "-375,-100.0004,15",
+          "Scale": "0.25,0.25,0.25",
+          "Enabled": true,
+          "Children": [
+            {
+              "__guid": "bd68776e-b4a6-41b4-8a1e-a66fbd85a0f0",
+              "Flags": 0,
+              "Name": "BoxKey",
+              "Position": "-271.2981,163.0661,36.72675",
+              "Scale": "0.75,0.75,0.75",
+              "Enabled": true,
+              "Components": [
+                {
+                  "__type": "Sandbox.ModelRenderer",
+                  "__guid": "40d5f14d-cd31-46c9-a532-fc4e8d07cd31",
+                  "BodyGroups": 18446744073709551615,
+                  "CreateAttachments": false,
+                  "MaterialOverride": "materials/keys/box.vmat",
+                  "Model": "models/dev/box.vmdl",
+                  "RenderOptions": {
+                    "GameLayer": true,
+                    "OverlayLayer": false,
+                    "BloomLayer": false,
+                    "AfterUILayer": true
+                  },
+                  "RenderType": "On",
+                  "Tint": "1,1,1,1"
+                },
+                {
+                  "__type": "Sandbox.BoxCollider",
+                  "__guid": "1244fffa-1526-490c-8537-d12b8031f7b7",
+                  "Center": "0,0,0",
+                  "IsTrigger": false,
+                  "Scale": "50,50,50",
+                  "Static": false,
+                  "SurfaceVelocity": "0,0,0"
+                },
+                {
+                  "__type": "Sandbox.Rigidbody",
+                  "__guid": "8ac15228-3f56-43c8-ae4f-69a3e15d5859",
+                  "AngularDamping": 0,
+                  "Gravity": true,
+                  "LinearDamping": 0,
+                  "Locking": {
+                    "X": false,
+                    "Y": false,
+                    "Z": false,
+                    "Pitch": false,
+                    "Yaw": false,
+                    "Roll": false
+                  },
+                  "MassCenterOverride": "0,0,0",
+                  "MassOverride": 0,
+                  "MotionEnabled": true,
+                  "OverrideMassCenter": false,
+                  "RigidbodyFlags": 0,
+                  "StartAsleep": false
+                },
+                {
+                  "__type": "Neverspace.Carriable",
+                  "__guid": "a1a7f0c5-826b-419f-b2f5-7ac66d6eebce"
+                },
+                {
+                  "__type": "Neverspace.PortalTravelerRigidbody",
+                  "__guid": "a6696865-1fbb-46ff-982c-1bf5e10e5910",
+                  "IsCameraViewer": false
+                },
+                {
+                  "__type": "Neverspace.GravityPawnRigidbody",
+                  "__guid": "d3b4771f-4b19-46fa-a9bd-8cc08aa0001f"
+                },
+                {
+                  "__type": "Neverspace.Key",
+                  "__guid": "d59f1ad9-b825-4275-8362-8294d8b7d35a",
+                  "LockLocalScale": "0.5,0.5,0.5"
+                }
+              ]
+            },
+            {
+              "__guid": "72a25454-2dea-4f74-837c-4ab85408b7bf",
+              "Flags": 0,
+              "Name": "Floor",
+              "Position": "-150,0,0",
+              "Rotation": "0,0,0.707107,-0.7071065",
+              "Scale": "4,3,2",
+              "Enabled": true,
+              "Components": [
+                {
+                  "__type": "Sandbox.ModelRenderer",
+                  "__guid": "05501378-ad1d-4e84-950f-cb9d462f51e9",
+                  "BodyGroups": 18446744073709551615,
+                  "CreateAttachments": false,
+                  "MaterialOverride": "materials/world/grid-thickdark.vmat",
+                  "Model": "models/dev/plane.vmdl",
+                  "RenderOptions": {
+                    "GameLayer": true,
+                    "OverlayLayer": false,
+                    "BloomLayer": false,
+                    "AfterUILayer": true
+                  },
+                  "RenderType": "On",
+                  "Tint": "1,1,1,1"
+                },
+                {
+                  "__type": "Sandbox.BoxCollider",
+                  "__guid": "e0df8ca8-4f14-441c-9ee7-41423f40c894",
+                  "Center": "0,0,-8",
+                  "IsTrigger": false,
+                  "Scale": "100,100,16",
+                  "Static": true,
+                  "SurfaceVelocity": "0,0,0"
+                }
+              ]
+            },
+            {
+              "__guid": "6dde6d31-f4b6-40ac-88d9-7433f0674cef",
+              "Flags": 0,
+              "Name": "Floor",
+              "Position": "-150,0,200",
+              "Rotation": "0.7071065,0.707107,0.0000001376788,-0.0000001376787",
+              "Scale": "4,3,2",
+              "Enabled": true,
+              "Components": [
+                {
+                  "__type": "Sandbox.ModelRenderer",
+                  "__guid": "bcd04f6e-fafc-4a17-8486-59e61e04a859",
+                  "BodyGroups": 18446744073709551615,
+                  "CreateAttachments": false,
+                  "MaterialOverride": "materials/world/grid-thickdark.vmat",
+                  "Model": "models/dev/plane.vmdl",
+                  "RenderOptions": {
+                    "GameLayer": true,
+                    "OverlayLayer": false,
+                    "BloomLayer": false,
+                    "AfterUILayer": true
+                  },
+                  "RenderType": "On",
+                  "Tint": "1,1,1,1"
+                },
+                {
+                  "__type": "Sandbox.BoxCollider",
+                  "__guid": "6a26963e-dac9-4a26-9c3d-49bd97d69af9",
+                  "Center": "0,0,-8",
+                  "IsTrigger": false,
+                  "Scale": "100,100,16",
+                  "Static": true,
+                  "SurfaceVelocity": "0,0,0"
+                }
+              ]
+            },
+            {
+              "__guid": "10158158-1e16-4b39-aec7-c1513afa1386",
+              "Flags": 0,
+              "Name": "Wall",
+              "Position": "-150,-200,100",
+              "Rotation": "-0.4999999,0.5,0.5,0.5000001",
+              "Scale": "2,3,2",
+              "Enabled": true,
+              "Components": [
+                {
+                  "__type": "Sandbox.ModelRenderer",
+                  "__guid": "99c89568-d95b-4cf6-9727-42c38ab5f664",
+                  "BodyGroups": 18446744073709551615,
+                  "CreateAttachments": false,
+                  "MaterialOverride": "materials/world/grid-thickdark.vmat",
+                  "Model": "models/dev/plane.vmdl",
+                  "RenderOptions": {
+                    "GameLayer": true,
+                    "OverlayLayer": false,
+                    "BloomLayer": false,
+                    "AfterUILayer": true
+                  },
+                  "RenderType": "On",
+                  "Tint": "1,1,1,1"
+                },
+                {
+                  "__type": "Sandbox.BoxCollider",
+                  "__guid": "2fc15be2-21da-489c-82aa-ca0bd2f60034",
+                  "Center": "0,0,-8",
+                  "IsTrigger": false,
+                  "Scale": "100,100,16",
+                  "Static": true,
+                  "SurfaceVelocity": "0,0,0"
+                }
+              ]
+            },
+            {
+              "__guid": "613235f2-fe8c-4328-8242-aa9d7415e834",
+              "Flags": 0,
+              "Name": "Wall",
+              "Position": "-150,200,100",
+              "Rotation": "-0.5000001,-0.4999998,0.5000002,-0.4999999",
+              "Scale": "2,3,2",
+              "Enabled": true,
+              "Components": [
+                {
+                  "__type": "Sandbox.ModelRenderer",
+                  "__guid": "cdfe63c4-64b1-40d4-be1b-e6266b172479",
+                  "BodyGroups": 18446744073709551615,
+                  "CreateAttachments": false,
+                  "MaterialOverride": "materials/world/grid-thickdark.vmat",
+                  "Model": "models/dev/plane.vmdl",
+                  "RenderOptions": {
+                    "GameLayer": true,
+                    "OverlayLayer": false,
+                    "BloomLayer": false,
+                    "AfterUILayer": true
+                  },
+                  "RenderType": "On",
+                  "Tint": "1,1,1,1"
+                },
+                {
+                  "__type": "Sandbox.BoxCollider",
+                  "__guid": "c91cf4ac-b0de-4d36-bb88-a1de4d77ef83",
+                  "Center": "0,0,-8",
+                  "IsTrigger": false,
+                  "Scale": "100,100,16",
+                  "Static": true,
+                  "SurfaceVelocity": "0,0,0"
+                }
+              ]
+            },
+            {
+              "__guid": "f64843fa-f00f-403d-be4f-451e4e91379e",
+              "Flags": 0,
+              "Name": "Wall",
+              "Position": "-300,0,100",
+              "Rotation": "-0.0000002980232,-0.7071067,0.0000002384186,-0.7071068",
+              "Scale": "2,4,2",
+              "Enabled": true,
+              "Components": [
+                {
+                  "__type": "Sandbox.ModelRenderer",
+                  "__guid": "ac214a63-501f-46ca-bd98-9f45d268ad64",
+                  "BodyGroups": 18446744073709551615,
+                  "CreateAttachments": false,
+                  "MaterialOverride": "materials/world/grid-thickdark.vmat",
+                  "Model": "models/dev/plane.vmdl",
+                  "RenderOptions": {
+                    "GameLayer": true,
+                    "OverlayLayer": false,
+                    "BloomLayer": false,
+                    "AfterUILayer": true
+                  },
+                  "RenderType": "On",
+                  "Tint": "1,1,1,1"
+                },
+                {
+                  "__type": "Sandbox.BoxCollider",
+                  "__guid": "f06600dd-e479-49c7-beb4-9355090b25aa",
+                  "Center": "0,0,-8",
+                  "IsTrigger": false,
+                  "Scale": "100,100,16",
+                  "Static": true,
+                  "SurfaceVelocity": "0,0,0"
                 }
               ]
             }
