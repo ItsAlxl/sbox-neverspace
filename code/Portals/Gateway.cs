@@ -47,37 +47,40 @@ public sealed class Gateway : Portal, Component.ITriggerListener
 			currentViewerSide = viewerSide;
 		}
 
-		ViewScreen.SceneObject.RenderingEnabled = EgressPortal != null;
-		if ( ViewScreen.SceneObject.RenderingEnabled )
+		var sceneObject = ViewScreen?.SceneObject;
+		if ( sceneObject != null )
 		{
-			// TODO: better check for optimization; walking backwards results in flickering
-			GhostCamera.Enabled = true;//ViewScreen.IsInCameraBounds( PlayerCamera );
-			if ( GhostCamera.Enabled )
+			ViewScreen.SceneObject.RenderingEnabled = EgressPortal != null;
+			if ( ViewScreen.SceneObject.RenderingEnabled )
 			{
-				if ( renderTarget == null || !renderTarget.Size.AlmostEqual( Screen.Size, 0.5f ) )
+				// TODO: better check for optimization; walking backwards results in flickering
+				GhostCamera.Enabled = true;//ViewScreen.IsInCameraBounds( PlayerCamera );
+				if ( GhostCamera.Enabled )
 				{
-					renderTarget?.Dispose();
-					renderTarget = Texture.CreateRenderTarget()
-						.WithSize( Screen.Size )
-						.Create();
-					GhostCamera.RenderTarget = renderTarget;
-					ViewScreen.SceneObject.Batchable = false;
+					if ( renderTarget == null || !renderTarget.Size.AlmostEqual( Screen.Size, 0.5f ) )
+					{
+						renderTarget?.Dispose();
+						renderTarget = Texture.CreateRenderTarget()
+							.WithSize( Screen.Size )
+							.Create();
+						GhostCamera.RenderTarget = renderTarget;
+						ViewScreen.SceneObject.Batchable = false;
+					}
+					ViewScreen.SceneObject.Attributes.Set( "PortalViewTex", renderTarget );
+
+					GhostCamera.BackgroundColor = PlayerCamera.BackgroundColor;
+					GhostCamera.ZNear = PlayerCamera.ZNear;
+					GhostCamera.ZFar = PlayerCamera.ZFar;
+					GhostCamera.FieldOfView = PlayerCamera.FieldOfView;
+					GhostCamera.WorldTransform = GetEgressTransform( PlayerCamera.WorldTransform );
+
+					Plane p = EgressGateway.WorldPlane;
+					p.Distance += GetEgressCameraSide();
+					// s&box's Plane::GetDistance function is bad
+					GhostCamera.CustomProjectionMatrix = p.SnapToPlane( GhostCamera.WorldPosition ).DistanceSquared( GhostCamera.WorldPosition ) < 50.0f ? null : GhostCamera.CalculateObliqueMatrix( p );
 				}
-				ViewScreen.SceneObject.Attributes.Set( "PortalViewTex", renderTarget );
-
-				GhostCamera.BackgroundColor = PlayerCamera.BackgroundColor;
-				GhostCamera.ZNear = PlayerCamera.ZNear;
-				GhostCamera.ZFar = PlayerCamera.ZFar;
-				GhostCamera.FieldOfView = PlayerCamera.FieldOfView;
-				GhostCamera.WorldTransform = GetEgressTransform( PlayerCamera.WorldTransform );
-
-				Plane p = EgressGateway.WorldPlane;
-				p.Distance += GetEgressCameraSide();
-				// s&box's Plane::GetDistance function is bad
-				GhostCamera.CustomProjectionMatrix = p.SnapToPlane( GhostCamera.WorldPosition ).DistanceSquared( GhostCamera.WorldPosition ) < 50.0f ? null : GhostCamera.CalculateObliqueMatrix( p );
 			}
 		}
-
 	}
 
 	public override void OnPassageCheck()
