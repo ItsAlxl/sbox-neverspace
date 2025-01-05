@@ -13,8 +13,8 @@ public abstract class QuantumController : Component
 	[Property] bool IgnoreProximity { get; set; } = false;
 
 	public bool Observed = false;
-	public bool ConvertBoundsToWorld = true;
 	protected bool ObservedState = false;
+	public bool ConvertBoundsToWorld = true;
 
 	protected abstract void OnObserve();
 	protected abstract void OnUnobserve();
@@ -36,6 +36,7 @@ public abstract class QuantumController : Component
 		{
 			ObservableBounds = WorldTransform.BBoxToWorld( ObservableBounds );
 		}
+		OnUnobserve();
 	}
 
 	protected override void OnUpdate()

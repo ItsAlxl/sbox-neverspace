@@ -4,12 +4,14 @@ namespace Neverspace;
 [Title( "Gravity Pawn" )]
 [Icon( "fitness_center" )]
 
-public class GravityPawn : Component
+public abstract class GravityPawn : Component
 {
 	[Property] Vector3 BaseGravity { get; set; } = new( 0.0f, 0.0f, -800.0f );
 
-	public Walkway ActiveWalkway { get; set; }
-	public List<Planetoid> Planetoids { get; set; } = new();
+	public Walkway ActiveWalkway { get => Walkways.Count == 0 ? null : Walkways.Last(); }
+	protected List<Walkway> Walkways { get; set; } = new();
+	protected List<Planetoid> Planetoids { get; set; } = new();
+
 	public Vector3 CurrentGravity
 	{
 		get =>
@@ -19,6 +21,7 @@ public class GravityPawn : Component
 				) :
 				ActiveWalkway.Gravity;
 	}
+
 	public Vector3 PlanetoidGravity
 	{
 		get
@@ -30,6 +33,8 @@ public class GravityPawn : Component
 		}
 	}
 
+	public bool IsGravAffected { get => ActiveWalkway != null || Planetoids.Count > 0; }
+
 	public virtual bool IsValidGravTrigger( Collider c )
 	{
 		return !c.Tags.Has( "grav-ignore" );
@@ -37,9 +42,57 @@ public class GravityPawn : Component
 
 	public void Clear()
 	{
-		ActiveWalkway?.RemoveGravPawn( this );
+		var walkways = new List<Walkway>( Walkways );
+		foreach ( var w in walkways )
+			w.RemoveGravPawn( this );
+
 		var planetoids = new List<Planetoid>( Planetoids );
 		foreach ( var p in planetoids )
 			p.RemoveGravPawn( this );
+	}
+
+	protected virtual void AddWalkway( Walkway w )
+	{
+		var idx = Walkways.IndexOf( w );
+		if ( idx != -1 )
+			Walkways.RemoveAt( idx );
+		Walkways.Add( w );
+	}
+
+	protected virtual void RemoveWalkway( Walkway w )
+	{
+		Walkways.Remove( w );
+	}
+
+	protected virtual void AddPlanetoid( Planetoid p )
+	{
+		Planetoids.Add( p );
+	}
+
+	protected virtual void RemovePlanetoid( Planetoid p )
+	{
+		Planetoids.Remove( p );
+	}
+
+	public void AddGrav( GravityAttractor grav )
+	{
+		if ( grav is Planetoid p )
+			AddPlanetoid( p );
+		if ( grav is Walkway w )
+			AddWalkway( w );
+	}
+
+	public void RemoveGrav( GravityAttractor grav )
+	{
+		if ( grav is Planetoid p )
+			RemovePlanetoid( p );
+		if ( grav is Walkway w )
+			RemoveWalkway( w );
+	}
+
+	public bool IsAffectedBy( GravityAttractor grav )
+	{
+		return (grav is Planetoid && Planetoids.Contains( grav )) ||
+			(grav is Walkway && Walkways.Contains( grav ));
 	}
 }

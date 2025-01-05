@@ -36,7 +36,10 @@ public abstract class PortalTraveler : Component
 		var gravPawn = GetComponent<GravityPawn>();
 		if ( gravPawn != null )
 		{
+			var activeWalkway = gravPawn.ActiveWalkway;
 			gravPawn.Clear();
+			if ( portal is Gateway g )
+				activeWalkway?.AffectAfterTeleport( gravPawn, g );
 			portal.EgressPortal.InstantGrav?.AddGravPawn( gravPawn );
 		}
 		Transform.ClearInterpolation();

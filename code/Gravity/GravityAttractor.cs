@@ -8,37 +8,38 @@ public abstract class GravityAttractor : Component
 {
 	[Property] public float GravityStrength { get; set; } = 800.0f;
 
-	protected abstract void ForceAddGravPawn( GravityPawn gp );
-	protected abstract void ForceRemoveGravPawn( GravityPawn gp );
-	public abstract bool HasGravPawn( GravityPawn gp );
 	protected abstract Vector3 GetWorldGravity( GravityPawn gp );
+
+	public bool AffectsPawn( GravityPawn gp )
+	{
+		return gp.IsAffectedBy( this );
+	}
 
 	public Vector3 GetGravityOn( GravityPawn gp )
 	{
-		return HasGravPawn( gp ) ? GetWorldGravity( gp ) : Vector3.Zero;
+		return AffectsPawn( gp ) ? GetWorldGravity( gp ) : Vector3.Zero;
 	}
 
 	public virtual bool CanAddGravPawn( GravityPawn gp )
 	{
-		return !HasGravPawn( gp );
+		return !AffectsPawn( gp );
 	}
 
 	public void AddGravPawn( GravityPawn gp )
 	{
 		if ( CanAddGravPawn( gp ) )
-			ForceAddGravPawn( gp );
+			gp.AddGrav( this );
 	}
-
 
 	public virtual bool CanRemoveGravPawn( GravityPawn gp )
 	{
-		return HasGravPawn( gp );
+		return AffectsPawn( gp );
 	}
 
 	public void RemoveGravPawn( GravityPawn gp )
 	{
 		if ( CanRemoveGravPawn( gp ) )
-			ForceRemoveGravPawn( gp );
+			gp.RemoveGrav( this );
 	}
 
 	protected void OnGravTriggerEntered( Collider c )

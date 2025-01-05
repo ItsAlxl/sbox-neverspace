@@ -46,6 +46,11 @@ public sealed class GravityPawnPlayer : GravityPawn
 			var upNormal = -CurrentGravity / gravLength;
 			if ( !(WorldTransform.Up - upNormal).IsNearlyZero( 0.001f ) )
 			{
+				if ( !IsGravAffected )
+				{
+					// don't get stuck in the grav object that we're detaching from
+					WorldPosition += WorldTransform.Up * (CapsuleCollider.Radius + CapsuleCollider.End.z) * WorldScale.z * 1.5f;
+				}
 				WorldRotation = Rotation.LookAt( Vector3.VectorPlaneProject( WorldTransform.Forward, upNormal ), upNormal );
 			}
 		}

@@ -27,21 +27,6 @@ public sealed class Planetoid : GravityAttractor
 		Tags.Add( "planetoid" );
 	}
 
-	protected override void ForceAddGravPawn( GravityPawn gp )
-	{
-		gp.Planetoids.Add( this );
-	}
-
-	protected override void ForceRemoveGravPawn( GravityPawn gp )
-	{
-		gp.Planetoids.Remove( this );
-	}
-
-	public override bool HasGravPawn( GravityPawn gp )
-	{
-		return gp.Planetoids.Contains( this );
-	}
-
 	protected override Vector3 GetWorldGravity( GravityPawn gp )
 	{
 		var pawnToPlanet = WorldPosition - gp.WorldPosition;

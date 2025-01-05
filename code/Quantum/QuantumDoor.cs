@@ -13,6 +13,8 @@ public class QuantumDoor : QuantumController
 	{
 		get
 		{
+			if ( WatchedGo == null )
+				return false;
 			var diff = WatchedGo.WorldPosition - WorldPosition;
 			return diff.x.MeetsThreshold( MinDiff.x ) && diff.y.MeetsThreshold( MinDiff.y ) && diff.z.MeetsThreshold( MinDiff.z );
 		}

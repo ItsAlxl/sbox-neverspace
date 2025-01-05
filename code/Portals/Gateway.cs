@@ -62,8 +62,9 @@ public sealed class Gateway : Portal, Component.ITriggerListener
 						.Create();
 					GhostCamera.RenderTarget = renderTarget;
 					ViewScreen.SceneObject.Batchable = false;
-					ViewScreen.SceneObject.Attributes.Set( "PortalViewTex", renderTarget );
 				}
+				ViewScreen.SceneObject.Attributes.Set( "PortalViewTex", renderTarget );
+
 				GhostCamera.BackgroundColor = PlayerCamera.BackgroundColor;
 				GhostCamera.ZNear = PlayerCamera.ZNear;
 				GhostCamera.ZFar = PlayerCamera.ZFar;
