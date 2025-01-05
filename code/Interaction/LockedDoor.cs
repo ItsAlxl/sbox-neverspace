@@ -15,9 +15,9 @@ public sealed class LockedDoor : Component
 	private bool HasAllKeys { get => Keyholes.All( ( k ) => k.HasKey ); }
 	private bool IsUnlocked { get; set; } = false;
 
-	protected override void OnStart()
+	protected override void OnAwake()
 	{
-		base.OnStart();
+		base.OnAwake();
 		foreach ( var k in Keyholes )
 		{
 			k.OnKeyInserted += OnKeyChanged;

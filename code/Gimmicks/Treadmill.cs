@@ -21,9 +21,9 @@ public sealed class Treadmill : Component
 	private GameObject pinnedCol;
 	private float currentX;
 
-	protected override void OnStart()
+	protected override void OnAwake()
 	{
-		base.OnStart();
+		base.OnAwake();
 		Player ??= Scene.GetAllComponents<Interactor>().ElementAt( 0 );
 
 		art = Components.Get<ModelRenderer>( FindMode.InChildren ).GameObject;

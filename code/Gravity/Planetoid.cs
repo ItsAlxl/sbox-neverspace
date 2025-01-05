@@ -10,9 +10,9 @@ public sealed class Planetoid : GravityAttractor
 	[Property] public float InfluenceEnd { get; set; } = 128.0f;
 	[Property] public Curve InfluenceCurve { get; set; }
 
-	protected override void OnStart()
+	protected override void OnAwake()
 	{
-		base.OnStart();
+		base.OnAwake();
 		var col = GetComponent<Collider>();
 		var trigger = col.CreateDuplicate() as Collider;
 		trigger.IsTrigger = true;

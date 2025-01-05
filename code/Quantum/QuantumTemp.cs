@@ -24,9 +24,9 @@ public sealed class QuantumTemp : QuantumController
 		}
 	}
 
-	protected override void OnStart()
+	protected override void OnAwake()
 	{
-		base.OnStart();
+		base.OnAwake();
 		if ( NormalChild == null && TempChild == null )
 		{
 			NormalChild = GetControlledGos().ElementAt( 0 );

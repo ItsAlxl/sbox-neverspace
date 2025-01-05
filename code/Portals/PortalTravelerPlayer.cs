@@ -9,9 +9,9 @@ public sealed class PortalTravelerPlayer : PortalTraveler
 	[RequireComponent] private GravityPawnPlayer GravityPawn { get; set; }
 	[RequireComponent] private Interactor Interactor { get; set; }
 
-	protected override void OnStart()
+	protected override void OnAwake()
 	{
-		base.OnStart();
+		base.OnAwake();
 		IsCameraViewer = true;
 	}
 

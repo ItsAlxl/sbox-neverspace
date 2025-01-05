@@ -20,9 +20,9 @@ public class Carriable : Component, IInteractable
 	protected Interactor carrier;
 	protected bool canBeCarried = true;
 
-	protected override void OnStart()
+	protected override void OnAwake()
 	{
-		base.OnStart();
+		base.OnAwake();
 		var traveler = GameObject.Components.Get<PortalTraveler>();
 		if ( traveler != null )
 			traveler.OnTeleport += OnTeleport;

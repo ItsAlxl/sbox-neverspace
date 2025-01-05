@@ -12,9 +12,9 @@ public abstract class Portal : Component
 	[Property] public GravityAttractor InstantGrav { get; set; }
 	[Property] public QuantumTemp ActivateTemp { get; set; }
 
-	protected override void OnStart()
+	protected override void OnAwake()
 	{
-		base.OnStart();
+		base.OnAwake();
 		Tags.Add( "portal" );
 	}
 

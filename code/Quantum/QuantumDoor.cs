@@ -20,9 +20,9 @@ public class QuantumDoor : QuantumController
 		}
 	}
 
-	protected override void OnStart()
+	protected override void OnAwake()
 	{
-		base.OnStart();
+		base.OnAwake();
 		WatchedGo ??= Scene.GetAllComponents<Interactor>().ElementAt( 0 )?.GameObject;
 		MinDiff *= WorldScale;
 

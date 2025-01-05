@@ -18,9 +18,9 @@ public sealed class Yearner : Component, Component.ICollisionListener
 
 	[Property] Rigidbody Projectile { get; set; }
 
-	protected override void OnStart()
+	protected override void OnAwake()
 	{
-		base.OnStart();
+		base.OnAwake();
 		AffectModel ??= GetComponent<ModelRenderer>();
 		HappyDist *= WorldScale.x;
 		HappyDist *= HappyDist;

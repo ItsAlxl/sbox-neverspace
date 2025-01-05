@@ -24,9 +24,9 @@ public abstract class QuantumController : Component
 		return GameObject.Children;
 	}
 
-	protected override void OnStart()
+	protected override void OnAwake()
 	{
-		base.OnStart();
+		base.OnAwake();
 		Player ??= Scene.GetAllComponents<Interactor>().ElementAt( 0 );
 		if ( ObservableBounds.Size.IsNearlyZero( 0.001f ) )
 		{

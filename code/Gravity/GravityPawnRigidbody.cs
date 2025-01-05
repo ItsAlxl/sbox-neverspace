@@ -9,9 +9,9 @@ public class GravityPawnRigidbody : GravityPawn
 	private IEnumerable<Rigidbody> bodies;
 	private float StartScaleZ;
 
-	protected override void OnStart()
+	protected override void OnAwake()
 	{
-		base.OnStart();
+		base.OnAwake();
 		bodies = GameObject.Components.GetAll<Rigidbody>();
 
 		foreach ( var b in bodies )

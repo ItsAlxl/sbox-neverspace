@@ -9,9 +9,9 @@ public sealed class QuantumToggle : QuantumController
 	[Property] GameObject ObservedChild { get; set; }
 	[Property] GameObject UnobservedChild { get; set; }
 
-	protected override void OnStart()
+	protected override void OnAwake()
 	{
-		base.OnStart();
+		base.OnAwake();
 		if ( ObservedChild == null && UnobservedChild == null )
 		{
 			ObservedChild = GetControlledGos().ElementAt( 0 );

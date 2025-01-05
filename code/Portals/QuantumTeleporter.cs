@@ -38,9 +38,9 @@ public sealed class QuantumTeleporter : Portal
 	public bool IsFocused = false;
 	private bool sticky = false;
 
-	protected override void OnStart()
+	protected override void OnAwake()
 	{
-		base.OnStart();
+		base.OnAwake();
 		Tags.Add( "ptl-quantum" );
 
 		Player ??= Scene.GetAllComponents<Interactor>().ElementAt( 0 );

@@ -11,10 +11,10 @@ public sealed class QuantumReset : QuantumController
 	[Property] GameObject ResetTarget { get; set; }
 	private Transform resetTrans;
 
-	protected override void OnStart()
+	protected override void OnAwake()
 	{
 		resetTrans = ResetTarget.WorldTransform;
-		base.OnStart();
+		base.OnAwake();
 	}
 
 	protected override void OnObserve()

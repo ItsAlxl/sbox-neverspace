@@ -24,9 +24,9 @@ public sealed class Interactor : Component
 	private Carriable heldCarriable;
 	private TimeSince carriedItemInReach;
 
-	protected override void OnStart()
+	protected override void OnAwake()
 	{
-		base.OnStart();
+		base.OnAwake();
 		PlayerCamera ??= Scene.Camera;
 	}
 
