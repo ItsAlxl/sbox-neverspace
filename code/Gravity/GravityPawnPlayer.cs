@@ -22,7 +22,7 @@ public sealed class GravityPawnPlayer : GravityPawn
 	public float AccelGround = 6.0f;
 	public float AccelAir = 0.2f;
 
-	public float MaxFallSpeed = -1000.0f;
+	public float MaxFallSpeed = -2500.0f;
 	public float JumpPower = 250.0f;
 
 	public void ParseMovement( Vector3 wishMovement )

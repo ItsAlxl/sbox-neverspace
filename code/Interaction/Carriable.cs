@@ -62,7 +62,12 @@ public class Carriable : Component, IInteractable
 		}
 	}
 
-	public void Uncarry()
+	public void ForceDrop()
+	{
+		carrier?.StopCarrying();
+	}
+
+	public void OnUncarry()
 	{
 		ListenToCarrierTeleport( false );
 		carrier = null;

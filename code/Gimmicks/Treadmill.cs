@@ -1,6 +1,6 @@
 namespace Neverspace;
 
-[Group( "Neverspace - Pranks" )]
+[Group( "Neverspace - Gimmicks" )]
 [Title( "Treadmill" )]
 [Icon( "attractions" )]
 

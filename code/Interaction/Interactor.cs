@@ -112,7 +112,7 @@ public sealed class Interactor : Component
 
 	public void StopCarrying()
 	{
-		heldCarriable.Uncarry();
+		heldCarriable.OnUncarry();
 		heldCarriable = null;
 	}
 }

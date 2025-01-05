@@ -17,7 +17,7 @@ public sealed class Key : Carriable
 	{
 		canBeCarried = false;
 		lockedTargetPos = WorldPos;
-		carrier?.StopCarrying();
+		ForceDrop();
 		foreach ( var b in GameObject.Components.GetAll<Rigidbody>() )
 		{
 			b.Enabled = false;

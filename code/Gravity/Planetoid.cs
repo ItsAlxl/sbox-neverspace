@@ -16,6 +16,7 @@ public sealed class Planetoid : GravityAttractor
 		var col = GetComponent<Collider>();
 		var trigger = col.CreateDuplicate() as Collider;
 		trigger.IsTrigger = true;
+		trigger.Static = false;
 		trigger.OnTriggerEnter += OnGravTriggerEntered;
 		trigger.OnTriggerExit += OnGravTriggerExit;
 		if ( trigger is SphereCollider s )
