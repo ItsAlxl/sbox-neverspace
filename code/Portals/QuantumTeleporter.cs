@@ -54,6 +54,11 @@ public sealed class QuantumTeleporter : Portal
 		{
 			Trigger = WorldTransform.BBoxToWorld( new( AreaOfEffect.Mins, AreaOfEffect.Maxs.WithZ( AreaOfEffect.Mins.z - TRIGGER_THICKNESS ) ) );
 		}
+		else
+		{
+			Trigger = WorldTransform.BBoxToWorld( Trigger );
+		}
+
 		AreaOfEffect = WorldTransform.BBoxToWorld( AreaOfEffect );
 	}
 
@@ -116,6 +121,11 @@ public sealed class QuantumTeleporter : Portal
 		{
 			Gizmo.Draw.Color = Color.Blue;
 			Gizmo.Draw.LineBBox( AreaOfEffect );
+		}
+		if ( !Trigger.Size.IsNearlyZero( 0.001f ) )
+		{
+			Gizmo.Draw.Color = Color.Orange;
+			Gizmo.Draw.LineBBox( Trigger );
 		}
 	}
 }

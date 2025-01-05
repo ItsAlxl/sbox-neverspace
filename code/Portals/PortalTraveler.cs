@@ -42,6 +42,10 @@ public abstract class PortalTraveler : Component
 				activeWalkway?.AffectAfterTeleport( gravPawn, g );
 			portal.EgressPortal.InstantGrav?.AddGravPawn( gravPawn );
 		}
+
+		if ( IsCameraViewer && portal.ActivateTemp != null )
+			portal.ActivateTemp.ShowTemp = true;
+
 		Transform.ClearInterpolation();
 		OnTeleport?.Invoke( portal );
 		if ( WorldScale.z < MIN_WORLD_SCALE )

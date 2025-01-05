@@ -1141,7 +1141,6 @@
       "__guid": "66b1c722-08bb-44c9-8917-1f02af0c989c",
       "Flags": 0,
       "Name": "Player",
-      "Position": "-2772.543,585.3562,230.5332",
       "Scale": "4,4,4",
       "Tags": "player",
       "Enabled": true,
@@ -3076,7 +3075,6 @@
           "Flags": 0,
           "Name": "Title",
           "Position": "0,-0.000006052134,50.00012",
-          "Rotation": "0,0,0.7071068,0.7071069",
           "Enabled": true,
           "Components": [
             {
@@ -3084,35 +3082,19 @@
               "__guid": "4eea4dbe-9c14-41a5-9b08-d6d331b23aad",
               "MinDiff": "-32,0,0",
               "ObservableBounds": {
-                "Mins": "-50,0,-50",
-                "Maxs": "50,8,50"
+                "Mins": "-8,-50,-50",
+                "Maxs": "0,50,50"
               }
             }
           ],
           "Children": [
             {
-              "__guid": "997f7d7b-1cc4-40ea-87e4-eb0d10190637",
+              "__guid": "d7d08375-39f1-477f-b6ae-6329ebc8105c",
               "Flags": 0,
-              "Name": "TitleCred",
-              "Rotation": "0.4999999,0.4999999,-0.4999998,0.5",
+              "Name": "Temp",
+              "Rotation": "-0.0000002753575,-0.7071067,0.0000002455553,-0.7071068",
               "Enabled": true,
               "Components": [
-                {
-                  "__type": "Sandbox.ModelRenderer",
-                  "__guid": "78d5b113-006b-411f-a048-1ff980beb258",
-                  "BodyGroups": 18446744073709551615,
-                  "CreateAttachments": false,
-                  "MaterialOverride": "materials/signs/titlecred.vmat",
-                  "Model": "models/dev/plane.vmdl",
-                  "RenderOptions": {
-                    "GameLayer": true,
-                    "OverlayLayer": false,
-                    "BloomLayer": false,
-                    "AfterUILayer": true
-                  },
-                  "RenderType": "On",
-                  "Tint": "1,1,1,1"
-                },
                 {
                   "__type": "Sandbox.BoxCollider",
                   "__guid": "d7cf4afa-7df5-4de4-af0a-1c7052167f65",
@@ -3121,6 +3103,84 @@
                   "Scale": "100,100,16",
                   "Static": true,
                   "SurfaceVelocity": "0,0,0"
+                },
+                {
+                  "__type": "Neverspace.QuantumTemp",
+                  "__guid": "7d11c68d-4714-4c61-a7d3-d18e9e98819a",
+                  "NormalChild": {
+                    "_type": "gameobject",
+                    "go": "997f7d7b-1cc4-40ea-87e4-eb0d10190637"
+                  },
+                  "ObservableBounds": {
+                    "Mins": "-50,-50,-8",
+                    "Maxs": "50,50,0"
+                  },
+                  "TempChild": {
+                    "_type": "gameobject",
+                    "go": "51e315e4-1dbf-42fe-a902-aaea61ff07ec"
+                  }
+                },
+                {
+                  "__type": "Neverspace.QuantumTeleporter",
+                  "__guid": "a512bfcd-9b6b-4b31-9818-58add24776c7",
+                  "AreaOfEffect": {
+                    "Mins": "0,0,0",
+                    "Maxs": "0,0,0"
+                  },
+                  "Trigger": {
+                    "Mins": "0,0,0",
+                    "Maxs": "0,0,0"
+                  }
+                }
+              ],
+              "Children": [
+                {
+                  "__guid": "997f7d7b-1cc4-40ea-87e4-eb0d10190637",
+                  "Flags": 0,
+                  "Name": "TitleCred",
+                  "Enabled": true,
+                  "Components": [
+                    {
+                      "__type": "Sandbox.ModelRenderer",
+                      "__guid": "78d5b113-006b-411f-a048-1ff980beb258",
+                      "BodyGroups": 18446744073709551615,
+                      "CreateAttachments": false,
+                      "MaterialOverride": "materials/signs/titlecred.vmat",
+                      "Model": "models/dev/plane.vmdl",
+                      "RenderOptions": {
+                        "GameLayer": true,
+                        "OverlayLayer": false,
+                        "BloomLayer": false,
+                        "AfterUILayer": true
+                      },
+                      "RenderType": "On",
+                      "Tint": "1,1,1,1"
+                    }
+                  ]
+                },
+                {
+                  "__guid": "51e315e4-1dbf-42fe-a902-aaea61ff07ec",
+                  "Flags": 0,
+                  "Name": "NO",
+                  "Enabled": true,
+                  "Components": [
+                    {
+                      "__type": "Sandbox.ModelRenderer",
+                      "__guid": "ca32b6d4-7963-4f14-9edd-67ccc57571ab",
+                      "BodyGroups": 18446744073709551615,
+                      "CreateAttachments": false,
+                      "MaterialOverride": "materials/signs/no.vmat",
+                      "Model": "models/dev/plane.vmdl",
+                      "RenderOptions": {
+                        "GameLayer": true,
+                        "OverlayLayer": false,
+                        "BloomLayer": false,
+                        "AfterUILayer": true
+                      },
+                      "RenderType": "On",
+                      "Tint": "1,1,1,1"
+                    }
+                  ]
                 }
               ]
             }
@@ -3651,7 +3711,7 @@
           "__guid": "498c9856-6ab2-4117-8aaa-92a78fd10423",
           "Flags": 0,
           "Name": "Ptl-Pedestal2Toptato",
-          "Position": "50,50.00002,-0.00002218876",
+          "Position": "50.00002,49.99998,-0.00002218876",
           "Rotation": "0,0,1,0.0000001947072",
           "Tags": "portal",
           "Enabled": true,
@@ -3739,7 +3799,6 @@
           "Name": "NO",
           "Position": "150,50,50",
           "Rotation": "-0.7071067,0.0000001376788,0.7071068,0.0000001078765",
-          "Scale": "1,1,2",
           "Enabled": true,
           "Components": [
             {
@@ -3766,6 +3825,30 @@
               "Scale": "100,100,16",
               "Static": true,
               "SurfaceVelocity": "0,0,0"
+            },
+            {
+              "__type": "Neverspace.QuantumTeleporter",
+              "__guid": "15bf25b1-e830-408f-b735-6f690204868a",
+              "ActivateTemp": {
+                "_type": "component",
+                "component_id": "7d11c68d-4714-4c61-a7d3-d18e9e98819a",
+                "go": "d7d08375-39f1-477f-b6ae-6329ebc8105c",
+                "component_type": "QuantumTemp"
+              },
+              "AreaOfEffect": {
+                "Mins": "-50,-50,0",
+                "Maxs": "50,50,75"
+              },
+              "EgressPortal": {
+                "_type": "component",
+                "component_id": "a512bfcd-9b6b-4b31-9818-58add24776c7",
+                "go": "d7d08375-39f1-477f-b6ae-6329ebc8105c",
+                "component_type": "QuantumTeleporter"
+              },
+              "Trigger": {
+                "Mins": "-50,-50,0",
+                "Maxs": "50,50,75"
+              }
             }
           ]
         },

@@ -10,6 +10,7 @@ public abstract class Portal : Component
 
 	[Property] public Portal EgressPortal { get; set; }
 	[Property] public GravityAttractor InstantGrav { get; set; }
+	[Property] public QuantumTemp ActivateTemp { get; set; }
 
 	protected override void OnStart()
 	{
