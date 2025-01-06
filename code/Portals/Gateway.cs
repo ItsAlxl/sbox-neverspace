@@ -8,8 +8,8 @@ namespace Neverspace;
 
 public sealed class Gateway : Portal, Component.ITriggerListener
 {
-	const float MIN_OBLIQUE_DISTANCE_SQ = 32.0f * 32.0f;
-	const float MIN_OBLIQUE_GAP = 3.0f;
+	const float MIN_OBLIQUE_DISTANCE_SQ = 3.0f * 3.0f;
+	const float MIN_OBLIQUE_GAP = 0.5f;
 
 	[Property] CameraComponent PlayerCamera { get; set; }
 	[Property] float PassageXScale { get; set; } = 0.2f;
@@ -75,19 +75,20 @@ public sealed class Gateway : Portal, Component.ITriggerListener
 					}
 					ViewScreen.SceneObject.Attributes.Set( "PortalViewTex", renderTarget );
 
-					GhostCamera.BackgroundColor = PlayerCamera.BackgroundColor;
-					GhostCamera.ZNear = PlayerCamera.ZNear;
-					GhostCamera.ZFar = PlayerCamera.ZFar;
-					GhostCamera.FieldOfView = PlayerCamera.FieldOfView;
 					GhostCamera.WorldTransform = GetEgressTransform( PlayerCamera.WorldTransform );
+					var camScale = GhostCamera.WorldScale.z / PlayerCamera.WorldScale.z;
+					camScale = camScale < 1.0f ? 1.0f : camScale;
+					GhostCamera.BackgroundColor = PlayerCamera.BackgroundColor;
+					GhostCamera.ZNear = PlayerCamera.ZNear * camScale;
+					GhostCamera.ZFar = PlayerCamera.ZFar * camScale;
+					GhostCamera.FieldOfView = PlayerCamera.FieldOfView;
 
 					Plane p = EgressGateway.WorldPlane;
-
-					var scale = EgressGateway.WorldScale.z / WorldScale.z;
-					p.Distance += MIN_OBLIQUE_GAP * scale * EgressCameraSide;
+					var distanceScale = EgressGateway.WorldScale.z / WorldScale.z;
+					p.Distance += MIN_OBLIQUE_GAP * distanceScale * EgressCameraSide;
 
 					// s&box's Plane::GetDistance function is bad
-					var camDistanceSq = p.SnapToPlane( GhostCamera.WorldPosition ).DistanceSquared( GhostCamera.WorldPosition ) / (scale * scale);
+					var camDistanceSq = p.SnapToPlane( GhostCamera.WorldPosition ).DistanceSquared( GhostCamera.WorldPosition ) / (distanceScale * distanceScale);
 					GhostCamera.CustomProjectionMatrix = camDistanceSq < MIN_OBLIQUE_DISTANCE_SQ ? null : GhostCamera.CalculateObliqueMatrix( p );
 				}
 			}

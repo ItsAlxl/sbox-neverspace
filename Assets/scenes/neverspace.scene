@@ -29,8 +29,8 @@
           "__guid": "bf4fbc84-a021-4f92-911e-71e0111dce93",
           "ActiveRoom": {
             "_type": "component",
-            "component_id": "05b346c7-08c7-46e4-a4f0-c842f49842a9",
-            "go": "1ddf54e5-7f03-4fa2-8fa1-0af5e0f70551",
+            "component_id": "b626068a-6a74-41a1-85ac-0f7840cadbae",
+            "go": "7c498c07-971f-42c9-89cd-6a74e21c2d64",
             "component_type": "Room"
           }
         }
@@ -1167,6 +1167,7 @@
       "__guid": "66b1c722-08bb-44c9-8917-1f02af0c989c",
       "Flags": 0,
       "Name": "Player",
+      "Position": "-3500,-862.5,0",
       "Scale": "4,4,4",
       "Tags": "player",
       "Enabled": true,
@@ -2605,7 +2606,7 @@
         {
           "__type": "Neverspace.Room",
           "__guid": "b626068a-6a74-41a1-85ac-0f7840cadbae",
-          "CamColor": "0,0,0,1",
+          "CamColor": "1,0,0,1",
           "CamFar": 5000,
           "CamNear": 0.25
         }
