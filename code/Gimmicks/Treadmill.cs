@@ -55,8 +55,13 @@ public sealed class Treadmill : Component
 		{
 			art.LocalScale = art.LocalScale.WithX( targetX / xPerScale );
 			art.LocalPosition = art.LocalPosition.WithX( targetX );
+			art.Transform.ClearInterpolation();
+
 			if ( pin != null )
+			{
 				pin.LocalPosition = art.LocalPosition * 2.0f;
+				pin.Transform.ClearInterpolation();
+			}
 		}
 
 		if ( plrLocalX < stepOffset )
@@ -71,5 +76,6 @@ public sealed class Treadmill : Component
 		}
 
 		movingCol.LocalPosition = pinnedCol.LocalPosition + stepLength * (plrLocalX >= currentX ? Vector3.Forward : Vector3.Backward);
+		movingCol.Transform.ClearInterpolation();
 	}
 }
