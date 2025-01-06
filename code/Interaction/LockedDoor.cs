@@ -6,8 +6,6 @@ namespace Neverspace;
 
 public sealed class LockedDoor : Component
 {
-	const float PROXIMITY_THRESHOLD = 4096.0f;
-
 	[Property] List<Keyhole> Keyholes { get; set; } = new();
 	[Property] GameObject LockedGo { get; set; }
 	[Property] GameObject UnlockedGo { get; set; }
@@ -22,7 +20,16 @@ public sealed class LockedDoor : Component
 		{
 			k.OnKeyInserted += OnKeyChanged;
 		}
-		OnKeyChanged();
+		Tags.Add( "unlockable-door" );
+		UpdateState();
+	}
+
+	private void UpdateState()
+	{
+		if ( UnlockedGo != null )
+			UnlockedGo.Enabled = IsUnlocked;
+		if ( LockedGo != null )
+			LockedGo.Enabled = !IsUnlocked;
 	}
 
 	private void OnKeyChanged()
@@ -30,11 +37,8 @@ public sealed class LockedDoor : Component
 		var unlock = HasAllKeys;
 		if ( IsUnlocked != unlock )
 		{
-			if ( UnlockedGo != null )
-				UnlockedGo.Enabled = unlock;
-			if ( LockedGo != null )
-				LockedGo.Enabled = !unlock;
 			IsUnlocked = unlock;
+			UpdateState();
 		}
 	}
 }

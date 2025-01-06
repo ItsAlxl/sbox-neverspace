@@ -45,7 +45,7 @@ public sealed class RoomController : Component
 
 	private void ActivateRoom( Room r )
 	{
-		HashSet<Room> activate = new HashSet<Room> { r };
+		var activate = new HashSet<Room> { r };
 		foreach ( var gate in r.GetGateways() )
 		{
 			if ( portalToEgressRoom.ContainsKey( gate ) )
@@ -64,7 +64,8 @@ public sealed class RoomController : Component
 
 	private void OnPlayerTeleport( Portal ingress )
 	{
-		if ( portalToEgressRoom.ContainsKey( ingress ) )
-			ActivateRoom( portalToEgressRoom[ingress] );
+		portalToEgressRoom.TryGetValue( ingress, out Room r );
+		if ( r != null )
+			ActivateRoom( r );
 	}
 }

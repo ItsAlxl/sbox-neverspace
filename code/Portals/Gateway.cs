@@ -25,8 +25,8 @@ public sealed class Gateway : Portal, Component.ITriggerListener
 	protected override void OnAwake()
 	{
 		base.OnAwake();
-		ViewScreen ??= GameObject.Components.GetInChildren<ModelRenderer>();
-		GhostCamera ??= GameObject.Components.GetInChildren<CameraComponent>();
+		ViewScreen ??= GameObject.Components.GetInChildren<ModelRenderer>(true);
+		GhostCamera ??= GameObject.Components.GetInChildren<CameraComponent>(true);
 		PlayerCamera ??= Scene.Camera;
 
 		ViewScreen.MaterialOverride = Material.FromShader( "shaders/portal" );

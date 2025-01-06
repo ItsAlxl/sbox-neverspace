@@ -16,7 +16,7 @@ public sealed class Room : Component
 		{
 			foreach ( var g in GetGateways() )
 			{
-				if ( g.GameObject.Components.Get<QuantumController>( FindMode.EverythingInSelfAndParent ) == null )
+				if ( !g.Tags.HasAny( "quantum", "unlockable-door" ) )
 					g.GameObject.Enabled = value;
 			}
 		}

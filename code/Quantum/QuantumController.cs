@@ -37,6 +37,7 @@ public abstract class QuantumController : Component
 			ObservableBounds = WorldTransform.BBoxToWorld( ObservableBounds );
 		}
 		OnUnobserve();
+		Tags.Add( "quantum" );
 	}
 
 	protected override void OnUpdate()

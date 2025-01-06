@@ -9,8 +9,9 @@ public sealed class Treadmill : Component
 	[Property] Interactor Player { get; set; }
 	[Property] float ArtBuffer { get; set; } = 250.0f;
 
-	private GameObject art;
-	private GameObject colOriginal;
+	[Property] GameObject art { get; set; }
+	[Property] GameObject colOriginal { get; set; }
+	[Property] GameObject pin { get; set; }
 	private GameObject colClone;
 
 	private float stepOffset;
@@ -25,9 +26,8 @@ public sealed class Treadmill : Component
 	{
 		base.OnAwake();
 		Player ??= Scene.GetAllComponents<Interactor>().ElementAt( 0 );
-
-		art = Components.Get<ModelRenderer>( FindMode.InChildren ).GameObject;
-		colOriginal = Components.Get<BoxCollider>( FindMode.InChildren ).GameObject;
+		art ??= Components.Get<ModelRenderer>( FindMode.InChildren ).GameObject;
+		colOriginal ??= Components.Get<BoxCollider>( FindMode.InChildren ).GameObject;
 
 		colClone = new GameObject();
 		foreach ( var c in colOriginal.Components.GetAll() )
@@ -48,12 +48,15 @@ public sealed class Treadmill : Component
 	{
 		base.OnFixedUpdate();
 		var plrLocalX = WorldTransform.PointToLocal( Player.WorldPosition ).x;
+		plrLocalX = plrLocalX < 0.0f ? 0.0f : plrLocalX;
 
 		var targetX = 0.5f * ((plrLocalX < stepOffset ? stepOffset : plrLocalX) + ArtBuffer);
-		if ( targetX > art.LocalPosition.x )
+		if ( !art.LocalPosition.x.AlmostEqual( targetX ) )
 		{
 			art.LocalScale = art.LocalScale.WithX( targetX / xPerScale );
 			art.LocalPosition = art.LocalPosition.WithX( targetX );
+			if ( pin != null )
+				pin.LocalPosition = art.LocalPosition * 2.0f;
 		}
 
 		if ( plrLocalX < stepOffset )
