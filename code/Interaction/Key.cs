@@ -22,6 +22,11 @@ public sealed class Key : Carriable
 		{
 			b.Enabled = false;
 		}
+
+		foreach ( var c in GameObject.Components.GetAll<BoxCollider>() )
+		{
+			c.Enabled = false;
+		}
 	}
 
 	protected override void OnUpdate()
