@@ -15,6 +15,7 @@ public sealed class GravityPawnPlayer : GravityPawn
 	public Vector3 LocalVelocity = Vector3.Zero;
 	public bool IsGrounded = false;
 	public bool JumpNext = false;
+	public bool IgnoreNextGravHop = false;
 
 	public float MovtSpeed = 150.0f;
 	public float AirMovtClamp = 100.0f;
@@ -46,11 +47,12 @@ public sealed class GravityPawnPlayer : GravityPawn
 			var upNormal = -CurrentGravity / gravLength;
 			if ( !(WorldTransform.Up - upNormal).IsNearlyZero( 0.001f ) )
 			{
-				if ( !IsGravAffected )
+				if ( !IsGravAffected && !IgnoreNextGravHop )
 				{
 					// don't get stuck in the grav object that we're detaching from
 					WorldPosition += WorldTransform.Up * (CapsuleCollider.Radius + CapsuleCollider.End.z) * WorldScale.z * 1.5f;
 				}
+				IgnoreNextGravHop = false;
 				WorldRotation = Rotation.LookAt( Vector3.VectorPlaneProject( WorldTransform.Forward, upNormal ), upNormal );
 			}
 		}

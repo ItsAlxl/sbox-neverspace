@@ -1,3 +1,5 @@
+using System;
+
 namespace Neverspace;
 
 [Group( "Neverspace - Portals" )]
@@ -6,6 +8,9 @@ namespace Neverspace;
 
 public sealed class Gateway : Portal, Component.ITriggerListener
 {
+	const float MIN_OBLIQUE_DISTANCE_SQ = 32.0f * 32.0f;
+	const float MIN_OBLIQUE_GAP = 3.0f;
+
 	[Property] CameraComponent PlayerCamera { get; set; }
 	[Property] float PassageXScale { get; set; } = 0.2f;
 	[Property] float PassageOffset { get; set; } = -5.0f;
@@ -15,6 +20,8 @@ public sealed class Gateway : Portal, Component.ITriggerListener
 	CameraComponent GhostCamera { get; set; }
 
 	public Plane WorldPlane { get => new( WorldTransform.Position, WorldTransform.Forward ); }
+	public int CameraSide { get => GetOffsetSide( PlayerCamera.WorldPosition ); }
+	public int EgressCameraSide { get => EgressGateway.GetOffsetSide( GhostCamera.WorldPosition ); }
 
 	private Texture renderTarget;
 	private readonly Dictionary<PortalTraveler, int> travelerPassage = new( 1 );
@@ -25,8 +32,8 @@ public sealed class Gateway : Portal, Component.ITriggerListener
 	protected override void OnAwake()
 	{
 		base.OnAwake();
-		ViewScreen ??= GameObject.Components.GetInChildren<ModelRenderer>(true);
-		GhostCamera ??= GameObject.Components.GetInChildren<CameraComponent>(true);
+		ViewScreen ??= GameObject.Components.GetInChildren<ModelRenderer>( true );
+		GhostCamera ??= GameObject.Components.GetInChildren<CameraComponent>( true );
 		PlayerCamera ??= Scene.Camera;
 
 		ViewScreen.MaterialOverride = Material.FromShader( "shaders/portal" );
@@ -75,9 +82,13 @@ public sealed class Gateway : Portal, Component.ITriggerListener
 					GhostCamera.WorldTransform = GetEgressTransform( PlayerCamera.WorldTransform );
 
 					Plane p = EgressGateway.WorldPlane;
-					p.Distance += GetEgressCameraSide();
+
+					var scale = EgressGateway.WorldScale.z / WorldScale.z;
+					p.Distance += MIN_OBLIQUE_GAP * scale * EgressCameraSide;
+
 					// s&box's Plane::GetDistance function is bad
-					GhostCamera.CustomProjectionMatrix = p.SnapToPlane( GhostCamera.WorldPosition ).DistanceSquared( GhostCamera.WorldPosition ) < 50.0f ? null : GhostCamera.CalculateObliqueMatrix( p );
+					var camDistanceSq = p.SnapToPlane( GhostCamera.WorldPosition ).DistanceSquared( GhostCamera.WorldPosition ) / (scale * scale);
+					GhostCamera.CustomProjectionMatrix = camDistanceSq < MIN_OBLIQUE_DISTANCE_SQ ? null : GhostCamera.CalculateObliqueMatrix( p );
 				}
 			}
 		}
@@ -193,15 +204,5 @@ public sealed class Gateway : Portal, Component.ITriggerListener
 		{
 			OnTravelerExited( t );
 		}
-	}
-
-	public int GetCameraSide()
-	{
-		return GetOffsetSide( PlayerCamera.WorldPosition );
-	}
-
-	public int GetEgressCameraSide()
-	{
-		return EgressGateway.GetOffsetSide( GhostCamera.WorldPosition );
 	}
 }

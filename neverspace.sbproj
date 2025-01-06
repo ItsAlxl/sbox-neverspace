@@ -5,7 +5,7 @@
   "Ident": "neverspace",
   "Schema": 1,
   "IncludeSourceFiles": true,
-  "Resources": null,
+  "Resources": "",
   "PackageReferences": [],
   "EditorReferences": null,
   "IsWhitelistDisabled": false,

@@ -17,6 +17,7 @@ public sealed class PortalTravelerPlayer : PortalTraveler
 
 	public override void TeleportThrough( Portal portal )
 	{
+		GravityPawn.IgnoreNextGravHop = true;
 		Interactor.TeleportThrough( portal );
 		base.TeleportThrough( portal );
 	}

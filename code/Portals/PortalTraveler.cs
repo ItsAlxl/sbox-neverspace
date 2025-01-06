@@ -141,8 +141,8 @@ public abstract class PortalTraveler : Component
 		if ( IsInPassage )
 		{
 			var legitSide = PassageGatewayLegit.GetOffsetSide( WorldPosition );
-			OverdrawSlice( VisualComponentsLegit, legitSide == PassageGatewayLegit.GetCameraSide() );
-			OverdrawSlice( VisualComponentsProxy, -legitSide == PassageGatewayProxy.GetCameraSide() );
+			OverdrawSlice( VisualComponentsLegit, legitSide == PassageGatewayLegit.CameraSide );
+			OverdrawSlice( VisualComponentsProxy, -legitSide == PassageGatewayProxy.CameraSide );
 		}
 	}
 
