@@ -41,6 +41,8 @@ public sealed class RoomController : Component
 
 		PlayerTraveler.OnTeleport += OnPlayerTeleport;
 		ActivateRoom( ActiveRoom );
+		PlayerTraveler.WorldPosition = ActiveRoom.WorldPosition.WithZ(ActiveRoom.WorldPosition.z + 32.0f);
+		PlayerTraveler.WorldScale = ActiveRoom.WorldScale;
 	}
 
 	private void ActivateRoom( Room r )

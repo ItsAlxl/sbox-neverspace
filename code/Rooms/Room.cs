@@ -15,10 +15,7 @@ public sealed class Room : Component
 		set
 		{
 			foreach ( var g in GetGateways() )
-			{
-				if ( !g.Tags.HasAny( "quantum", "unlockable-door" ) )
-					g.GameObject.Enabled = value;
-			}
+				g.GatewayActive = value;
 		}
 	}
 

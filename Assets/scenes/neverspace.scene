@@ -85,6 +85,7 @@
                     "go": "828ebc27-83ca-47c6-b739-b841d4cfd4a9",
                     "component_type": "Gateway"
                   },
+                  "ForceUntilUnloaded": false,
                   "PassageOffset": -5,
                   "PassageXScale": 0.2
                 }
@@ -662,6 +663,7 @@
                     "go": "df3f435c-f3e7-4f31-8c85-cd17c3e3165f",
                     "component_type": "Gateway"
                   },
+                  "ForceUntilUnloaded": false,
                   "PassageOffset": -5,
                   "PassageXScale": 0.2
                 }
@@ -1970,6 +1972,7 @@
                     "go": "a98891f6-7f2e-4d5b-a9ee-6b948bcfc6b9",
                     "component_type": "Gateway"
                   },
+                  "ForceUntilUnloaded": false,
                   "PassageOffset": -5,
                   "PassageXScale": 0.2
                 }
@@ -2077,6 +2080,7 @@
                 "go": "54eb9c08-1659-4240-beff-913b4e7c2a10",
                 "component_type": "Gateway"
               },
+              "ForceUntilUnloaded": false,
               "PassageOffset": -5,
               "PassageXScale": 0.2
             }
@@ -2162,6 +2166,7 @@
                 "go": "a98891f6-7f2e-4d5b-a9ee-6b948bcfc6b9",
                 "component_type": "Gateway"
               },
+              "ForceUntilUnloaded": false,
               "PassageOffset": -5,
               "PassageXScale": 0.2
             }
@@ -2600,6 +2605,7 @@
       "Flags": 0,
       "Name": "Potato",
       "Position": "-2500,-1150,-0.000597626",
+      "Scale": "4,4,4",
       "Enabled": true,
       "Components": [
         {
@@ -2615,9 +2621,8 @@
           "__guid": "ea9bcd22-08e3-4179-9c4d-cbfc26fa69ff",
           "Flags": 0,
           "Name": "OrobExit",
-          "Position": "800,200,0.0001651346",
+          "Position": "200,50,0.0001651346",
           "Rotation": "0,0,-0.9999999,0.0000001490116",
-          "Scale": "4,4,4",
           "Enabled": true,
           "Children": [
             {
@@ -2646,6 +2651,7 @@
                     "go": "a98891f6-7f2e-4d5b-a9ee-6b948bcfc6b9",
                     "component_type": "Gateway"
                   },
+                  "ForceUntilUnloaded": false,
                   "PassageOffset": -5,
                   "PassageXScale": 0.2
                 }
@@ -3199,7 +3205,6 @@
           "__guid": "e1acdd4c-16f0-415e-b2ed-b2592e33bb05",
           "Flags": 0,
           "Name": "FriendRoom",
-          "Scale": "4,4,4",
           "Enabled": true,
           "Children": [
             {
@@ -3493,9 +3498,8 @@
           "__guid": "4fb761fe-04f3-4452-81b7-74e0b29953bf",
           "Flags": 0,
           "Name": "PotatoRoom",
-          "Position": "-1000,400,0.0006278157",
+          "Position": "-250,100,0",
           "Rotation": "0,0,-1,0.0000001947072",
-          "Scale": "4,4,4",
           "Enabled": true,
           "Children": [
             {
@@ -3736,10 +3740,11 @@
                   "__guid": "b11413f4-d41d-414f-a244-74275e43aaf3",
                   "EgressPortal": {
                     "_type": "component",
-                    "component_id": "de6b3667-e5a8-4176-b6ac-66248d60a57a",
-                    "go": "85f72971-8eae-4048-aebf-20433f363fa0",
+                    "component_id": "d544eb8c-f61e-45e9-a240-4c69386d479a",
+                    "go": "ca2598a6-acda-412d-b3f9-d6d046844c49",
                     "component_type": "Gateway"
                   },
+                  "ForceUntilUnloaded": false,
                   "PassageOffset": -5,
                   "PassageXScale": 0.2
                 }
@@ -3794,6 +3799,452 @@
                       "Viewport": "0,0,1,1",
                       "ZFar": 10000,
                       "ZNear": 10
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "__guid": "ca2598a6-acda-412d-b3f9-d6d046844c49",
+              "Flags": 0,
+              "Name": "Ptl-Toptato2Pedestal",
+              "Position": "-50,-30,73",
+              "Rotation": "0,-0,-0.3826835,0.9238795",
+              "Scale": "0.05,0.05,0.05",
+              "Tags": "portal",
+              "Enabled": true,
+              "Components": [
+                {
+                  "__type": "Sandbox.BoxCollider",
+                  "__guid": "36d94405-80e9-467b-8d79-a68a1de478d1",
+                  "Center": "0,0,50",
+                  "IsTrigger": true,
+                  "Scale": "8,100,100",
+                  "Static": false,
+                  "SurfaceVelocity": "0,0,0"
+                },
+                {
+                  "__type": "Neverspace.Gateway",
+                  "__guid": "d544eb8c-f61e-45e9-a240-4c69386d479a",
+                  "EgressPortal": {
+                    "_type": "component",
+                    "component_id": "b11413f4-d41d-414f-a244-74275e43aaf3",
+                    "go": "498c9856-6ab2-4117-8aaa-92a78fd10423",
+                    "component_type": "Gateway"
+                  },
+                  "ForceUntilUnloaded": true,
+                  "PassageOffset": -5,
+                  "PassageXScale": 0.2
+                }
+              ],
+              "Children": [
+                {
+                  "__guid": "3ba7c3a5-ca04-4e7d-ae99-0ee7bda5244c",
+                  "Flags": 0,
+                  "Name": "Screen",
+                  "Position": "0,0,50",
+                  "Scale": "0,2,2",
+                  "Tags": "ptl-viewscreen",
+                  "Enabled": true,
+                  "Components": [
+                    {
+                      "__type": "Sandbox.ModelRenderer",
+                      "__guid": "b18c1426-15a2-43a3-a6e2-3035f46d10ef",
+                      "BodyGroups": 18446744073709551615,
+                      "CreateAttachments": false,
+                      "Model": "models/dev/box.vmdl",
+                      "RenderOptions": {
+                        "GameLayer": true,
+                        "OverlayLayer": false,
+                        "BloomLayer": false,
+                        "AfterUILayer": true
+                      },
+                      "RenderType": "Off",
+                      "Tint": "1,1,1,1"
+                    }
+                  ]
+                },
+                {
+                  "__guid": "cc62bdd7-ddf5-4705-a2e9-98e4989fb32c",
+                  "Flags": 0,
+                  "Name": "Camera",
+                  "Position": "-0.0001220703,0,0",
+                  "Enabled": true,
+                  "Components": [
+                    {
+                      "__type": "Sandbox.CameraComponent",
+                      "__guid": "6723cdbb-bc86-49ca-b588-68a4dbf20e06",
+                      "BackgroundColor": "0.33333,0.46275,0.52157,1",
+                      "ClearFlags": "All",
+                      "FieldOfView": 60,
+                      "IsMainCamera": false,
+                      "Orthographic": false,
+                      "OrthographicHeight": 1204,
+                      "Priority": 1,
+                      "RenderExcludeTags": "ptl-viewscreen",
+                      "RenderTags": "",
+                      "TargetEye": "None",
+                      "Viewport": "0,0,1,1",
+                      "ZFar": 10000,
+                      "ZNear": 10
+                    }
+                  ]
+                },
+                {
+                  "__guid": "97f8da12-749c-4875-af35-dcbdaa12b425",
+                  "Flags": 0,
+                  "Name": "Frame",
+                  "Enabled": true,
+                  "Children": [
+                    {
+                      "__guid": "3badef21-ea0c-4196-b81f-bf5067f4bb50",
+                      "Flags": 0,
+                      "Name": "SideL",
+                      "Position": "0.0001883507,-50.99959,49.99999",
+                      "Scale": "0.05,0.05,2.002",
+                      "Enabled": true,
+                      "Components": [
+                        {
+                          "__type": "Sandbox.ModelRenderer",
+                          "__guid": "4f5cc4b1-381b-480a-b7f2-d95e79c53fb6",
+                          "BodyGroups": 18446744073709551615,
+                          "CreateAttachments": false,
+                          "MaterialOverride": "materials/world/grid-thinbright.vmat",
+                          "RenderOptions": {
+                            "GameLayer": true,
+                            "OverlayLayer": false,
+                            "BloomLayer": false,
+                            "AfterUILayer": true
+                          },
+                          "RenderType": "Off",
+                          "Tint": "0.06512,0.06512,0.06512,1"
+                        },
+                        {
+                          "__type": "Sandbox.BoxCollider",
+                          "__guid": "2e323efa-3c15-460d-8432-78f2486be5db",
+                          "Center": "0,0,0",
+                          "IsTrigger": false,
+                          "Scale": "50,50,50",
+                          "Static": false,
+                          "SurfaceVelocity": "0,0,0"
+                        }
+                      ]
+                    },
+                    {
+                      "__guid": "be33b9a9-10d1-44ae-ad13-9be533214f76",
+                      "Flags": 0,
+                      "Name": "SideR",
+                      "Position": "-0.0001883507,50.99959,49.99999",
+                      "Scale": "0.05,0.05,2.002",
+                      "Enabled": true,
+                      "Components": [
+                        {
+                          "__type": "Sandbox.ModelRenderer",
+                          "__guid": "b81f14e3-7891-4816-a639-f7b246f7c311",
+                          "BodyGroups": 18446744073709551615,
+                          "CreateAttachments": false,
+                          "MaterialOverride": "materials/world/grid-thinbright.vmat",
+                          "RenderOptions": {
+                            "GameLayer": true,
+                            "OverlayLayer": false,
+                            "BloomLayer": false,
+                            "AfterUILayer": true
+                          },
+                          "RenderType": "Off",
+                          "Tint": "0.06512,0.06512,0.06512,1"
+                        },
+                        {
+                          "__type": "Sandbox.BoxCollider",
+                          "__guid": "0bfcf5a3-48b7-42a2-a250-4608dbc2bd06",
+                          "Center": "0,0,0",
+                          "IsTrigger": false,
+                          "Scale": "50,50,50",
+                          "Static": false,
+                          "SurfaceVelocity": "0,0,0"
+                        }
+                      ]
+                    },
+                    {
+                      "__guid": "b2d46a25-7a57-49f3-ba4e-63cb0fcb0115",
+                      "Flags": 0,
+                      "Name": "SideT",
+                      "Position": "0,0.00000002095476,101.3",
+                      "Scale": "0.05,2.09,0.05",
+                      "Enabled": true,
+                      "Components": [
+                        {
+                          "__type": "Sandbox.ModelRenderer",
+                          "__guid": "a36227d4-b8d5-445d-8ac0-ac2bbce1ac2d",
+                          "BodyGroups": 18446744073709551615,
+                          "CreateAttachments": false,
+                          "MaterialOverride": "materials/world/grid-thinbright.vmat",
+                          "RenderOptions": {
+                            "GameLayer": true,
+                            "OverlayLayer": false,
+                            "BloomLayer": false,
+                            "AfterUILayer": true
+                          },
+                          "RenderType": "Off",
+                          "Tint": "0.06512,0.06512,0.06512,1"
+                        },
+                        {
+                          "__type": "Sandbox.BoxCollider",
+                          "__guid": "cd79eb59-9c9e-4a61-9212-aa7c83f0b2e6",
+                          "Center": "0,0,0",
+                          "IsTrigger": false,
+                          "Scale": "50,50,50",
+                          "Static": false,
+                          "SurfaceVelocity": "0,0,0"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "__guid": "096a000a-450b-402d-80aa-5e10698615d7",
+                  "Flags": 0,
+                  "Name": "Walkway",
+                  "Rotation": "-0.000000002362029,0.00000003323618,0.7071068,0.7071068",
+                  "Scale": "0.75,0.375,0.5",
+                  "Enabled": true,
+                  "Components": [
+                    {
+                      "__type": "Sandbox.BoxCollider",
+                      "__guid": "b0dd3669-fd7e-48ae-8fcd-7e9ddba2aba6",
+                      "Center": "0,0,-8",
+                      "IsTrigger": false,
+                      "Scale": "100,100,16",
+                      "Static": false,
+                      "SurfaceVelocity": "0,0,0"
+                    },
+                    {
+                      "__type": "Neverspace.Walkway",
+                      "__guid": "63f22353-e618-4579-a4a2-9805c6789a53",
+                      "GravityStrength": 800,
+                      "GravOnly": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "__guid": "3149919f-43b8-41a5-854c-a407869ae77f",
+              "Flags": 0,
+              "Name": "Ptl-Botato2Elevator",
+              "Position": "-50.00002,-30,57",
+              "Rotation": "-0.9238795,0.3826835,0.00000001672763,-0.00000004038406",
+              "Scale": "0.05,0.05,0.05",
+              "Tags": "portal",
+              "Enabled": true,
+              "Components": [
+                {
+                  "__type": "Sandbox.BoxCollider",
+                  "__guid": "dbe4fdc7-2e9c-4c4f-8633-63cf55bc0781",
+                  "Center": "0,0,50",
+                  "IsTrigger": true,
+                  "Scale": "8,100,100",
+                  "Static": false,
+                  "SurfaceVelocity": "0,0,0"
+                },
+                {
+                  "__type": "Neverspace.Gateway",
+                  "__guid": "cbc41749-f3d2-4785-926f-0f3b6151353b",
+                  "EgressPortal": {
+                    "_type": "component",
+                    "component_id": "57e8a590-85cb-40fd-9c75-136d35c22547",
+                    "go": "973887d6-aae4-4f4e-992a-33ab7f97028a",
+                    "component_type": "Gateway"
+                  },
+                  "ForceUntilUnloaded": true,
+                  "PassageOffset": -5,
+                  "PassageXScale": 0.2
+                }
+              ],
+              "Children": [
+                {
+                  "__guid": "838e170f-97bd-4269-9cdf-47da286125f0",
+                  "Flags": 0,
+                  "Name": "Screen",
+                  "Position": "0,0,50",
+                  "Scale": "0,2,2",
+                  "Tags": "ptl-viewscreen",
+                  "Enabled": true,
+                  "Components": [
+                    {
+                      "__type": "Sandbox.ModelRenderer",
+                      "__guid": "1faa4241-1756-48f1-8d03-d99bd8c0cc72",
+                      "BodyGroups": 18446744073709551615,
+                      "CreateAttachments": false,
+                      "Model": "models/dev/box.vmdl",
+                      "RenderOptions": {
+                        "GameLayer": true,
+                        "OverlayLayer": false,
+                        "BloomLayer": false,
+                        "AfterUILayer": true
+                      },
+                      "RenderType": "Off",
+                      "Tint": "1,1,1,1"
+                    }
+                  ]
+                },
+                {
+                  "__guid": "da36835c-f067-458c-bae7-5e27f0cbc909",
+                  "Flags": 0,
+                  "Name": "Camera",
+                  "Position": "-0.0001220703,0,0",
+                  "Enabled": true,
+                  "Components": [
+                    {
+                      "__type": "Sandbox.CameraComponent",
+                      "__guid": "42360970-4658-44fb-bd8c-db800da4cce3",
+                      "BackgroundColor": "0.33333,0.46275,0.52157,1",
+                      "ClearFlags": "All",
+                      "FieldOfView": 60,
+                      "IsMainCamera": false,
+                      "Orthographic": false,
+                      "OrthographicHeight": 1204,
+                      "Priority": 1,
+                      "RenderExcludeTags": "ptl-viewscreen",
+                      "RenderTags": "",
+                      "TargetEye": "None",
+                      "Viewport": "0,0,1,1",
+                      "ZFar": 10000,
+                      "ZNear": 10
+                    }
+                  ]
+                },
+                {
+                  "__guid": "261868fe-3162-4207-b148-5a25b61a90a6",
+                  "Flags": 0,
+                  "Name": "Frame",
+                  "Enabled": true,
+                  "Children": [
+                    {
+                      "__guid": "7a335740-6fee-431e-9dd1-fcd9a2ebe101",
+                      "Flags": 0,
+                      "Name": "SideL",
+                      "Position": "0.00001491104,-50.99938,49.99999",
+                      "Scale": "0.05,0.05,2.002",
+                      "Enabled": true,
+                      "Components": [
+                        {
+                          "__type": "Sandbox.ModelRenderer",
+                          "__guid": "6167af19-c25d-4066-8009-33717670f450",
+                          "BodyGroups": 18446744073709551615,
+                          "CreateAttachments": false,
+                          "MaterialOverride": "materials/world/grid-thinbright.vmat",
+                          "RenderOptions": {
+                            "GameLayer": true,
+                            "OverlayLayer": false,
+                            "BloomLayer": false,
+                            "AfterUILayer": true
+                          },
+                          "RenderType": "Off",
+                          "Tint": "0.06512,0.06512,0.06512,1"
+                        },
+                        {
+                          "__type": "Sandbox.BoxCollider",
+                          "__guid": "14bc50b1-dbb9-470e-8602-05c8d8b931dd",
+                          "Center": "0,0,0",
+                          "IsTrigger": false,
+                          "Scale": "50,50,50",
+                          "Static": false,
+                          "SurfaceVelocity": "0,0,0"
+                        }
+                      ]
+                    },
+                    {
+                      "__guid": "e35a33f4-1a10-4fe3-bad3-2e24817ad8b7",
+                      "Flags": 0,
+                      "Name": "SideR",
+                      "Position": "-0.000011315,50.99938,50",
+                      "Scale": "0.05,0.05,2.002",
+                      "Enabled": true,
+                      "Components": [
+                        {
+                          "__type": "Sandbox.ModelRenderer",
+                          "__guid": "ed9c9738-4778-4a33-a0d3-dd734110431f",
+                          "BodyGroups": 18446744073709551615,
+                          "CreateAttachments": false,
+                          "MaterialOverride": "materials/world/grid-thinbright.vmat",
+                          "RenderOptions": {
+                            "GameLayer": true,
+                            "OverlayLayer": false,
+                            "BloomLayer": false,
+                            "AfterUILayer": true
+                          },
+                          "RenderType": "Off",
+                          "Tint": "0.06512,0.06512,0.06512,1"
+                        },
+                        {
+                          "__type": "Sandbox.BoxCollider",
+                          "__guid": "73d633ae-b2fb-4447-9edb-819885830c2f",
+                          "Center": "0,0,0",
+                          "IsTrigger": false,
+                          "Scale": "50,50,50",
+                          "Static": false,
+                          "SurfaceVelocity": "0,0,0"
+                        }
+                      ]
+                    },
+                    {
+                      "__guid": "bbd1d899-954b-41b4-bc07-906b56d242d9",
+                      "Flags": 0,
+                      "Name": "SideT",
+                      "Position": "0,0.00000002095476,101.3",
+                      "Scale": "0.05,2.09,0.05",
+                      "Enabled": true,
+                      "Components": [
+                        {
+                          "__type": "Sandbox.ModelRenderer",
+                          "__guid": "12ae1442-e346-4e36-b6bd-085f31f0a4bd",
+                          "BodyGroups": 18446744073709551615,
+                          "CreateAttachments": false,
+                          "MaterialOverride": "materials/world/grid-thinbright.vmat",
+                          "RenderOptions": {
+                            "GameLayer": true,
+                            "OverlayLayer": false,
+                            "BloomLayer": false,
+                            "AfterUILayer": true
+                          },
+                          "RenderType": "Off",
+                          "Tint": "0.06512,0.06512,0.06512,1"
+                        },
+                        {
+                          "__type": "Sandbox.BoxCollider",
+                          "__guid": "2e4fe9dc-df45-46d8-87c0-973b7cd289f8",
+                          "Center": "0,0,0",
+                          "IsTrigger": false,
+                          "Scale": "50,50,50",
+                          "Static": false,
+                          "SurfaceVelocity": "0,0,0"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "__guid": "c7fbd146-00fd-4329-8cc2-23c738670dc7",
+                  "Flags": 0,
+                  "Name": "Walkway",
+                  "Rotation": "-0.000000002362029,0.00000003323618,0.7071068,0.7071068",
+                  "Scale": "0.75,0.375,0.5",
+                  "Enabled": true,
+                  "Components": [
+                    {
+                      "__type": "Sandbox.BoxCollider",
+                      "__guid": "d7d88205-6ecd-4f9c-9bc3-fcc4884147af",
+                      "Center": "0,0,-8",
+                      "IsTrigger": false,
+                      "Scale": "100,100,16",
+                      "Static": false,
+                      "SurfaceVelocity": "0,0,0"
+                    },
+                    {
+                      "__type": "Neverspace.Walkway",
+                      "__guid": "3d8a316d-aa1f-457c-bd50-20069b5109d1",
+                      "GravityStrength": 800,
+                      "GravOnly": true
                     }
                   ]
                 }
@@ -3960,234 +4411,6 @@
                   ]
                 },
                 {
-                  "__guid": "85f72971-8eae-4048-aebf-20433f363fa0",
-                  "Flags": 0,
-                  "Name": "Ptl-Toptato2Pedestal",
-                  "Position": "0,0,32.00003",
-                  "Rotation": "-0.000000002362015,0.00000003323618,-0.7071068,0.7071068",
-                  "Scale": "0.2,0.2,0.2",
-                  "Tags": "portal",
-                  "Enabled": true,
-                  "Components": [
-                    {
-                      "__type": "Sandbox.BoxCollider",
-                      "__guid": "8ebe4cf2-4378-4125-a9db-90f1b1e0bb8f",
-                      "Center": "0,0,50",
-                      "IsTrigger": true,
-                      "Scale": "4,100,100",
-                      "Static": false,
-                      "SurfaceVelocity": "0,0,0"
-                    },
-                    {
-                      "__type": "Neverspace.Gateway",
-                      "__guid": "de6b3667-e5a8-4176-b6ac-66248d60a57a",
-                      "EgressPortal": {
-                        "_type": "component",
-                        "component_id": "b11413f4-d41d-414f-a244-74275e43aaf3",
-                        "go": "498c9856-6ab2-4117-8aaa-92a78fd10423",
-                        "component_type": "Gateway"
-                      },
-                      "InstantGrav": {
-                        "_type": "component",
-                        "component_id": "c4e6a61a-3902-45a3-94c4-fffb01d7da19",
-                        "go": "9af3916c-f48e-4529-b83a-0b3c3aebaa3f",
-                        "component_type": "Planetoid"
-                      },
-                      "PassageOffset": -5,
-                      "PassageXScale": 0.2
-                    }
-                  ],
-                  "Children": [
-                    {
-                      "__guid": "57d7a71c-b5d6-4c9a-bedb-951d080164a6",
-                      "Flags": 0,
-                      "Name": "Screen",
-                      "Position": "0,0,50",
-                      "Scale": "0,2,2",
-                      "Tags": "ptl-viewscreen",
-                      "Enabled": true,
-                      "Components": [
-                        {
-                          "__type": "Sandbox.ModelRenderer",
-                          "__guid": "935f5f76-a698-462e-ab5e-136ab8a950ae",
-                          "BodyGroups": 18446744073709551615,
-                          "CreateAttachments": false,
-                          "Model": "models/dev/box.vmdl",
-                          "RenderOptions": {
-                            "GameLayer": true,
-                            "OverlayLayer": false,
-                            "BloomLayer": false,
-                            "AfterUILayer": true
-                          },
-                          "RenderType": "Off",
-                          "Tint": "1,1,1,1"
-                        }
-                      ]
-                    },
-                    {
-                      "__guid": "2459c4e3-2a7e-40ad-85ea-e8ef55c4349b",
-                      "Flags": 0,
-                      "Name": "Camera",
-                      "Position": "-0.0001220703,0,0",
-                      "Enabled": true,
-                      "Components": [
-                        {
-                          "__type": "Sandbox.CameraComponent",
-                          "__guid": "e3ce34ad-bd6c-448d-b337-bcb978e77900",
-                          "BackgroundColor": "0.33333,0.46275,0.52157,1",
-                          "ClearFlags": "All",
-                          "FieldOfView": 60,
-                          "IsMainCamera": false,
-                          "Orthographic": false,
-                          "OrthographicHeight": 1204,
-                          "Priority": 1,
-                          "RenderExcludeTags": "ptl-viewscreen",
-                          "RenderTags": "",
-                          "TargetEye": "None",
-                          "Viewport": "0,0,1,1",
-                          "ZFar": 10000,
-                          "ZNear": 10
-                        }
-                      ]
-                    },
-                    {
-                      "__guid": "2272f06e-3ac5-498e-aaab-6c6085600465",
-                      "Flags": 0,
-                      "Name": "Frame",
-                      "Enabled": true,
-                      "Children": [
-                        {
-                          "__guid": "853ebf72-b0b6-488a-9db4-4d24418ae646",
-                          "Flags": 0,
-                          "Name": "SideL",
-                          "Position": "0.0001883507,-50.99959,49.99999",
-                          "Scale": "0.05,0.05,2.002",
-                          "Enabled": true,
-                          "Components": [
-                            {
-                              "__type": "Sandbox.ModelRenderer",
-                              "__guid": "55395c61-4f47-4b5a-acd3-0a15390329e9",
-                              "BodyGroups": 18446744073709551615,
-                              "CreateAttachments": false,
-                              "MaterialOverride": "materials/world/grid-thinbright.vmat",
-                              "RenderOptions": {
-                                "GameLayer": true,
-                                "OverlayLayer": false,
-                                "BloomLayer": false,
-                                "AfterUILayer": true
-                              },
-                              "RenderType": "Off",
-                              "Tint": "0.06512,0.06512,0.06512,1"
-                            },
-                            {
-                              "__type": "Sandbox.BoxCollider",
-                              "__guid": "92782992-95e2-4852-a626-3fe7bd357820",
-                              "Center": "0,0,0",
-                              "IsTrigger": false,
-                              "Scale": "50,50,50",
-                              "Static": false,
-                              "SurfaceVelocity": "0,0,0"
-                            }
-                          ]
-                        },
-                        {
-                          "__guid": "5dcbcac0-8c14-4d64-9878-6ccb5e87bd6b",
-                          "Flags": 0,
-                          "Name": "SideR",
-                          "Position": "-0.0001883507,50.99959,49.99999",
-                          "Scale": "0.05,0.05,2.002",
-                          "Enabled": true,
-                          "Components": [
-                            {
-                              "__type": "Sandbox.ModelRenderer",
-                              "__guid": "5684dbce-eeb7-4b3a-ae7a-0663c562b221",
-                              "BodyGroups": 18446744073709551615,
-                              "CreateAttachments": false,
-                              "MaterialOverride": "materials/world/grid-thinbright.vmat",
-                              "RenderOptions": {
-                                "GameLayer": true,
-                                "OverlayLayer": false,
-                                "BloomLayer": false,
-                                "AfterUILayer": true
-                              },
-                              "RenderType": "Off",
-                              "Tint": "0.06512,0.06512,0.06512,1"
-                            },
-                            {
-                              "__type": "Sandbox.BoxCollider",
-                              "__guid": "2dadbefe-627e-4c3f-a61b-b31ece0984ba",
-                              "Center": "0,0,0",
-                              "IsTrigger": false,
-                              "Scale": "50,50,50",
-                              "Static": false,
-                              "SurfaceVelocity": "0,0,0"
-                            }
-                          ]
-                        },
-                        {
-                          "__guid": "adbf13cb-6419-483c-8b51-3498f1c6d86f",
-                          "Flags": 0,
-                          "Name": "SideT",
-                          "Position": "0,0.00000002095476,101.3",
-                          "Scale": "0.05,2.09,0.05",
-                          "Enabled": true,
-                          "Components": [
-                            {
-                              "__type": "Sandbox.ModelRenderer",
-                              "__guid": "224901df-30dc-4f0c-9e8e-896de2a5c53e",
-                              "BodyGroups": 18446744073709551615,
-                              "CreateAttachments": false,
-                              "MaterialOverride": "materials/world/grid-thinbright.vmat",
-                              "RenderOptions": {
-                                "GameLayer": true,
-                                "OverlayLayer": false,
-                                "BloomLayer": false,
-                                "AfterUILayer": true
-                              },
-                              "RenderType": "Off",
-                              "Tint": "0.06512,0.06512,0.06512,1"
-                            },
-                            {
-                              "__type": "Sandbox.BoxCollider",
-                              "__guid": "bc0693ff-cab1-4892-8e53-c086573ca199",
-                              "Center": "0,0,0",
-                              "IsTrigger": false,
-                              "Scale": "50,50,50",
-                              "Static": false,
-                              "SurfaceVelocity": "0,0,0"
-                            }
-                          ]
-                        }
-                      ]
-                    },
-                    {
-                      "__guid": "c0643305-6a7c-465f-97e9-b840535590a2",
-                      "Flags": 0,
-                      "Name": "Walkway",
-                      "Rotation": "0,0,0.7071067,0.7071068",
-                      "Scale": "0.75,0.375,0.5",
-                      "Enabled": true,
-                      "Components": [
-                        {
-                          "__type": "Sandbox.BoxCollider",
-                          "__guid": "cf33a672-a4a5-4365-99b8-780c584b8948",
-                          "Center": "0,0,-8",
-                          "IsTrigger": false,
-                          "Scale": "100,100,16",
-                          "Static": false,
-                          "SurfaceVelocity": "0,0,0"
-                        },
-                        {
-                          "__type": "Neverspace.Walkway",
-                          "__guid": "a97fac23-f8ab-40bd-8eda-b9c2bf3eb334",
-                          "GravityStrength": 800,
-                          "GravOnly": true
-                        }
-                      ]
-                    }
-                  ]
-                },
-                {
                   "__guid": "5588c800-43c6-44f4-ad18-5e82e8ccb90b",
                   "Flags": 0,
                   "Name": "Pedestal",
@@ -4220,234 +4443,6 @@
                       "Scale": "50,50,50",
                       "Static": false,
                       "SurfaceVelocity": "0,0,0"
-                    }
-                  ]
-                },
-                {
-                  "__guid": "2379fcd3-00f7-42f8-a1a0-64186bc8b11f",
-                  "Flags": 0,
-                  "Name": "Ptl-Botato2Elevator",
-                  "Position": "0,0,-32.00003",
-                  "Rotation": "0.7071068,-0.7071067,0.00000001710729,-0.00000004130063",
-                  "Scale": "0.2,0.2,0.2",
-                  "Tags": "portal",
-                  "Enabled": true,
-                  "Components": [
-                    {
-                      "__type": "Sandbox.BoxCollider",
-                      "__guid": "53d6b20d-ecc1-48fb-b30e-6dd2e81da0f5",
-                      "Center": "0,0,50",
-                      "IsTrigger": true,
-                      "Scale": "4,100,100",
-                      "Static": false,
-                      "SurfaceVelocity": "0,0,0"
-                    },
-                    {
-                      "__type": "Neverspace.Gateway",
-                      "__guid": "16a78286-209f-4969-b7b6-1d79213fb54a",
-                      "EgressPortal": {
-                        "_type": "component",
-                        "component_id": "57e8a590-85cb-40fd-9c75-136d35c22547",
-                        "go": "973887d6-aae4-4f4e-992a-33ab7f97028a",
-                        "component_type": "Gateway"
-                      },
-                      "InstantGrav": {
-                        "_type": "component",
-                        "component_id": "c4e6a61a-3902-45a3-94c4-fffb01d7da19",
-                        "go": "9af3916c-f48e-4529-b83a-0b3c3aebaa3f",
-                        "component_type": "Planetoid"
-                      },
-                      "PassageOffset": -5,
-                      "PassageXScale": 0.2
-                    }
-                  ],
-                  "Children": [
-                    {
-                      "__guid": "02e47bc4-8247-4b38-b026-eea55244dc75",
-                      "Flags": 0,
-                      "Name": "Screen",
-                      "Position": "0,0,50",
-                      "Scale": "0,2,2",
-                      "Tags": "ptl-viewscreen",
-                      "Enabled": true,
-                      "Components": [
-                        {
-                          "__type": "Sandbox.ModelRenderer",
-                          "__guid": "65d57a34-ebb4-4d19-9e85-8819aa8e607d",
-                          "BodyGroups": 18446744073709551615,
-                          "CreateAttachments": false,
-                          "Model": "models/dev/box.vmdl",
-                          "RenderOptions": {
-                            "GameLayer": true,
-                            "OverlayLayer": false,
-                            "BloomLayer": false,
-                            "AfterUILayer": true
-                          },
-                          "RenderType": "Off",
-                          "Tint": "1,1,1,1"
-                        }
-                      ]
-                    },
-                    {
-                      "__guid": "c40970b9-34f7-42cf-af00-b54a1b8f81a9",
-                      "Flags": 0,
-                      "Name": "Camera",
-                      "Position": "-0.0001220703,0,0",
-                      "Enabled": true,
-                      "Components": [
-                        {
-                          "__type": "Sandbox.CameraComponent",
-                          "__guid": "65bb1eb5-4802-4515-896c-2363d6a64fc0",
-                          "BackgroundColor": "0.33333,0.46275,0.52157,1",
-                          "ClearFlags": "All",
-                          "FieldOfView": 60,
-                          "IsMainCamera": false,
-                          "Orthographic": false,
-                          "OrthographicHeight": 1204,
-                          "Priority": 1,
-                          "RenderExcludeTags": "ptl-viewscreen",
-                          "RenderTags": "",
-                          "TargetEye": "None",
-                          "Viewport": "0,0,1,1",
-                          "ZFar": 10000,
-                          "ZNear": 10
-                        }
-                      ]
-                    },
-                    {
-                      "__guid": "6edd50e3-fd30-4e56-a63a-9a85b2f544cf",
-                      "Flags": 0,
-                      "Name": "Frame",
-                      "Enabled": true,
-                      "Children": [
-                        {
-                          "__guid": "f6c0e9f9-9e8f-4c1c-9679-7821520a993c",
-                          "Flags": 0,
-                          "Name": "SideL",
-                          "Position": "0.00003396477,-50.99939,50.00001",
-                          "Scale": "0.05,0.05,2.002",
-                          "Enabled": true,
-                          "Components": [
-                            {
-                              "__type": "Sandbox.ModelRenderer",
-                              "__guid": "0142fed4-06cb-4fd0-a3ae-557eeb472d1e",
-                              "BodyGroups": 18446744073709551615,
-                              "CreateAttachments": false,
-                              "MaterialOverride": "materials/world/grid-thinbright.vmat",
-                              "RenderOptions": {
-                                "GameLayer": true,
-                                "OverlayLayer": false,
-                                "BloomLayer": false,
-                                "AfterUILayer": true
-                              },
-                              "RenderType": "Off",
-                              "Tint": "0.06512,0.06512,0.06512,1"
-                            },
-                            {
-                              "__type": "Sandbox.BoxCollider",
-                              "__guid": "db288c1b-41a2-463f-9b5b-dad4d015c5c7",
-                              "Center": "0,0,0",
-                              "IsTrigger": false,
-                              "Scale": "50,50,50",
-                              "Static": false,
-                              "SurfaceVelocity": "0,0,0"
-                            }
-                          ]
-                        },
-                        {
-                          "__guid": "5b660412-8c68-4f7c-bfe2-200062be9859",
-                          "Flags": 0,
-                          "Name": "SideR",
-                          "Position": "-0.00003756081,50.9994,50",
-                          "Scale": "0.05,0.05,2.002",
-                          "Enabled": true,
-                          "Components": [
-                            {
-                              "__type": "Sandbox.ModelRenderer",
-                              "__guid": "3e443ed3-7ec3-4ffd-b622-4f8f7019e3b0",
-                              "BodyGroups": 18446744073709551615,
-                              "CreateAttachments": false,
-                              "MaterialOverride": "materials/world/grid-thinbright.vmat",
-                              "RenderOptions": {
-                                "GameLayer": true,
-                                "OverlayLayer": false,
-                                "BloomLayer": false,
-                                "AfterUILayer": true
-                              },
-                              "RenderType": "Off",
-                              "Tint": "0.06512,0.06512,0.06512,1"
-                            },
-                            {
-                              "__type": "Sandbox.BoxCollider",
-                              "__guid": "b97c00bb-2186-42a4-9403-29abb24d68f8",
-                              "Center": "0,0,0",
-                              "IsTrigger": false,
-                              "Scale": "50,50,50",
-                              "Static": false,
-                              "SurfaceVelocity": "0,0,0"
-                            }
-                          ]
-                        },
-                        {
-                          "__guid": "9ae7d026-2a4e-4df8-9719-c1599035a7b0",
-                          "Flags": 0,
-                          "Name": "SideT",
-                          "Position": "0,0.00000002095476,101.3",
-                          "Scale": "0.05,2.09,0.05",
-                          "Enabled": true,
-                          "Components": [
-                            {
-                              "__type": "Sandbox.ModelRenderer",
-                              "__guid": "1e922d49-736f-4fd7-a78e-ec193fbfbe1e",
-                              "BodyGroups": 18446744073709551615,
-                              "CreateAttachments": false,
-                              "MaterialOverride": "materials/world/grid-thinbright.vmat",
-                              "RenderOptions": {
-                                "GameLayer": true,
-                                "OverlayLayer": false,
-                                "BloomLayer": false,
-                                "AfterUILayer": true
-                              },
-                              "RenderType": "Off",
-                              "Tint": "0.06512,0.06512,0.06512,1"
-                            },
-                            {
-                              "__type": "Sandbox.BoxCollider",
-                              "__guid": "9a3fa84a-a440-4c44-b456-53f4bbbc6e65",
-                              "Center": "0,0,0",
-                              "IsTrigger": false,
-                              "Scale": "50,50,50",
-                              "Static": false,
-                              "SurfaceVelocity": "0,0,0"
-                            }
-                          ]
-                        }
-                      ]
-                    },
-                    {
-                      "__guid": "2415325a-75f0-40bb-bd81-15bbc693e0ca",
-                      "Flags": 0,
-                      "Name": "Walkway",
-                      "Rotation": "0,0,0.7071068,0.7071068",
-                      "Scale": "0.75,0.375,0.5",
-                      "Enabled": true,
-                      "Components": [
-                        {
-                          "__type": "Sandbox.BoxCollider",
-                          "__guid": "797082f3-faeb-447b-bbc2-6b36fbbab3d6",
-                          "Center": "0,0,-8",
-                          "IsTrigger": false,
-                          "Scale": "100,100,16",
-                          "Static": false,
-                          "SurfaceVelocity": "0,0,0"
-                        },
-                        {
-                          "__type": "Neverspace.Walkway",
-                          "__guid": "6541c14d-e413-48c2-8d12-abe4594c24e2",
-                          "GravityStrength": 800,
-                          "GravOnly": true
-                        }
-                      ]
                     }
                   ]
                 }
@@ -4711,10 +4706,11 @@
               "__guid": "57e8a590-85cb-40fd-9c75-136d35c22547",
               "EgressPortal": {
                 "_type": "component",
-                "component_id": "16a78286-209f-4969-b7b6-1d79213fb54a",
-                "go": "2379fcd3-00f7-42f8-a1a0-64186bc8b11f",
+                "component_id": "cbc41749-f3d2-4785-926f-0f3b6151353b",
+                "go": "3149919f-43b8-41a5-854c-a407869ae77f",
                 "component_type": "Gateway"
               },
+              "ForceUntilUnloaded": false,
               "PassageOffset": -5,
               "PassageXScale": 0.2
             }
@@ -5403,6 +5399,7 @@
                     "go": "4070e99b-81c6-4105-8126-bfd6d74f24d9",
                     "component_type": "Gateway"
                   },
+                  "ForceUntilUnloaded": false,
                   "PassageOffset": -5,
                   "PassageXScale": 0.2
                 }
@@ -6557,6 +6554,7 @@
                         "go": "ac0bba17-7286-489a-bcab-db1da2c4f38a",
                         "component_type": "Gateway"
                       },
+                      "ForceUntilUnloaded": false,
                       "PassageOffset": -5,
                       "PassageXScale": 0.2
                     }
@@ -6655,6 +6653,7 @@
                     "go": "0eeed6da-5062-4321-ab36-52c94e9fed5f",
                     "component_type": "Gateway"
                   },
+                  "ForceUntilUnloaded": false,
                   "PassageOffset": -5,
                   "PassageXScale": 0.2
                 }
@@ -8449,6 +8448,7 @@
                         "go": "aaedc0c0-0be0-46dd-a6e8-bb6a5ce7d683",
                         "component_type": "Gateway"
                       },
+                      "ForceUntilUnloaded": false,
                       "PassageOffset": -5,
                       "PassageXScale": 0.2
                     }
@@ -8535,6 +8535,7 @@
                         "go": "be023200-87da-4d84-a21b-74a96d829711",
                         "component_type": "Gateway"
                       },
+                      "ForceUntilUnloaded": false,
                       "PassageOffset": -5,
                       "PassageXScale": 0.2
                     }
@@ -9676,6 +9677,7 @@
                             "go": "c369aff2-988c-4343-9bb8-2b71d72566d9",
                             "component_type": "Gateway"
                           },
+                          "ForceUntilUnloaded": false,
                           "PassageOffset": -5,
                           "PassageXScale": 0.2
                         }
@@ -9762,6 +9764,7 @@
                             "go": "be0da646-f840-408f-b4bc-fce0a75a6497",
                             "component_type": "Gateway"
                           },
+                          "ForceUntilUnloaded": false,
                           "InstantGrav": {
                             "_type": "component",
                             "component_id": "b93f441c-dca0-421e-a5b6-d07592aa4671",
@@ -9900,6 +9903,7 @@
                     "go": "8d41953f-438a-4554-a2c9-dfc6783f9457",
                     "component_type": "Gateway"
                   },
+                  "ForceUntilUnloaded": false,
                   "PassageOffset": -5,
                   "PassageXScale": 0.2
                 }
@@ -11407,6 +11411,7 @@
                     "go": "b7bc2329-0c28-4877-ba17-7dd451e5ba40",
                     "component_type": "Gateway"
                   },
+                  "ForceUntilUnloaded": false,
                   "PassageOffset": -5,
                   "PassageXScale": 0.2
                 }
@@ -12340,6 +12345,7 @@
                     "go": "6a6de5f0-0eb2-4667-b367-9e37474a67dd",
                     "component_type": "Gateway"
                   },
+                  "ForceUntilUnloaded": false,
                   "PassageOffset": -5,
                   "PassageXScale": 0.2
                 }
@@ -12427,6 +12433,7 @@
                     "go": "3b145845-4d7e-41e6-a88a-00472ee1269d",
                     "component_type": "Gateway"
                   },
+                  "ForceUntilUnloaded": false,
                   "PassageOffset": -5,
                   "PassageXScale": 0.2
                 }
@@ -13062,6 +13069,7 @@
                 "go": "9749123a-2ba7-45ed-9abf-cd0ac7dff764",
                 "component_type": "Gateway"
               },
+              "ForceUntilUnloaded": false,
               "PassageOffset": -5,
               "PassageXScale": 0.2
             }
@@ -13147,6 +13155,7 @@
                 "go": "99827479-5c49-4ca8-a31c-cb79dca9a47d",
                 "component_type": "Gateway"
               },
+              "ForceUntilUnloaded": false,
               "PassageOffset": -5,
               "PassageXScale": 0.2
             }
@@ -13825,6 +13834,7 @@
                 "go": "7b38eceb-1e6f-4d36-b45b-8cf068b21247",
                 "component_type": "Gateway"
               },
+              "ForceUntilUnloaded": false,
               "PassageOffset": -5,
               "PassageXScale": 0.2
             }
@@ -13911,6 +13921,7 @@
                 "go": "17b9cf7e-230b-48da-9c0e-34e2f0ca6c93",
                 "component_type": "Gateway"
               },
+              "ForceUntilUnloaded": false,
               "PassageOffset": -5,
               "PassageXScale": 0.2
             }
@@ -14638,6 +14649,15 @@
               },
               "RenderType": "On",
               "Tint": "0.13023,0.4,0.07628,1"
+            },
+            {
+              "__type": "Sandbox.BoxCollider",
+              "__guid": "63220f13-e74f-4141-9101-2952d1af8991",
+              "Center": "0,0,-8",
+              "IsTrigger": false,
+              "Scale": "100,100,16",
+              "Static": false,
+              "SurfaceVelocity": "0,0,0"
             }
           ]
         },
@@ -14719,6 +14739,15 @@
               },
               "RenderType": "On",
               "Tint": "0.13023,0.4,0.07628,1"
+            },
+            {
+              "__type": "Sandbox.BoxCollider",
+              "__guid": "15b0b173-f380-481d-ba2c-0b0518234c21",
+              "Center": "0,0,-8",
+              "IsTrigger": false,
+              "Scale": "100,100,16",
+              "Static": false,
+              "SurfaceVelocity": "0,0,0"
             }
           ]
         },
@@ -14746,6 +14775,15 @@
               },
               "RenderType": "On",
               "Tint": "0.13023,0.4,0.07628,1"
+            },
+            {
+              "__type": "Sandbox.BoxCollider",
+              "__guid": "def86ed2-ff06-4926-b31d-fbf3bbe1ab10",
+              "Center": "0,0,-8",
+              "IsTrigger": false,
+              "Scale": "100,100,16",
+              "Static": false,
+              "SurfaceVelocity": "0,0,0"
             }
           ]
         }
@@ -14793,6 +14831,7 @@
                 "go": "21f93d40-ba2c-4f4d-ab5c-a61c5fd2d31a",
                 "component_type": "Gateway"
               },
+              "ForceUntilUnloaded": false,
               "PassageOffset": -5,
               "PassageXScale": 0.2
             }
@@ -14879,6 +14918,7 @@
                 "go": "cfb831de-7bc5-4b52-a1ef-43c28f05d6f7",
                 "component_type": "Gateway"
               },
+              "ForceUntilUnloaded": false,
               "PassageOffset": -5,
               "PassageXScale": 0.2
             }
@@ -15272,6 +15312,7 @@
                 "go": "250f4e67-c571-4535-a276-fd0e112cf510",
                 "component_type": "Gateway"
               },
+              "ForceUntilUnloaded": false,
               "PassageOffset": -5,
               "PassageXScale": 0.2
             }

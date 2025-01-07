@@ -1,5 +1,3 @@
-using System;
-
 namespace Neverspace;
 
 [Group( "Neverspace - Portals" )]
@@ -15,6 +13,12 @@ public sealed class Gateway : Portal, Component.ITriggerListener
 	[Property] float PassageXScale { get; set; } = 0.2f;
 	[Property] float PassageOffset { get; set; } = -5.0f;
 
+	// The potato portals break when first unloaded and later unloaded,
+	// but ONLY in-game and NOT in the editor :/
+	// this is a shitty hack to get around it
+	[Property] bool ForceUntilUnloaded { get; set; } = false;
+	private bool everActivated = false;
+
 	public Gateway EgressGateway { get => EgressPortal as Gateway; }
 	ModelRenderer ViewScreen { get; set; }
 	CameraComponent GhostCamera { get; set; }
@@ -22,6 +26,16 @@ public sealed class Gateway : Portal, Component.ITriggerListener
 	public Plane WorldPlane { get => new( WorldTransform.Position, WorldTransform.Forward ); }
 	public int CameraSide { get => GetOffsetSide( PlayerCamera.WorldPosition ); }
 	public int EgressCameraSide { get => EgressGateway.GetOffsetSide( GhostCamera.WorldPosition ); }
+
+	public bool GatewayActive
+	{
+		set
+		{
+			if ( (!ForceUntilUnloaded || everActivated) && !Tags.HasAny( "quantum", "unlockable-door" ) )
+				GameObject.Enabled = value;
+			everActivated = everActivated || value;
+		}
+	}
 
 	private Texture renderTarget;
 	private readonly Dictionary<PortalTraveler, int> travelerPassage = new( 1 );
@@ -83,11 +97,11 @@ public sealed class Gateway : Portal, Component.ITriggerListener
 					GhostCamera.ZFar = PlayerCamera.ZFar * camScale;
 					GhostCamera.FieldOfView = PlayerCamera.FieldOfView;
 
-					Plane p = EgressGateway.WorldPlane;
+					var p = EgressGateway.WorldPlane;
 					var distanceScale = EgressGateway.WorldScale.z / WorldScale.z;
 					p.Distance += MIN_OBLIQUE_GAP * distanceScale * EgressCameraSide;
 
-					// s&box's Plane::GetDistance function is bad
+					// s&box's Plane::GetDistance function isn't correct, as far as I can tell (or it's for something else)
 					var camDistanceSq = p.SnapToPlane( GhostCamera.WorldPosition ).DistanceSquared( GhostCamera.WorldPosition ) / (distanceScale * distanceScale);
 					GhostCamera.CustomProjectionMatrix = camDistanceSq < MIN_OBLIQUE_DISTANCE_SQ ? null : GhostCamera.CalculateObliqueMatrix( p );
 				}
