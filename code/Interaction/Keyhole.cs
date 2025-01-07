@@ -16,12 +16,11 @@ public sealed class Keyhole : Component, Component.ITriggerListener
 
 	public void OnTriggerEnter( Collider other )
 	{
-		var key = other.GameObject.Components.FirstOrDefault( ( c ) => c == PairedKey ) as Key;
-		if ( key != null )
+		if ( other.GameObject.Components.FirstOrDefault( ( c ) => c == PairedKey ) is Key key )
 		{
+			HasKey = true;
 			key.LockIn( WorldTransform.PointToWorld( KeyPos ) );
 			OnKeyInserted?.Invoke();
-			HasKey = true;
 		}
 	}
 }
