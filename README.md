@@ -9,14 +9,14 @@ A short puzzle-ish game made for [s&box](https://sbox.game/pwegg/neverspace) fea
 The code is released under the [MIT license](LICENSE), which is a permissive license. Here's the [TLDR](https://www.tldrlegal.com/license/mit-license).
 
 ## Issues
-There are few issues and hacky workarounds present. You should be aware of these if you intend to reuse some of the code here.
+There are few issues and hacky workarounds present. You should be aware of these if you intend to reuse any of the code.
 
 ### AfterUI
 This is a really, really bad one. [Look at it](code/ForceAfterUI.cs), it's bad. I'm sorry.
 
 Neverspace forces **all ModelRenderers** to set the After UI render flag. It does this *every frame*, which is completely unnecessary, but it was the easiest way for me to guarantee that it gets set for every ModelRenderer.
 
-So why did I do this? Well, at the time of writing, s&box has a bug that affects the color of unlit materials. This mean that a portal would be significantly darker than the objects it was depicting (the stuff on the other side of the portal). As a result, the portal looked out of place and the user would see a very noticeable jump in brightness when passing through a portal.
+So why did I do this? Well, at the time of writing, s&box has a bug that affects the color of unlit materials. This means that a portal would be significantly darker than the objects it was depicting (the stuff on the other side of the portal). As a result, the portal looked out of place and the user would see a very noticeable jump in brightness when passing through a portal.
 
 Weirdly, this problem doesn't occur if the portals are set to render After UI - but then they render on top of everything else, including other stuff in 3D, which is no good. So if the only way to get portals to look right was making them render After UI, then *everything* had to render After UI.
 
@@ -31,7 +31,7 @@ I believe the small gap was created by two different effects working together. O
 
 However, this negatively impacts both effects. Putting an object halfway through a portal and walking around to the other side, you will be able to see a thin slice of the object poking through the portal (a result of the clip shader's buffer). If you put an object next to a portal, walk through it, and walk around to the other side, you will be able to see a little bit of that object, even though you'd now be looking at the side of the portal that shouldn't see it at all (a result of `MIN_OBLIQUE_GAP`).
 
-In theory, this would be solvable by figuring out which objects have "priority" (on the same side of the camera, partway through) and only draw the extra buffers for them, but that's more difficult than I was willing to do, as the current implementation works for everything except some edge cases that are mostly unattainable in Neverspace due to the level design.
+In theory, this would be solvable by figuring out which objects *should* get overdrawn, and only draw the extra buffers for them, but that's more difficult than I was willing to do, as the current implementation works for everything except some edge cases that are mostly unattainable in Neverspace due to the level design.
 
 ### Walkway Out-of-Bounds
 It's pretty easy to fall out of bounds when walking off of a walkway, particularly if you're upside-down. This is probably as simple as tweaking the GravHop code present in `GravityPawnPlayer.cs`.
@@ -39,6 +39,6 @@ It's pretty easy to fall out of bounds when walking off of a walkway, particular
 ### Rooms
 The room system is a probably-unnecessary optimization. I was worried about all those portals, each with their own camera, all rendering at the same time - so the room system enables/disables portals as needed, to reduce that work.
 
-Unfortunately, there are's a bad side-effect. One of the portals in Neverspace completely breaks if it's disabled and then enabled. I believe it's an issue with the camera, but this *only* occurs in-game, and *not* in the editor (which made it really annoying to debug!).
+Unfortunately, there are's a bad side-effect. The visuals of one of the portals in Neverspace completely breaks if it's disabled and then enabled. I believe it's an issue with the camera, but this *only* occurs in-game, and *not* in the editor (which made it really annoying to debug!).
 
 As a workaround, the gateways have a `ForceUntilUnloaded` property, which prevents it from being disabled by the room system until after the first time it's been enabled by the system.
