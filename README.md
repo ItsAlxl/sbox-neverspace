@@ -1,9 +1,9 @@
 # Neverspace
 A short puzzle-ish game made for [s&box](https://sbox.game/pwegg/neverspace) featuring mechanics that bend the rules of physics.
 
-- Gateways: Teleport from one portal to another. Each portal defines a target portal, so they can be one-way, two-way, chained, etc.
-- Attractors: Planetoids and walkways can affect the gravity of nearby objects.
-- Quantum: Events are triggered when an object enters/exits/occludes the player's view.
+- Portals: Teleport from one portal to another. Each portal defines a target portal, so they can be one-way, two-way, chained, etc.
+- Gravity: Planetoids and walkways can affect the gravity of nearby objects.
+- Perception: Events are triggered when an object enters/exits/occludes the player's view.
 
 ## License
 The code is released under the [MIT license](LICENSE), which is a permissive license. Here's the [TLDR](https://www.tldrlegal.com/license/mit-license).
@@ -19,6 +19,8 @@ Neverspace forces **all ModelRenderers** to set the After UI render flag. It doe
 So why did I do this? Well, at the time of writing, s&box has a bug that affects the color of unlit materials. This means that a portal would be significantly darker than the objects it was depicting (the stuff on the other side of the portal). As a result, the portal looked out of place and the user would see a very noticeable jump in brightness when passing through a portal.
 
 Weirdly, this problem doesn't occur if the portals are set to render After UI - but then they render on top of everything else, including other stuff in 3D, which is no good. So if the only way to get portals to look right was making them render After UI, then *everything* had to render After UI.
+
+I believe this also means that they'll all draw on top of the UI, so you can't have a UI. Similarly, you can't have world panels - they get drawn behind the other 3D stuff.
 
 Anyway, here are a couple issues from the s&box github so you in the future can investigate whether or not the problem has been fixed: [#6111](https://github.com/Facepunch/sbox-issues/issues/6111), [#6450](https://github.com/Facepunch/sbox-issues/issues/6450).
 
