@@ -41,6 +41,6 @@ It's pretty easy to fall out of bounds when walking off of a walkway, particular
 ### Rooms
 The room system is a probably-unnecessary optimization. I was worried about all those portals, each with their own camera, all rendering at the same time - so the room system enables/disables portals as needed, to reduce that work.
 
-Unfortunately, there are's a bad side-effect. The visuals of one of the portals in Neverspace completely breaks if it's disabled and then enabled. I believe it's an issue with the camera, but this *only* occurs in-game, and *not* in the editor (which made it really annoying to debug!).
+Unfortunately, there's a bad side-effect. The visuals of one of the portals in Neverspace completely breaks if it's disabled and then enabled. I believe it's an issue with the camera, but this *only* occurs in-game, and *not* in the editor (which made it really annoying to debug!).
 
 As a workaround, the gateways have a `ForceUntilUnloaded` property, which prevents it from being disabled by the room system until after the first time it's been enabled by the system.
